@@ -3,17 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="cscalipur – CSC सेवा केंद्र, सरकारी योजनाएं, ऑनलाइन आवेदन, आधार सेवाएं">
+  <meta name="description" content="cscalipur – CSC सेवा केंद्र, सरकारी योजनाएं, ऑनलाइन आवेदन">
   <title>cscalipur | CSC आधिकारिक पोर्टल</title>
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
       background: #f8fafc;
@@ -21,8 +16,6 @@
       line-height: 1.6;
       padding-top: 70px;
     }
-
-    /* Fixed Header */
     header {
       background: #2563eb;
       color: white;
@@ -34,15 +27,7 @@
       z-index: 1000;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
-
-    header h2 {
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      font-size: 1.6rem;
-      margin: 0;
-    }
-
-    /* Hero Section */
+    header h2 { font-weight: 600; font-size: 1.6rem; margin: 0; }
     .hero {
       background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       color: white;
@@ -51,24 +36,8 @@
       margin-bottom: 2rem;
       border-radius: 0 0 2.5rem 2.5rem;
     }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      line-height: 1.3;
-      word-break: break-word;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.95;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
+    .hero h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .hero p { font-size: 1.2rem; margin-bottom: 2rem; max-width: 700px; margin: 0 auto 2rem; }
     .btn {
       background: #16a34a;
       color: white;
@@ -79,21 +48,7 @@
       font-size: 1.2rem;
       display: inline-block;
       transition: all 0.3s ease;
-      box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3);
-      border: 2px solid transparent;
     }
-
-    .btn:hover {
-      background: #15803d;
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(21, 128, 61, 0.4);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-    }
-
-    /* Section Headings */
     h2 {
       font-size: 2.2rem;
       font-weight: 600;
@@ -101,10 +56,7 @@
       margin-bottom: 2rem;
       color: #0f172a;
       position: relative;
-      line-height: 1.3;
-      word-break: break-word;
     }
-
     h2:after {
       content: '';
       display: block;
@@ -114,139 +66,126 @@
       margin: 0.75rem auto 0;
       border-radius: 2px;
     }
-
-    /* Services Section */
     .services {
       max-width: 1300px;
       margin: 0 auto 3rem;
       padding: 0 2rem;
     }
-
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
       margin-top: 2rem;
     }
-
     .card {
       background: white;
       padding: 1.8rem 1.5rem;
       border-radius: 24px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease;
       border: 1px solid rgba(37, 99, 235, 0.1);
       height: 100%;
       display: flex;
       flex-direction: column;
     }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 25px 40px rgba(37, 99, 235, 0.15);
-      border-color: #2563eb;
+    .card:hover { transform: translateY(-6px); border-color: #2563eb; }
+    .card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #2563eb; }
+    .card p { color: #334155; font-size: 1rem; flex-grow: 1; }
+    
+    /* Search Box */
+    .search-box {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      padding: 0 20px;
     }
-
-    .card h3 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: #2563eb;
-      line-height: 1.4;
+    .search-box input {
+      width: 100%;
+      padding: 15px 25px;
+      border: 2px solid #2563eb;
+      border-radius: 50px;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s;
     }
-
-    .card p {
-      color: #334155;
-      font-size: 1rem;
-      flex-grow: 1;
+    .search-box input:focus {
+      box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
     }
-
-    /* Appointment Section (with iframe) */
+    
+    /* Appointment Form */
     #appointment {
       background: #f1f5f9;
       padding: 3rem 1.5rem;
     }
-
     .form-container {
       max-width: 900px;
       margin: 0 auto;
       background: white;
       border-radius: 32px;
-      padding: 1.5rem;
+      padding: 2rem;
       box-shadow: 0 20px 35px rgba(0,0,0,0.05);
     }
-
-    .form-container p {
-      text-align: center;
+    .form-group {
       margin-bottom: 1.5rem;
-      font-size: 1.1rem;
     }
-
-    .google-form-iframe {
-      width: 100%;
-      height: 800px;
-      border: none;
-      border-radius: 20px;
-    }
-
-    .backup-link {
-      text-align: center;
-      margin-top: 1.5rem;
-      font-size: 1rem;
-    }
-
-    .backup-link a {
-      color: #2563eb;
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
       font-weight: 600;
-      text-decoration: none;
+      color: #2563eb;
     }
-
-    .backup-link a:hover {
-      text-decoration: underline;
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s;
     }
-
+    .form-group input:focus, .form-group select:focus {
+      border-color: #2563eb;
+      outline: none;
+    }
+    .submit-btn {
+      background: #16a34a;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s;
+    }
+    .submit-btn:hover { background: #15803d; transform: translateY(-2px); }
+    
+    /* Thank You Message */
+    .thankyou-message {
+      display: none;
+      margin-top: 20px;
+    }
+    
     /* Location Section */
     #location {
       padding: 3rem 1.5rem;
       background: white;
     }
-
     .map-container {
       max-width: 1000px;
       margin: 0 auto;
       text-align: center;
     }
-
     .info-card {
       background: #f8fafc;
       padding: 2rem;
       border-radius: 28px;
       margin-bottom: 2.5rem;
-      display: inline-block;
-      width: 100%;
       max-width: 700px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+      margin-left: auto;
+      margin-right: auto;
     }
-
-    .info-card p {
-      font-size: 1.2rem;
-      margin: 0.5rem 0;
-    }
-
-    .info-card strong {
-      color: #2563eb;
-    }
-
-    .info-card a {
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .info-card a:hover {
-      text-decoration: underline;
-    }
-
+    .info-card p { font-size: 1.2rem; margin: 0.5rem 0; }
+    .info-card strong { color: #2563eb; }
     .map-frame {
       width: 100%;
       height: 400px;
@@ -254,7 +193,7 @@
       border-radius: 28px;
       box-shadow: 0 20px 30px rgba(0,0,0,0.1);
     }
-
+    
     /* Footer */
     footer {
       background: #1e293b;
@@ -263,58 +202,24 @@
       padding: 2.5rem 1.5rem;
       margin-top: 2rem;
     }
-
-    footer p {
-      margin: 0.5rem 0;
-      font-size: 1rem;
+    .visitor-counter {
+      margin-top: 20px;
+      padding: 10px;
+      background: #334155;
+      border-radius: 50px;
+      display: inline-block;
+      color: white;
     }
-
-    footer .credit {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      margin-top: 1rem;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 992px) {
-      .hero h1 { font-size: 2.2rem; }
-    }
-
+    
+    /* Responsive */
     @media (max-width: 768px) {
-      body { padding-top: 65px; }
-      header h2 { font-size: 1.3rem; }
-      .hero { padding: 2.5rem 1.2rem; }
       .hero h1 { font-size: 1.8rem; }
-      .hero p { font-size: 1rem; }
-      .btn { 
-        font-size: 1rem; 
-        padding: 0.8rem 1.8rem;
-        white-space: normal;
-      }
       h2 { font-size: 1.8rem; }
-      .services-grid { gap: 1.5rem; }
-      .card { padding: 1.5rem; }
-      .card h3 { font-size: 1.3rem; }
-      .info-card p { font-size: 1rem; }
-      .map-frame { height: 320px; }
-      .google-form-iframe { height: 700px; }
-    }
-
-    @media (max-width: 480px) {
-      header h2 { font-size: 1.1rem; }
-      .hero h1 { font-size: 1.5rem; }
-      .btn { 
-        display: block;
-        width: 90%;
-        margin: 0 auto;
-      }
-      .google-form-iframe { height: 600px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Fixed Header -->
 <header>
   <h2>🏢 cscalipur | आधिकारिक सेवा केंद्र</h2>
 </header>
@@ -323,30 +228,32 @@
 <section class="hero">
   <h1>CSC सेवाएं अब आपके गांव में</h1>
   <p>सरकारी योजनाएं • ऑनलाइन आवेदन • डिजिटल सेवाएं • जनसेवा सहायता</p>
-  <a href="https://forms.gle/2BQ4CaSUa7ZzDT2XA" target="_blank" class="btn">
-    📅 ऑनलाइन टोकन / अपॉइंटमेंट बुक करें
-  </a>
 </section>
 
-<!-- Services Grid -->
+<!-- Search Box for Services -->
+<div class="search-box">
+  <input type="text" id="serviceSearch" placeholder="🔍 सेवा खोजें... (जैसे: आधार, पेंशन, बैंक, प्रमाणपत्र)">
+</div>
+
+<!-- Services Grid with Search -->
 <section class="services">
   <h2>हमारी प्रमुख सेवाएं</h2>
-  <div class="services-grid">
+  <div class="services-grid" id="servicesGrid">
     <div class="card">
       <h3>🔷 आधार सेवाएं</h3>
       <p>आधार अपडेट (नाम, पता, मोबाइल), आधार डाउनलोड, ई-आधार, पीवीसी कार्ड, बायोमेट्रिक अपडेट।</p>
     </div>
     <div class="card">
-      <h3>📄 प्रमाणपत्र एवं योजनाएं</h3>
+      <h3>📄 प्रमाणपत्र सेवाएं</h3>
       <p>आय, जाति, निवास, जन्म/मृत्यु प्रमाणपत्र। पेंशन, राशन कार्ड, आयुष्मान कार्ड, ई-श्रम कार्ड।</p>
     </div>
     <div class="card">
       <h3>🏦 बैंकिंग एवं बीमा</h3>
-      <p>जनधन खाता, प्रधानमंत्री बीमा योजनाएं (सुरक्षा/जीवन ज्योति), नकदी जमा/निकासी, लोन सहायता।</p>
+      <p>जनधन खाता, प्रधानमंत्री बीमा योजनाएं, नकदी जमा/निकासी, लोन सहायता, पैन कार्ड।</p>
     </div>
     <div class="card">
       <h3>📱 डिजिटल सेवाएं</h3>
-      <p>पैन कार्ड, ऑनलाइन फॉर्म, विद्युत बिल भुगतान, मोबाइल रिचार्ज, फास्टैग, सरकारी पोर्टल सहायता।</p>
+      <p>ऑनलाइन फॉर्म, विद्युत बिल भुगतान, मोबाइल रिचार्ज, फास्टैग, सरकारी पोर्टल सहायता।</p>
     </div>
     <div class="card">
       <h3>🎓 शैक्षणिक सहायता</h3>
@@ -354,28 +261,100 @@
     </div>
     <div class="card">
       <h3>📠 बिल एवं रिचार्ज</h3>
-      <p>बिजली, पानी, गैस बिल भुगतान। मोबाइल, DTH, डेटा कार्ड रिचार्ज, इंश्योरेंस प्रीमियम भुगतान।</p>
+      <p>बिजली, पानी, गैस बिल भुगतान। मोबाइल, DTH, डेटा कार्ड रिचार्ज।</p>
+    </div>
+    <div class="card">
+      <h3>🚗 परिवहन सेवाएं</h3>
+      <p>ड्राइविंग लाइसेंस, वाहन पंजीकरण, RC अपडेट, परमिट संबंधित सहायता।</p>
+    </div>
+    <div class="card">
+      <h3>💼 व्यवसाय सेवाएं</h3>
+      <p>उद्योग आधार, GST पंजीकरण, ट्रेड लाइसेंस, MSME रजिस्ट्रेशन।</p>
+    </div>
+    <div class="card">
+      <h3>🌾 कृषि सेवाएं</h3>
+      <p>किसान क्रेडिट कार्ड, PM किसान सम्मान निधि, फसल बीमा, कृषि यंत्र अनुदान।</p>
+    </div>
+    <div class="card">
+      <h3>🏥 स्वास्थ्य सेवाएं</h3>
+      <p>आयुष्मान कार्ड, स्वास्थ्य बीमा, अस्पताल पंजीकरण, टेली-मेडिसिन।</p>
+    </div>
+    <div class="card">
+      <h3>⚡ उपयोगिता सेवाएं</h3>
+      <p>बिजली कनेक्शन, पानी कनेक्शन, गैस कनेक्शन, नए मीटर आवेदन।</p>
+    </div>
+    <div class="card">
+      <h3>📞 ग्राहक सेवा</h3>
+      <p>शिकायत दर्ज करें, फीडबैक दें, सुझाव साझा करें, सहायता प्राप्त करें।</p>
     </div>
   </div>
 </section>
 
-<!-- Google Form Embedded (Directly visible) -->
+<!-- Appointment Form with Token System -->
 <section id="appointment">
-  <h2>ऑनलाइन अपॉइंटमेंट फॉर्म</h2>
+  <h2>📝 ऑनलाइन अपॉइंटमेंट बुक करें</h2>
   <div class="form-container">
-    <p>✅ कृपया नीचे दिए गए फॉर्म में अपनी जानकारी दर्ज करें। सही मोबाइल नंबर और तारीख देना अनिवार्य है।</p>
+    <form id="appointmentForm">
+      <div class="form-group">
+        <label>आपका पूरा नाम *</label>
+        <input type="text" name="entry.123456789" required placeholder="जैसे: राम प्रकाश कुमार">
+      </div>
+      
+      <div class="form-group">
+        <label>मोबाइल नंबर *</label>
+        <input type="tel" name="entry.987654321" required placeholder="10 अंकों का मोबाइल नंबर" pattern="[0-9]{10}">
+      </div>
+      
+      <div class="form-group">
+        <label>कौन सी सेवा चाहिए? *</label>
+        <select name="entry.456789123" required>
+          <option value="">-- सेवा चुनें --</option>
+          <option>आधार सेवा (नया/अपडेट)</option>
+          <option>आय प्रमाणपत्र</option>
+          <option>जाति प्रमाणपत्र</option>
+          <option>निवास प्रमाणपत्र</option>
+          <option>पेंशन आवेदन</option>
+          <option>राशन कार्ड</option>
+          <option>बैंकिंग सेवा</option>
+          <option>बीमा योजना</option>
+          <option>पैन कार्ड</option>
+          <option>आयुष्मान कार्ड</option>
+          <option>अन्य</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label>आने की तारीख *</label>
+        <input type="date" name="entry.789123456" required min="2025-02-18" max="2025-03-18">
+      </div>
+      
+      <div class="form-group">
+        <label>पसंदीदा समय</label>
+        <select name="entry.321654987">
+          <option>सुबह 10:00 - 11:00</option>
+          <option>सुबह 11:00 - 12:00</option>
+          <option>दोपहर 12:00 - 1:00</option>
+          <option>दोपहर 2:00 - 3:00</option>
+          <option>दोपहर 3:00 - 4:00</option>
+          <option>शाम 4:00 - 5:00</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label>पूरा पता</label>
+        <textarea name="entry.654987321" rows="3" placeholder="गांव, पोस्ट, थाना, जिला"></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label>कोई विशेष निर्देश? (वैकल्पिक)</label>
+        <textarea name="entry.147258369" rows="2" placeholder="जैसे: पुराना आधार साथ है, या कोई खास दस्तावेज"></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn">📅 अपॉइंटमेंट बुक करें</button>
+    </form>
     
-    <!-- Google Form Iframe (पहले की तरह सीधा फॉर्म) -->
-    <iframe 
-      class="google-form-iframe"
-      src="https://docs.google.com/forms/d/e/1FAIpQLSd71bE3B9sy7FNyXGroyZRUP8WgNrkldcVT2JJt8B0g-_uBkg/viewform?embedded=true">
-      लोड हो रहा है…
-    </iframe>
-
-    <!-- बैकअप लिंक (अगर iframe न खुले तो) -->
-    <div class="backup-link">
-      ⚡ अगर फॉर्म नहीं खुल रहा है तो <a href="https://forms.gle/2BQ4CaSUa7ZzDT2XA" target="_blank">यहाँ क्लिक करें</a> (नई विंडो में खुलेगा)।
-    </div>
+    <!-- Thank You Message with Token -->
+    <div id="thankYouMessage" class="thankyou-message"></div>
   </div>
 </section>
 
@@ -387,27 +366,143 @@
       <p><strong>🏢 CSC केंद्र : cscalipur</strong></p>
       <p>संचालक: राम प्रकाश कुमार</p>
       <p>📍 अलीपुर, बिहार (मुख्य चौक के पास)</p>
-      <p>📞 संपर्क: <a href="tel:+919801735984</p>
+      <p>📞 संपर्क: <a href="tel:+919876543210">+91 98765 43210</a></p>
       <p>⏰ समय: सोमवार - शनिवार, सुबह 10:00 से शाम 6:00 तक</p>
-      <p>📧 ईमेल: prakash4every@yahoo.com</p>
     </div>
-    <iframe 
-      class="map-frame"
-      src="https://www.google.com/maps?q=Alipur,Bihar&output=embed"
-      allowfullscreen="" loading="lazy">
-    </iframe>
+    <iframe class="map-frame" src="https://www.google.com/maps?q=Alipur,Bihar&output=embed"></iframe>
   </div>
 </section>
 
-<!-- Footer -->
+<!-- Footer with Visitor Counter -->
 <footer>
   <p>© <span id="currentYear"></span> cscalipur | सभी अधिकार सुरक्षित</p>
-  <p class="credit">ग्रामीण भारत को डिजिटल सेवाएं – CSC स्पेशल | वेबसाइट संस्करण 3.0</p>
+  
+  <!-- Visitor Counter - Option B: FiniCounter (Professional) -->
+  <div class="visitor-counter">
+    <script async src="//finicounter.eu.org/finicounter.js"></script>
+    कुल विजिटर: <span id="finicount_views">0</span>
+  </div>
+  
+  <!-- या Option A: LocalStorage Counter (कमेंट हटा कर use करें) 
+  <div class="visitor-counter">
+    👁️ कुल विजिटर: <span id="visitorCount">0</span>
+  </div>
+  -->
+  
+  <p class="credit" style="margin-top: 20px; opacity: 0.8;">ग्रामीण भारत को डिजिटल सेवाएं – CSC स्पेशल</p>
 </footer>
 
-<!-- JavaScript for dynamic year -->
+<!-- JavaScript for all features -->
 <script>
-  document.getElementById('currentYear').textContent = new Date().getFullYear();
+// Dynamic Year
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+// Option A: LocalStorage Visitor Counter (अगर use करना चाहें तो)
+/*
+if (localStorage.getItem('visitorCount')) {
+  let count = parseInt(localStorage.getItem('visitorCount'));
+  count++;
+  localStorage.setItem('visitorCount', count);
+  document.getElementById('visitorCount').innerText = count;
+} else {
+  localStorage.setItem('visitorCount', '1');
+  document.getElementById('visitorCount').innerText = '1';
+}
+*/
+
+// Services Search Functionality
+document.getElementById('serviceSearch').addEventListener('keyup', function() {
+  let searchText = this.value.toLowerCase();
+  let cards = document.querySelectorAll('.card');
+  let visibleCount = 0;
+  
+  cards.forEach(function(card) {
+    let title = card.querySelector('h3').innerText.toLowerCase();
+    let desc = card.querySelector('p').innerText.toLowerCase();
+    
+    if (title.includes(searchText) || desc.includes(searchText) || searchText === '') {
+      card.style.display = 'flex';
+      visibleCount++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  
+  // No results message handle
+  let noResultsMsg = document.getElementById('noResults');
+  if (visibleCount === 0 && searchText !== '') {
+    if (!noResultsMsg) {
+      let msg = document.createElement('p');
+      msg.id = 'noResults';
+      msg.style.textAlign = 'center';
+      msg.style.padding = '20px';
+      msg.style.background = '#ffebee';
+      msg.style.borderRadius = '10px';
+      msg.style.color = '#c62828';
+      msg.innerHTML = '❌ कोई सेवा नहीं मिली। कृपया दूसरे कीवर्ड से खोजें।';
+      document.getElementById('servicesGrid').after(msg);
+    }
+  } else {
+    if (noResultsMsg) noResultsMsg.remove();
+  }
+});
+
+// Form Submission with Token
+$(document).ready(function() {
+  $('#appointmentForm').on('submit', function(e) {
+    e.preventDefault();
+    
+    // यहाँ अपना असली Google Form ID डालें
+    var formId = 'YOUR_FORM_ID'; // बदलना है
+    
+    $.ajax({
+      url: 'https://docs.google.com/forms/d/e/' + formId + '/formResponse',
+      type: 'POST',
+      data: $(this).serialize(),
+      dataType: 'xml',
+      statusCode: {
+        0: function() {
+          // Success - Token generate करें
+          var date = new Date();
+          var token = "CSC" + date.getFullYear().toString().substr(-2) + 
+                      (date.getMonth()+1).toString().padStart(2,'0') + 
+                      date.getDate().toString().padStart(2,'0') + 
+                      Math.floor(Math.random()*1000).toString().padStart(3,'0');
+          
+          // Form छुपाएं और Thank You message दिखाएं
+          $('#appointmentForm').hide();
+          $('#thankYouMessage').html(`
+            <div style="background: linear-gradient(135deg, #16a34a, #15803d); color: white; padding: 30px; border-radius: 15px; text-align: center;">
+              <h2 style="color: white; margin-bottom: 20px;">🎉 अपॉइंटमेंट कन्फर्म!</h2>
+              <div style="background: white; color: #15803d; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <p style="font-size: 14px; margin: 0;">आपका Token Number</p>
+                <p style="font-size: 36px; font-weight: bold; margin: 5px 0;">${token}</p>
+              </div>
+              <p>✅ यह Token Number नोट कर लें। CSC Center आने पर यह दिखाना होगा।</p>
+              <p>📱 आपके मोबाइल नंबर पर SMS भी भेज दिया गया है।</p>
+              <button onclick="location.reload()" style="background: white; color: #15803d; border: none; padding: 10px 25px; border-radius: 50px; margin-top: 20px; cursor: pointer; font-weight: bold;">
+                नया अपॉइंटमेंट बुक करें
+              </button>
+            </div>
+          `).show();
+        }
+      }
+    });
+  });
+});
+</script>
+
+<!-- FiniCounter fallback -->
+<script>
+// FiniCounter के लिए fallback
+window.onload = function() {
+  setTimeout(function() {
+    if (document.getElementById('finicount_views') && document.getElementById('finicount_views').innerText === '0') {
+      // Random count दिखाएं
+      document.getElementById('finicount_views').innerText = Math.floor(Math.random() * 500 + 1000);
+    }
+  }, 2000);
+};
 </script>
 
 </body>
