@@ -12,7 +12,7 @@
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
+            line-height: 1.7;
             background: #f8fafc;
             color: #1e293b;
         }
@@ -27,7 +27,7 @@
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        header h2 { margin: 0; font-size: 1.8rem; }
+        header h2 { margin: 0; font-size: 1.9rem; }
 
         section { padding: 100px 20px 60px; }
 
@@ -37,15 +37,8 @@
             text-align: center;
             padding: 140px 20px 100px;
         }
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-        }
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.95;
-        }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.95; }
 
         .btn {
             display: inline-block;
@@ -91,11 +84,7 @@
             transform: translateY(-8px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.12);
         }
-        .card h3 {
-            color: #2563eb;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
+        .card h3 { color: #2563eb; margin-bottom: 1rem; font-size: 1.5rem; }
 
         .map-container {
             max-width: 900px;
@@ -116,7 +105,6 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             text-align: center;
         }
-        .contact-box p { margin-bottom: 1.8rem; font-size: 1.15rem; }
 
         .whatsapp-float {
             position: fixed;
@@ -152,7 +140,6 @@
         @media (max-width: 768px) {
             .hero { padding: 120px 15px 80px; }
             .hero h1 { font-size: 2.2rem; }
-            .hero p { font-size: 1.1rem; }
             section { padding: 90px 15px 50px; }
         }
     </style>
@@ -167,6 +154,7 @@
         <h1>CSC सेवाएं अब आपके गांव में</h1>
         <p>सरकारी योजनाएं • ऑनलाइन आवेदन • डिजिटल सेवाएं • जनसेवा सहायता</p>
 
+        <!-- सिर्फ एक ही अपॉइंटमेंट बटन यहां -->
         <a href="https://forms.gle/2BQ4CaSUa7ZzDT2XA" target="_blank" class="btn">
             ऑनलाइन टोकन / अपॉइंटमेंट बुक करें
         </a>
@@ -205,39 +193,35 @@
             <p><strong>CSC Center: cscalipur</strong><br>
             संचालक: राम प्रकाश कुमार</p>
 
+            <!-- आपके दिए लिंक का embed (https://maps.app.goo.gl/PP2FvCNVE8d92bxB9) -->
+            <!-- असली embed पाने के लिए: Google Maps खोलें → आपके प्लेस पर जाएं → Share → Embed a map → Copy iframe का src -->
+            <!-- अभी प्लेसहोल्डर के रूप में इस्तेमाल कर रहा हूं, आप इसे बदल लें -->
             <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3600.0000000000005!2dYOUR_LONGITUDE!3dYOUR_LATITUDE!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zAlipur%2C%20Bihar!5e0!3m2!1sen!2sin!4vYOUR_TIMESTAMP!5m2!1sen!2sin" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1dYOUR_ZOOM_LEVEL!2dYOUR_LONG!3dYOUR_LAT!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xYOUR_PLACE_ID!2sYOUR_PLACE_NAME!5e0!3m2!1shi!2sin!4vYOUR_TIMESTAMP!5m2!1shi!2sin" 
                 width="100%" 
                 height="450" 
                 style="border:0;" 
                 allowfullscreen="" 
-                loading="lazy">
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
             </iframe>
-            <!-- नोट: असली लोकेशन के लिए Google Maps से embed कोड लें और ऊपर वाले src को बदल दें -->
+
+            <p style="margin-top:1rem; font-size:1rem; color:#555;">
+                (नोट: सही embed कोड पाने के लिए Google Maps में अपना लोकेशन खोलें, Share → Embed a map → src कॉपी करें और ऊपर वाले src से बदल दें)
+            </p>
         </div>
     </section>
 
     <section id="contact">
-        <h2 class="section-title">ऑनलाइन अपॉइंटमेंट बुक करें</h2>
+        <h2 class="section-title">संपर्क और अपॉइंटमेंट</h2>
 
         <div class="contact-box">
-            <p>अपॉइंटमेंट लेने के लिए नीचे बटन पर क्लिक करें।<br>फॉर्म नई टैब में खुलेगा और पूरी तरह सुरक्षित रहेगा।</p>
+            <p>अपॉइंटमेंट या कोई सवाल हो तो ऊपर दिए बटन से टोकन बुक करें या WhatsApp पर संपर्क करें।</p>
 
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSd71bE3B9sy7FNyXGroyZRUP8WgNrkldcVT2JJt8B0g-_uBkg/viewform" 
-               target="_blank" 
-               class="btn" 
-               style="background:#2563eb; box-shadow:0 6px 20px rgba(37,99,235,0.3);">
-                अपॉइंटमेंट फॉर्म खोलें →
-            </a>
-
-            <p style="margin-top:2rem; font-size:1rem; color:#555;">
-                (Google द्वारा सुरक्षित • 1-2 मिनट में पूरा • कहीं से भी भर सकते हैं)
+            <p style="margin: 2rem 0; font-size: 1.1rem; font-weight: 600;">
+                Email: prakash4every@yahoo.com
             </p>
         </div>
-
-        <p style="text-align:center; margin: 3rem 0; font-weight:600; font-size:1.1rem;">
-            Email: prakash4every@yahoo.com
-        </p>
     </section>
 
     <a href="https://wa.me/917091355373" target="_blank" class="whatsapp-float">
