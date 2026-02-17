@@ -1,236 +1,94 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="cscalipur | CSC सेवाओं की जानकारी और ऑनलाइन सहायता - आधार, सरकारी योजनाएं, बैंकिंग और डिजिटल सेवाएं">
-    <title>cscalipur | CSC Services Portal</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="cscalipur | CSC सेवाओं की जानकारी और ऑनलाइन सहायता">
+<title>cscalipur | CSC Services Portal</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.7;
-            background: #f8fafc;
-            color: #1e293b;
-        }
-        header {
-            background: #2563eb;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        header h2 { margin: 0; font-size: 1.9rem; }
-
-        section { padding: 100px 20px 60px; }
-
-        .hero {
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-            color: white;
-            text-align: center;
-            padding: 140px 20px 100px;
-        }
-        .hero h1 { font-size: 2.8rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.95; }
-
-        .btn {
-            display: inline-block;
-            background: #16a34a;
-            color: white;
-            padding: 16px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 600;
-            box-shadow: 0 6px 20px rgba(22,163,74,0.3);
-            transition: all 0.3s ease;
-        }
-        .btn:hover {
-            background: #15803d;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(22,163,74,0.4);
-        }
-
-        .services { background: #f1f5f9; }
-        .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 2.5rem;
-            color: #1e293b;
-        }
-
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.8rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .card {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-        }
-        .card h3 { color: #2563eb; margin-bottom: 1rem; font-size: 1.5rem; }
-
-        .map-container {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .map-container iframe {
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .contact-box {
-            max-width: 700px;
-            margin: 0 auto;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-
-        .whatsapp-float {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: #25D366;
-            color: white;
-            border-radius: 50%;
-            width: 65px;
-            height: 65px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-            text-decoration: none;
-            z-index: 999;
-            transition: all 0.3s;
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            background: #20b358;
-        }
-
-        footer {
-            background: #1e293b;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.95rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero { padding: 120px 15px 80px; }
-            .hero h1 { font-size: 2.2rem; }
-            section { padding: 90px 15px 50px; }
-        }
-    </style>
+<style>
+body{font-family:Poppins;margin:0;background:#f8fafc}
+header{background:#2563eb;color:white;padding:15px;text-align:center;position:fixed;width:100%;top:0}
+section{padding:100px 20px}
+.hero{background:#2563eb;color:white;text-align:center;padding-top:140px}
+.services{background:#f1f5f9}
+.card{background:white;padding:20px;margin:15px auto;max-width:700px;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.1)}
+.btn{background:#16a34a;color:white;padding:15px 35px;border-radius:40px;text-decoration:none;font-size:20px;font-weight:bold}
+footer{background:#1e293b;color:white;text-align:center;padding:20px}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <h2>cscalipur</h2>
-    </header>
+<header>
+<h2>cscalipur</h2>
+</header>
 
-    <section class="hero">
-        <h1>CSC सेवाएं अब आपके गांव में</h1>
-        <p>सरकारी योजनाएं • ऑनलाइन आवेदन • डिजिटल सेवाएं • जनसेवा सहायता</p>
+<section class="hero">
+<h1>CSC सेवाएं अब आपके गांव में</h1>
+<p>सरकारी योजनाएं • ऑनलाइन आवेदन • डिजिटल सेवाएं • जनसेवा सहायता</p>
 
-        <!-- सिर्फ एक ही अपॉइंटमेंट बटन यहां -->
-        <a href="https://forms.gle/2BQ4CaSUa7ZzDT2XA" target="_blank" class="btn">
-            ऑनलाइन टोकन / अपॉइंटमेंट बुक करें
-        </a>
-    </section>
+<a href="https://forms.gle/2BQ4CaSUa7ZzDT2XA" target="_blank" class="btn">
+ऑनलाइन टोकन / अपॉइंटमेंट बुक करें
+</a>
+</section>
 
-    <section class="services">
-        <h2 class="section-title">उपलब्ध सेवाएं</h2>
+<section class="services">
+<h2 style="text-align:center">उपलब्ध सेवाएं</h2>
 
-        <div class="card-container">
-            <div class="card">
-                <h3>आधार सेवाएं</h3>
-                <p>आधार अपडेट, डाउनलोड, सुधार और सभी संबंधित ऑनलाइन सहायता।</p>
-            </div>
+<div class="card">
+<h3>आधार सेवाएं</h3>
+<p>आधार अपडेट, डाउनलोड और संबंधित ऑनलाइन सहायता।</p>
+</div>
 
-            <div class="card">
-                <h3>सरकारी योजना आवेदन</h3>
-                <p>पेंशन, राशन कार्ड, आय/जाति/निवास/दिव्यांग प्रमाणपत्र आदि आवेदन में मदद।</p>
-            </div>
+<div class="card">
+<h3>सरकारी योजना आवेदन</h3>
+<p>पेंशन, राशन कार्ड, आय/जाति/निवास प्रमाणपत्र आवेदन सहायता।</p>
+</div>
 
-            <div class="card">
-                <h3>बैंकिंग और बीमा सेवाएं</h3>
-                <p>जनधन खाता, आयुष्मान भारत, बीमा, पैसे जमा/निकासी और अन्य सुविधाएं।</p>
-            </div>
+<div class="card">
+<h3>बैंकिंग और बीमा सेवाएं</h3>
+<p>जनधन, बीमा, पैसे जमा/निकासी और अन्य बैंकिंग सुविधाएं।</p>
+</div>
 
-            <div class="card">
-                <h3>ऑनलाइन फॉर्म और डिजिटल सहायता</h3>
-                <p>सरकारी/निजी फॉर्म भरना, पासपोर्ट, रेलवे, जॉब पोर्टल आदि में सहायता।</p>
-            </div>
-        </div>
-    </section>
+<div class="card">
+<h3>ऑनलाइन फॉर्म और डिजिटल सहायता</h3>
+<p>सरकारी और निजी ऑनलाइन फॉर्म भरने में सहायता।</p>
+</div>
+</section>
 
-    <section id="location">
-        <h2 class="section-title">हमारा स्थान</h2>
+<!-- Google Form Section -->
+<section id="appointment">
+<h2 style="text-align:center">ऑनलाइन अपॉइंटमेंट फॉर्म</h2>
 
-        <div class="map-container">
-            <p><strong>CSC Center: cscalipur</strong><br>
-            संचालक: राम प्रकाश कुमार</p>
+<div style="max-width:900px;margin:auto">
+<iframe 
+src="https://docs.google.com/forms/d/e/1FAIpQLSd71bE3B9sy7FNyXGroyZRUP8WgNrkldcVT2JJt8B0g-_uBkg/viewform?embedded=true"
+width="100%" height="900" frameborder="0">
+Loading…
+</iframe>
+</div>
+</section>
 
-            <!-- आपके दिए लिंक का embed (https://maps.app.goo.gl/PP2FvCNVE8d92bxB9) -->
-            <!-- असली embed पाने के लिए: Google Maps खोलें → आपके प्लेस पर जाएं → Share → Embed a map → Copy iframe का src -->
-            <!-- अभी प्लेसहोल्डर के रूप में इस्तेमाल कर रहा हूं, आप इसे बदल लें -->
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1dYOUR_ZOOM_LEVEL!2dYOUR_LONG!3dYOUR_LAT!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xYOUR_PLACE_ID!2sYOUR_PLACE_NAME!5e0!3m2!1shi!2sin!4vYOUR_TIMESTAMP!5m2!1shi!2sin" 
-                width="100%" 
-                height="450" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+<!-- Map -->
+<section id="location">
+<h2 style="text-align:center">हमारा स्थान</h2>
 
-            <p style="margin-top:1rem; font-size:1rem; color:#555;">
-                (नोट: सही embed कोड पाने के लिए Google Maps में अपना लोकेशन खोलें, Share → Embed a map → src कॉपी करें और ऊपर वाले src से बदल दें)
-            </p>
-        </div>
-    </section>
+<div style="max-width:900px;margin:auto;text-align:center">
+<p><strong>CSC Center: cscalipur</strong><br>संचालक: राम प्रकाश कुमार</p>
 
-    <section id="contact">
-        <h2 class="section-title">संपर्क और अपॉइंटमेंट</h2>
+<iframe 
+src="https://www.google.com/maps?q=Alipur,Bihar&output=embed"
+width="100%" height="350" style="border:0;border-radius:10px">
+</iframe>
+</div>
+</section>
 
-        <div class="contact-box">
-            <p>अपॉइंटमेंट या कोई सवाल हो तो ऊपर दिए बटन से टोकन बुक करें या WhatsApp पर संपर्क करें।</p>
-
-            <p style="margin: 2rem 0; font-size: 1.1rem; font-weight: 600;">
-                Email: prakash4every@yahoo.com
-            </p>
-        </div>
-    </section>
-
-    <a href="https://wa.me/917091355373" target="_blank" class="whatsapp-float">
-        WA
-    </a>
-
-    <footer>
-        <p>© 2026 cscalipur | सभी अधिकार सुरक्षित | संचालक: राम प्रकाश कुमार</p>
-    </footer>
+<footer>
+<p>© 2026 cscalipur | सभी अधिकार सुरक्षित</p>
+</footer>
 
 </body>
 </html>
