@@ -1,387 +1,484 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="hi" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="cscalipur – CSC सेवा केंद्र, सरकारी योजनाएं, ऑनलाइन आवेदन">
-  <title>cscalipur | CSC आधिकारिक पोर्टल</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f8fafc;
-      color: #1e293b;
-      line-height: 1.6;
-    }
-    header {
-      background: #2563eb;
-      color: white;
-      padding: 1rem 2rem;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    header h2 { font-weight: 600; font-size: 1.8rem; }
-    .hero {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      color: white;
-      text-align: center;
-      padding: 4rem 2rem;
-    }
-    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-    .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
-    .btn {
-      background: #16a34a;
-      color: white;
-      padding: 1rem 2.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.2rem;
-      display: inline-block;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
-    }
-    .btn:hover { background: #15803d; transform: translateY(-3px); }
-    h2 {
-      font-size: 2.2rem;
-      text-align: center;
-      margin: 3rem 0 2rem;
-      color: #0f172a;
-      position: relative;
-    }
-    h2:after {
-      content: '';
-      display: block;
-      width: 80px;
-      height: 4px;
-      background: #2563eb;
-      margin: 0.5rem auto 0;
-      border-radius: 2px;
-    }
-    .search-box {
-      max-width: 600px;
-      margin: 0 auto 2rem;
-      padding: 0 1rem;
-    }
-    .search-box input {
-      width: 100%;
-      padding: 1rem 1.5rem;
-      border: 2px solid #2563eb;
-      border-radius: 50px;
-      font-size: 1rem;
-      outline: none;
-    }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      max-width: 1300px;
-      margin: 0 auto 3rem;
-      padding: 0 2rem;
-    }
-    .card {
-      background: white;
-      padding: 1.8rem;
-      border-radius: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      border: 1px solid rgba(37,99,235,0.1);
-      transition: all 0.3s;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: #2563eb;
-      box-shadow: 0 20px 40px rgba(37,99,235,0.15);
-    }
-    .card h3 { font-size: 1.5rem; color: #2563eb; margin-bottom: 0.8rem; }
-    .card p { color: #334155; flex-grow: 1; }
-    .appointment-section {
-      background: #f1f5f9;
-      padding: 3rem 1.5rem;
-    }
-    .form-container {
-      max-width: 700px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 32px;
-      padding: 2rem;
-      box-shadow: 0 20px 35px rgba(0,0,0,0.05);
-    }
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-    .form-group label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: #2563eb;
-    }
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      border: 2px solid #e2e8f0;
-      border-radius: 12px;
-      font-size: 1rem;
-      transition: 0.3s;
-    }
-    .form-group input:focus, .form-group select:focus {
-      border-color: #2563eb;
-      outline: none;
-    }
-    .submit-btn {
-      background: #16a34a;
-      color: white;
-      padding: 1rem;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      width: 100%;
-      cursor: pointer;
-    }
-    .thankyou-message {
-      display: none;
-      background: #4CAF50;
-      color: white;
-      padding: 2rem;
-      border-radius: 16px;
-      text-align: center;
-    }
-    .thankyou-message h3 { font-size: 2rem; margin-bottom: 1rem; }
-    .token-box {
-      background: white;
-      color: #2563eb;
-      font-size: 2.5rem;
-      font-weight: bold;
-      padding: 1rem;
-      border-radius: 12px;
-      display: inline-block;
-      margin: 1rem 0;
-    }
-    .location-section {
-      padding: 3rem 1.5rem;
-      background: white;
-      text-align: center;
-    }
-    .info-card {
-      background: #f8fafc;
-      padding: 2rem;
-      border-radius: 28px;
-      max-width: 700px;
-      margin: 0 auto 2rem;
-    }
-    .info-card p { font-size: 1.2rem; margin: 0.5rem 0; }
-    .info-card strong { color: #2563eb; }
-    .map-frame {
-      width: 100%;
-      height: 400px;
-      border: 0;
-      border-radius: 28px;
-      box-shadow: 0 20px 30px rgba(0,0,0,0.1);
-    }
-    footer {
-      background: #1e293b;
-      color: #cbd5e1;
-      text-align: center;
-      padding: 2rem;
-    }
-    .visitor-counter {
-      margin-top: 1rem;
-      padding: 0.5rem 1.5rem;
-      background: #334155;
-      border-radius: 50px;
-      display: inline-block;
-    }
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      h2 { font-size: 1.8rem; }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h2>🏢 cscalipur | आधिकारिक सेवा केंद्र</h2>
-  </header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="cscalipur – CSC सेवा केंद्र, सरकारी योजनाएं, ऑनलाइन आवेदन और डिजिटल सेवाएं">
+    <title>cscalipur | CSC आधिकारिक पोर्टल</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (Modern Styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <section class="hero">
-    <h1>CSC सेवाएं अब आपके गांव में</h1>
-    <p>सरकारी योजनाएं • ऑनलाइन आवेदन • डिजिटल सेवाएं • जनसेवा सहायता</p>
-    <a href="#appointment" class="btn">📅 ऑनलाइन अपॉइंटमेंट बुक करें</a>
-  </section>
-
-  <!-- Searchable Services -->
-  <div class="search-box">
-    <input type="text" id="serviceSearch" placeholder="🔍 सेवा खोजें... (जैसे: आधार, पेंशन, बैंक)">
-  </div>
-  <section class="services">
-    <h2>हमारी प्रमुख सेवाएं</h2>
-    <div class="services-grid" id="servicesGrid">
-      <div class="card"><h3>🔷 आधार सेवाएं</h3><p>आधार अपडेट, डाउनलोड, ई-आधार, पीवीसी कार्ड, बायोमेट्रिक अपडेट।</p></div>
-      <div class="card"><h3>📄 प्रमाणपत्र</h3><p>आय, जाति, निवास, जन्म/मृत्यु प्रमाणपत्र, पेंशन, राशन कार्ड।</p></div>
-      <div class="card"><h3>🏦 बैंकिंग एवं बीमा</h3><p>जनधन खाता, PM बीमा योजनाएं, नकदी जमा/निकासी, लोन सहायता।</p></div>
-      <div class="card"><h3>📱 डिजिटल सेवाएं</h3><p>पैन कार्ड, ऑनलाइन फॉर्म, विद्युत बिल भुगतान, फास्टैग।</p></div>
-      <div class="card"><h3>🎓 शैक्षणिक सहायता</h3><p>छात्रवृत्ति, परीक्षा फॉर्म, एडमिट कार्ड, रिजल्ट।</p></div>
-      <div class="card"><h3>📠 बिल एवं रिचार्ज</h3><p>बिजली, पानी, गैस बिल, मोबाइल, DTH रिचार्ज।</p></div>
-      <div class="card"><h3>🚗 परिवहन सेवाएं</h3><p>ड्राइविंग लाइसेंस, वाहन पंजीकरण, RC अपडेट।</p></div>
-      <div class="card"><h3>🌾 कृषि सेवाएं</h3><p>किसान क्रेडिट कार्ड, PM किसान, फसल बीमा।</p></div>
-      <div class="card"><h3>🏥 स्वास्थ्य सेवाएं</h3><p>आयुष्मान कार्ड, स्वास्थ्य बीमा, टेली-मेडिसिन।</p></div>
-    </div>
-  </section>
-
-  <!-- Appointment Form with Token & Thank You -->
-  <section id="appointment" class="appointment-section">
-    <h2>📝 ऑनलाइन अपॉइंटमेंट बुक करें</h2>
-    <div class="form-container">
-      <form id="appointmentForm">
-        <div class="form-group">
-          <label>आपका पूरा नाम *</label>
-          <input type="text" id="fullName" required placeholder="पूरा नाम लिखे">
-        </div>
-        <div class="form-group">
-          <label>मोबाइल नंबर *</label>
-          <input type="tel" id="mobile" required pattern="[0-9]{10}" placeholder="10 अंक">
-        </div>
-        <div class="form-group">
-          <label>कौन सी सेवा चाहिए? *</label>
-          <select id="service" required>
-            <option value="">-- चुनें --</option>
-            <option>आधार सेवा</option>
-            <option>आय प्रमाणपत्र</option>
-            <option>जाति प्रमाणपत्र</option>
-            <option>निवास प्रमाणपत्र</option>
-            <option>पेंशन आवेदन</option>
-            <option>राशन कार्ड</option>
-            <option>बैंकिंग सेवा</option>
-            <option>बीमा योजना</option>
-            <option>अन्य</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>आने की तारीख *</label>
-          <input type="date" id="date" required min="2025-02-20" max="2025-03-20">
-        </div>
-        <div class="form-group">
-          <label>पसंदीदा समय</label>
-          <select id="time">
-            <option>सुबह 10:00 - 11:00</option>
-            <option>सुबह 11:00 - 12:00</option>
-            <option>दोपहर 12:00 - 1:00</option>
-            <option>दोपहर 2:00 - 3:00</option>
-            <option>शाम 3:00 - 4:00</option>
-            <option>शाम 4:00 - 5:00</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>पूरा पता</label>
-          <textarea id="address" rows="3" placeholder="गांव, पोस्ट, थाना, जिला"></textarea>
-        </div>
-        <button type="submit" class="submit-btn">📅 अपॉइंटमेंट बुक करें</button>
-      </form>
-
-      <div id="thankYouMessage" class="thankyou-message">
-        <h3>🎉 आपका अपॉइंटमेंट बुक हो गया!</h3>
-        <div class="token-box" id="tokenDisplay"></div>
-        <p>कृपया यह Token Number नोट कर लें। CSC Center आने पर दिखाना होगा।</p>
-        <button class="btn" onclick="resetForm()">नया अपॉइंटमेंट</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Location -->
-  <section class="location-section">
-    <h2>हमारा केंद्र</h2>
-    <div class="info-card">
-      <p><strong>🏢 CSC केंद्र : cscalipur</strong></p>
-      <p>संचालक: राम प्रकाश कुमार</p>
-      <p>📍 अलीपुर, बिहार (मुख्य चौक के पास)</p>
-      <p>📞 संपर्क: <a href="tel:+919876543210">+91 9801735984</a></p>
-      <p>⏰ समय: सोम-शनि, सुबह 10:00 – शाम 6:00</p>
-    </div>
-    <iframe class="map-frame" src="https://www.google.com/maps?q=Alipur,Bihar&output=embed" allowfullscreen loading="lazy"></iframe>
-  </section>
-
-  <footer>
-    <p>© <span id="currentYear"></span> cscalipur | सभी अधिकार सुरक्षित</p>
-    <div class="visitor-counter">👁️ कुल विजिटर: <span id="visitorCount">0</span></div>
-  </footer>
-
-  <script>
-    // Dynamic Year
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-    // Visitor Counter (localStorage)
-    if (localStorage.getItem('visitorCount')) {
-      let count = parseInt(localStorage.getItem('visitorCount')) + 1;
-      localStorage.setItem('visitorCount', count);
-      document.getElementById('visitorCount').innerText = count;
-    } else {
-      localStorage.setItem('visitorCount', '1');
-      document.getElementById('visitorCount').innerText = '1';
-    }
-
-    // Services Search
-    document.getElementById('serviceSearch').addEventListener('keyup', function() {
-      let search = this.value.toLowerCase();
-      let cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        let title = card.querySelector('h3').innerText.toLowerCase();
-        let desc = card.querySelector('p').innerText.toLowerCase();
-        if (title.includes(search) || desc.includes(search) || search === '') {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb', // Blue
+                        secondary: '#1e293b', // Dark Slate
+                        accent: '#16a34a', // Green
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        hindi: ['Tiro Devanagari Hindi', 'serif'],
+                    }
+                }
+            }
         }
-      });
-    });
+    </script>
+    
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1d4ed8; }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-    // Form Submission with Token
-    function generateToken() {
-      const now = new Date();
-      const dateStr = now.getFullYear().toString().slice(-2) +
-                      (now.getMonth()+1).toString().padStart(2,'0') +
-                      now.getDate().toString().padStart(2,'0');
-      const random = Math.floor(Math.random() * 10000).toString().padStart(4,'0');
-      return `CSC${dateStr}${random}`;
-    }
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 glass-effect shadow-md border-b border-gray-100">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-primary text-white p-2 rounded-lg">
+                    <i class="fa-solid fa-building-columns text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-primary tracking-tight">cscalipur</h1>
+            </div>
+            
+            <nav class="hidden md:flex gap-6 font-medium text-slate-600">
+                <a href="#home" class="hover:text-primary transition">होम</a>
+                <a href="#services" class="hover:text-primary transition">सेवाएं</a>
+                <a href="#appointment" class="hover:text-primary transition">अपॉइंटमेंट</a>
+                <a href="#contact" class="hover:text-primary transition">संपर्क</a>
+            </nav>
 
-    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+            <a href="#appointment" class="hidden md:inline-block bg-primary hover:bg-blue-700 text-white px-5 py-2 rounded-full font-medium transition shadow-lg shadow-blue-500/30">
+                बुक करें
+            </a>
+            
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-2xl text-slate-700" onclick="document.getElementById('mobileMenu').classList.toggle('hidden')">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t p-4 space-y-3 shadow-lg">
+            <a href="#home" class="block py-2 px-4 hover:bg-slate-50 rounded">होम</a>
+            <a href="#services" class="block py-2 px-4 hover:bg-slate-50 rounded">सेवाएं</a>
+            <a href="#appointment" class="block py-2 px-4 hover:bg-slate-50 rounded">अपॉइंटमेंट</a>
+            <a href="#contact" class="block py-2 px-4 hover:bg-slate-50 rounded">संपर्क</a>
+        </div>
+    </header>
 
-      // Validate form (basic)
-      const name = document.getElementById('fullName').value.trim();
-      const mobile = document.getElementById('mobile').value.trim();
-      const service = document.getElementById('service').value;
-      const date = document.getElementById('date').value;
-      if (!name || !mobile || !service || !date) {
-        alert('कृपया सभी आवश्यक फील्ड भरें');
-        return;
-      }
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20 lg:py-28 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pattern-grid-lg"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <span class="bg-white/20 text-white text-sm px-4 py-1 rounded-full backdrop-blur-sm border border-white/30 mb-6 inline-block">
+                🚀 डिजिटल भारत की ओर एक कदम
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight font-hindi">CSC सेवाएं अब <br class="hidden md:block"> आपके गांव में</h1>
+            <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto mb-10 font-hindi">
+                सरकारी योजनाएं • ऑनलाइन आवेदन • बैंकिंग • आधार सेवाएं <br>
+                सभी डिजिटल सुविधाएं एक ही छत के नीचे।
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#appointment" class="bg-accent hover:bg-green-700 text-white px-8 py-4 rounded-full font-bold text-lg transition shadow-xl shadow-green-900/20 flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-calendar-check"></i> अपॉइंटमेंट लें
+                </a>
+                <a href="#services" class="bg-white text-blue-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold text-lg transition shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-list-check"></i> सेवाएं देखें
+                </a>
+            </div>
+        </div>
+        
+        <!-- Wave Divider -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+            <svg class="relative block w-[calc(100%+1.3px)] h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-slate-50"></path>
+            </svg>
+        </div>
+    </section>
 
-      // Generate token
-      const token = generateToken();
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4 font-hindi">हमारी प्रमुख सेवाएं</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full mb-8"></div>
+                
+                <!-- Search Box -->
+                <div class="relative max-w-xl mx-auto">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+                    </div>
+                    <input type="text" id="serviceSearch" 
+                        class="w-full pl-11 pr-4 py-4 rounded-full border-2 border-blue-100 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 outline-none transition shadow-sm"
+                        placeholder="सेवा खोजें (जैसे: आधार, पैन, पेंशन)...">
+                </div>
+            </div>
 
-      // Hide form, show thank you
-      document.getElementById('appointmentForm').style.display = 'none';
-      document.getElementById('tokenDisplay').innerText = token;
-      document.getElementById('thankYouMessage').style.display = 'block';
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="servicesGrid">
+                <!-- Card 1 -->
+                <div class="service-card group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 text-2xl mb-6 group-hover:bg-blue-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-fingerprint"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 font-hindi">आधार सेवाएं</h3>
+                    <p class="text-slate-600 leading-relaxed font-hindi">आधार अपडेट, बायोमेट्रिक सुधार, पता परिवर्तन, पीवीसी कार्ड प्रिंट और ई-आधार डाउनलोड।</p>
+                </div>
 
-      // Here you can send data to Google Forms via fetch if you set up CORS proxy
-      // For now, we just simulate success.
-    });
+                <!-- Card 2 -->
+                <div class="service-card group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center text-green-600 text-2xl mb-6 group-hover:bg-green-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-file-certificate"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 font-hindi">प्रमाणपत्र</h3>
+                    <p class="text-slate-600 leading-relaxed font-hindi">आय, जाति, निवास, जन्म और मृत्यु प्रमाणपत्र के लिए ऑनलाइन आवेदन और सुधार।</p>
+                </div>
 
-    function resetForm() {
-      document.getElementById('appointmentForm').reset();
-      document.getElementById('appointmentForm').style.display = 'block';
-      document.getElementById('thankYouMessage').style.display = 'none';
-    }
-  </script>
+                <!-- Card 3 -->
+                <div class="service-card group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 text-2xl mb-6 group-hover:bg-purple-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 font-hindi">बैंकिंग सेवाएं</h3>
+                    <p class="text-slate-600 leading-relaxed font-hindi">नकद जमा/निकासी (AEPS), मनी ट्रांसफर, नया खाता खोलना, और लोन सहायता।</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="service-card group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-orange-50 rounded-xl flex items-center justify-center text-orange-600 text-2xl mb-6 group-hover:bg-orange-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 font-hindi">पैन कार्ड</h3>
+                    <p class="text-slate-600 leading-relaxed font-hindi">नया पैन कार्ड आवेदन, खोया हुआ पैन कार्ड, और पैन कार्ड में सुधार।</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="service-card group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center text-red-600 text-2xl mb-6 group-hover:bg-red-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 font-hindi">स्वास्थ्य सेवाएं</h3>
+                    <p class="text-slate-600 leading-relaxed font-hindi">आयुष्मान भारत कार्ड (Golden Card), आभा कार्ड बनाना और प्रिंट करना।</p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="service-card group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 text-2xl mb-6 group-hover:bg-yellow-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-tractor"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 font-hindi">कृषि सेवाएं</h3>
+                    <p class="text-slate-600 leading-relaxed font-hindi">PM किसान सम्मान निधि केवाईसी, नया पंजीकरण, और फसल बीमा।</p>
+                </div>
+                
+                 <!-- Card 7 -->
+                 <div class="service-card group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 text-2xl mb-6 group-hover:bg-indigo-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 font-hindi">बिल भुगतान</h3>
+                    <p class="text-slate-600 leading-relaxed font-hindi">बिजली बिल, मोबाइल रिचार्ज, DTH रिचार्ज, और LIC प्रीमियम भुगतान।</p>
+                </div>
+
+                 <!-- Card 8 -->
+                 <div class="service-card group bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center text-teal-600 text-2xl mb-6 group-hover:bg-teal-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3 font-hindi">छात्र सेवाएं</h3>
+                    <p class="text-slate-600 leading-relaxed font-hindi">सरकारी नौकरी फॉर्म, एडमिट कार्ड, रिजल्ट, और स्कॉलरशिप आवेदन।</p>
+                </div>
+            </div>
+            
+            <!-- No Results Found Message -->
+            <div id="noResults" class="hidden text-center py-10">
+                <p class="text-xl text-gray-500 font-hindi">कोई सेवा नहीं मिली। कृपया पुनः प्रयास करें।</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section id="appointment" class="py-20 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+                
+                <!-- Left Side: Info -->
+                <div class="md:w-1/3 bg-primary p-8 text-white flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">अपॉइंटमेंट बुक करें</h3>
+                        <p class="text-blue-100 text-sm mb-6">भीड़ से बचें और अपना समय बचाएं। ऑनलाइन टोकन प्राप्त करें।</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone"></i>
+                            <span class="text-sm">+91 98765 43210</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span class="text-sm">support@cscalipur.com</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span class="text-sm">अलीपुर, बिहार (मुख्य चौक)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Form -->
+                <div class="md:w-2/3 p-8 relative">
+                    <!-- Success Message Overlay -->
+                    <div id="successOverlay" class="hidden absolute inset-0 bg-white z-10 flex flex-col items-center justify-center text-center p-8 animate-fade-in">
+                        <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-4xl mb-4">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-2">बुकिंग सफल रही!</h3>
+                        <p class="text-slate-600 mb-6">आपका टोकन नंबर नीचे दिया गया है।</p>
+                        
+                        <div class="bg-blue-50 border-2 border-dashed border-blue-200 rounded-xl p-4 mb-6 w-full max-w-xs">
+                            <span class="block text-sm text-blue-500 uppercase font-bold tracking-wider mb-1">Token Number</span>
+                            <span id="tokenDisplay" class="block text-3xl font-mono font-bold text-primary">---</span>
+                        </div>
+                        
+                        <p class="text-sm text-gray-500 mb-6">कृपया केंद्र पर आने पर यह टोकन दिखाएं।</p>
+                        <button onclick="resetForm()" class="bg-gray-800 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition">
+                            नया अपॉइंटमेंट
+                        </button>
+                    </div>
+
+                    <form id="appointmentForm" class="space-y-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">पूरा नाम</label>
+                                <input type="text" id="fullName" required class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="राम कुमार">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">मोबाइल नंबर</label>
+                                <input type="tel" id="mobile" required pattern="[0-9]{10}" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" placeholder="10 अंकों का नंबर">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">सेवा चुनें</label>
+                                <select id="serviceSelect" required class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition bg-white">
+                                    <option value="">-- चुनें --</option>
+                                    <option>आधार सेवा</option>
+                                    <option>बैंकिंग / खाता</option>
+                                    <option>प्रमाणपत्र (आय/जाति/निवास)</option>
+                                    <option>पैन कार्ड</option>
+                                    <option>आयुष्मान कार्ड</option>
+                                    <option>अन्य</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">तारीख</label>
+                                <input type="date" id="date" required class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">समय (स्लॉट)</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="timeSlot" value="10-12" class="peer sr-only" checked>
+                                    <div class="text-center py-2 border rounded-lg text-sm peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 hover:bg-gray-50 transition">10 - 12 AM</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="timeSlot" value="12-2" class="peer sr-only">
+                                    <div class="text-center py-2 border rounded-lg text-sm peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 hover:bg-gray-50 transition">12 - 02 PM</div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="timeSlot" value="3-5" class="peer sr-only">
+                                    <div class="text-center py-2 border rounded-lg text-sm peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 hover:bg-gray-50 transition">03 - 05 PM</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-accent hover:bg-green-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-green-500/30 transform active:scale-95">
+                            अपॉइंटमेंट कन्फर्म करें
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Contact -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-12 font-hindi">संपर्क और पता</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-8 items-stretch">
+                <!-- Info Card -->
+                <div class="lg:w-1/3 bg-slate-50 p-8 rounded-2xl border border-gray-100 shadow-sm h-full">
+                    <h3 class="text-xl font-bold text-primary mb-6">कार्यालय का समय</h3>
+                    <ul class="space-y-4 text-slate-600 mb-8">
+                        <li class="flex justify-between"><span>सोमवार - शुक्रवार</span> <span class="font-semibold text-slate-800">10 AM - 06 PM</span></li>
+                        <li class="flex justify-between"><span>शनिवार</span> <span class="font-semibold text-slate-800">10 AM - 04 PM</span></li>
+                        <li class="flex justify-between text-red-500"><span>रविवार</span> <span class="font-semibold">बंद</span></li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-bold text-primary mb-4">संचालक</h3>
+                    <div class="flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-xl">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">राम प्रकाश कुमार</p>
+                            <p class="text-xs text-slate-500">CSC VLE</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Map -->
+                <div class="lg:w-2/3 h-80 lg:h-auto min-h-[300px] rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                    <iframe src="https://www.google.com/maps?q=Alipur,Bihar&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-10 border-t border-slate-800">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-6 flex justify-center items-center gap-2">
+                <i class="fa-solid fa-building-columns text-primary"></i>
+                <span class="text-xl font-bold text-white">cscalipur</span>
+            </div>
+            <p class="mb-6 text-sm">डिजिटल इंडिया मिशन के तहत ग्रामीण भारत को सशक्त बनाना।</p>
+            
+            <div class="flex justify-center gap-4 mb-8">
+                <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-green-600 hover:text-white transition"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+
+            <div class="inline-flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full text-xs font-mono">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                कुल विजिटर: <span id="visitorCount" class="text-white font-bold">0</span>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-slate-800 text-xs text-slate-500">
+                &copy; <span id="year"></span> cscalipur. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // 1. Dynamic Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // 2. Set Min Date for Appointment (Today)
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+        // Max date 1 month from now
+        const nextMonth = new Date();
+        nextMonth.setMonth(nextMonth.getMonth() + 1);
+        dateInput.max = nextMonth.toISOString().split('T')[0];
+
+        // 3. Visitor Counter Logic (LocalStorage)
+        function updateVisitorCount() {
+            let count = localStorage.getItem('visitorCount');
+            if (count) {
+                count = parseInt(count) + 1;
+            } else {
+                count = 1;
+            }
+            localStorage.setItem('visitorCount', count);
+            document.getElementById('visitorCount').textContent = count;
+        }
+        updateVisitorCount();
+
+        // 4. Service Search Logic
+        const searchInput = document.getElementById('serviceSearch');
+        const servicesGrid = document.getElementById('servicesGrid');
+        const serviceCards = document.querySelectorAll('.service-card');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('keyup', function(e) {
+            const term = e.target.value.toLowerCase();
+            let hasResults = false;
+
+            serviceCards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const desc = card.querySelector('p').innerText.toLowerCase();
+                
+                if (title.includes(term) || desc.includes(term)) {
+                    card.style.display = 'block';
+                    // Re-apply animation class if needed
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (hasResults) {
+                noResults.classList.add('hidden');
+                servicesGrid.classList.remove('hidden');
+            } else {
+                noResults.classList.remove('hidden');
+            }
+        });
+
+        // 5. Appointment Form & Token Logic
+        const form = document.getElementById('appointmentForm');
+        const successOverlay = document.getElementById('successOverlay');
+        const tokenDisplay = document.getElementById('tokenDisplay');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Simulate processing
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'प्रोसेसिंग...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                // Generate Token: CSC + DATE + RANDOM
+                const now = new Date();
+                const dateStr = now.getDate().toString().padStart(2, '0') + 
+                                (now.getMonth() + 1).toString().padStart(2, '0');
+                const random = Math.floor(1000 + Math.random() * 9000);
+                const token = `CSC-${dateStr}-${random}`;
+
+                // Show Success
+                tokenDisplay.innerText = token;
+                successOverlay.classList.remove('hidden');
+                successOverlay.classList.add('flex'); // Make sure it uses flexbox
+                
+                // Reset Button
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
+        });
+
+        // Reset Form Logic
+        function resetForm() {
+            form.reset();
+            successOverlay.classList.add('hidden');
+            successOverlay.classList.remove('flex');
+        }
+    </script>
 </body>
 </html>
