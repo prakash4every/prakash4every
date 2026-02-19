@@ -481,8 +481,10 @@
   </footer>
 
   <script>
-    // Google Apps Script Web App URL
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxlJEXTl0XNK0DgOHHmTzbiM8utXK5DoZUxn2VWBpvaRqEuuRz2FLCIK7zP_augbRMOsw/exec';
+    // =============================================
+    // नया Google Apps Script URL (आपके Status कॉलम वाला)
+    // =============================================
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxwoczbtiGLHQkd54SdQ-fc1bQ00gCJdWUiUlDoWk3KZmojL0PG9fgwyb_EK5cwYtzYMw/exec';
 
     // Dynamic Year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
@@ -497,46 +499,78 @@
     document.getElementById('date').min = tomorrow.toISOString().split('T')[0];
     document.getElementById('date').max = maxDate.toISOString().split('T')[0];
 
-    // Visitor Counter (localStorage)
-    if (localStorage.getItem('visitorCount')) {
-      let count = parseInt(localStorage.getItem('visitorCount')) + 1;
-      localStorage.setItem('visitorCount', count);
-      document.getElementById('visitorCount').innerText = count;
-    } else {
-      localStorage.setItem('visitorCount', '1');
-      document.getElementById('visitorCount').innerText = '1';
+    // Visitor Counter (Session-based – एक सेशन में केवल एक बार गिनती)
+    function updateVisitorCounter() {
+      const countSpan = document.getElementById('visitorCount');
+      if (!sessionStorage.getItem('visitorCounted')) {
+        let count = localStorage.getItem('visitorCount');
+        count = count ? parseInt(count) + 1 : 1;
+        localStorage.setItem('visitorCount', count);
+        sessionStorage.setItem('visitorCounted', 'true');
+        countSpan.innerText = count;
+      } else {
+        countSpan.innerText = localStorage.getItem('visitorCount') || 1;
+      }
     }
+    updateVisitorCounter();
 
-    // Services Search
+    // Services Search (Debounced)
+    let searchTimeout;
     document.getElementById('serviceSearch').addEventListener('keyup', function() {
-      let search = this.value.toLowerCase();
-      let cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        let title = card.querySelector('h3').innerText.toLowerCase();
-        let desc = card.querySelector('p').innerText.toLowerCase();
-        if (title.includes(search) || desc.includes(search) || search === '') {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        let search = this.value.toLowerCase();
+        let cards = document.querySelectorAll('.card');
+        let visibleCount = 0;
+        
+        cards.forEach(card => {
+          let title = card.querySelector('h3').innerText.toLowerCase();
+          let desc = card.querySelector('p').innerText.toLowerCase();
+          let matches = title.includes(search) || desc.includes(search) || search === '';
+          card.style.display = matches ? 'flex' : 'none';
+          if (matches) visibleCount++;
+        });
+        
+        let noResults = document.getElementById('noResults');
+        if (visibleCount === 0) {
+          if (!noResults) {
+            noResults = document.createElement('p');
+            noResults.id = 'noResults';
+            noResults.style.textAlign = 'center';
+            noResults.style.padding = '2rem';
+            noResults.style.color = '#6b7280';
+            noResults.innerText = 'कोई सेवा नहीं मिली। कृपया दूसरे शब्द से खोजें।';
+            document.querySelector('.services-grid').after(noResults);
+          }
+          noResults.style.display = 'block';
+        } else if (noResults) {
+          noResults.style.display = 'none';
         }
-      });
+      }, 300);
     });
 
-    // Generate Token
-    function generateToken() {
-      const now = new Date();
-      const dateStr = now.getFullYear().toString().slice(-2) +
-                      (now.getMonth()+1).toString().padStart(2,'0') +
-                      now.getDate().toString().padStart(2,'0');
-      const random = Math.floor(Math.random() * 10000).toString().padStart(4,'0');
-      return `CSC${dateStr}${random}`;
+    // Date validation (रविवार और शनिवार की बुकिंग रोकने के लिए)
+    function isValidDate(dateString, timeString) {
+      const selectedDate = new Date(dateString);
+      const day = selectedDate.getDay(); // 0 = Sunday
+      
+      if (day === 0) {
+        showError('रविवार को अपॉइंटमेंट उपलब्ध नहीं है। कृपया कोई और तारीख चुनें।');
+        return false;
+      }
+      
+      if (day === 6 && (timeString.includes('5:00') || timeString.includes('6:00'))) {
+        showError('शनिवार को केवल शाम 4:00 बजे तक अपॉइंटमेंट उपलब्ध है।');
+        return false;
+      }
+      
+      return true;
     }
 
-    // Form Submission
-    document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
+    // Form Submission with JSONP (CORS समस्या से बचने के लिए)
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Get form values
       const name = document.getElementById('fullName').value.trim();
       const mobile = document.getElementById('mobile').value.trim();
       const service = document.getElementById('service').value;
@@ -544,7 +578,7 @@
       const time = document.getElementById('time').value;
       const address = document.getElementById('address').value.trim();
 
-      // Validation
+      // Basic validation
       if (!name || !mobile || !service || !date) {
         showError('कृपया सभी आवश्यक फील्ड भरें');
         return;
@@ -555,50 +589,45 @@
         return;
       }
 
-      // Generate token
-      const token = generateToken();
-      const timestamp = new Date().toLocaleString('hi-IN');
+      if (!isValidDate(date, time)) return;
 
-      // Show loading
+      // Hide form, show loading
       document.getElementById('appointmentForm').style.display = 'none';
       document.getElementById('loadingDiv').style.display = 'block';
       document.getElementById('errorMessage').style.display = 'none';
 
-      try {
-        // Prepare data for Google Sheet
-        const data = {
-          timestamp: timestamp,
-          token: token,
-          name: name,
-          mobile: mobile,
-          service: service,
-          date: date,
-          time: time,
-          address: address
-        };
+      // Prepare data
+      const data = {
+        name: name,
+        mobile: mobile,
+        service: service,
+        date: date,
+        time: time,
+        address: address
+      };
 
-        // Send to Google Apps Script
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        });
-
-        // Success - Show thank you message
+      // JSONP callback
+      const callbackName = 'callback' + Date.now();
+      window[callbackName] = function(response) {
         document.getElementById('loadingDiv').style.display = 'none';
-        document.getElementById('tokenDisplay').innerText = token;
-        document.getElementById('thankYouMessage').style.display = 'block';
-        document.getElementById('thankYouMessage').scrollIntoView({ behavior: 'smooth' });
+        
+        if (response.success) {
+          document.getElementById('tokenDisplay').innerText = response.token;
+          document.getElementById('thankYouMessage').style.display = 'block';
+          document.getElementById('thankYouMessage').scrollIntoView({ behavior: 'smooth' });
+        } else {
+          showError('सर्वर त्रुटि: ' + (response.error || 'अज्ञात त्रुटि'));
+          document.getElementById('appointmentForm').style.display = 'block';
+        }
+        
+        // Cleanup
+        document.body.removeChild(script);
+        delete window[callbackName];
+      };
 
-      } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('loadingDiv').style.display = 'none';
-        document.getElementById('appointmentForm').style.display = 'block';
-        showError('डेटा सेव करने में समस्या हुई। कृपया दोबारा कोशिश करें।');
-      }
+      const script = document.createElement('script');
+      script.src = GOOGLE_SCRIPT_URL + '?callback=' + callbackName + '&data=' + encodeURIComponent(JSON.stringify(data));
+      document.body.appendChild(script);
     });
 
     function showError(message) {
@@ -606,6 +635,8 @@
       errorDiv.innerText = message;
       errorDiv.style.display = 'block';
       errorDiv.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('appointmentForm').style.display = 'block';
+      document.getElementById('loadingDiv').style.display = 'none';
     }
 
     function resetForm() {
