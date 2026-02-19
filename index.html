@@ -210,6 +210,11 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3);
     }
+    .submit-btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+    }
     .thankyou-message {
       display: none;
       background: #4CAF50;
@@ -234,6 +239,33 @@
       display: inline-block;
       margin: 1rem 0;
       letter-spacing: 2px;
+    }
+    .error-message {
+      display: none;
+      background: #f87171;
+      color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    .spinner {
+      border: 4px solid #f3f4f6;
+      border-top: 4px solid #2563eb;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     .location-section {
       padding: 3rem 1.5rem;
@@ -350,6 +382,8 @@
   <section id="appointment" class="appointment-section">
     <h2>📝 ऑनलाइन अपॉइंटमेंट बुक करें</h2>
     <div class="form-container">
+      <div id="errorMessage" class="error-message"></div>
+      
       <form id="appointmentForm">
         <div class="form-group">
           <label>आपका पूरा नाम *</label>
@@ -395,8 +429,13 @@
           <label>पूरा पता</label>
           <textarea id="address" rows="3" placeholder="गांव, पोस्ट, थाना, जिला"></textarea>
         </div>
-        <button type="submit" class="submit-btn">📅 अपॉइंटमेंट बुक करें</button>
+        <button type="submit" class="submit-btn" id="submitBtn">📅 अपॉइंटमेंट बुक करें</button>
       </form>
+
+      <div id="loadingDiv" class="loading">
+        <div class="spinner"></div>
+        <p style="margin-top: 1rem; color: #2563eb;">डेटा सेव हो रहा है...</p>
+      </div>
 
       <div id="thankYouMessage" class="thankyou-message">
         <h3>🎉 आपका अपॉइंटमेंट बुक हो गया!</h3>
@@ -442,6 +481,11 @@
   </footer>
 
   <script>
+    // Google Sheet Configuration
+    const SHEET_ID = '1dJHk1HZE8SRUt4KjvT0HiGknnoR7InfAiKGVpWoyctk';
+    const SHEET_NAME = 'Sheet1';
+    const API_KEY = 'AIzaSyAzNJLNwRKWr9IqMuMxZvAQVVHmQqJ5yAA'; // Public API key for read/write
+
     // Dynamic Year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
@@ -480,7 +524,7 @@
       });
     });
 
-    // Form Submission with Token
+    // Generate Token
     function generateToken() {
       const now = new Date();
       const dateStr = now.getFullYear().toString().slice(-2) +
@@ -490,36 +534,126 @@
       return `CSC${dateStr}${random}`;
     }
 
-    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+    // Send data to Google Sheet using Google Apps Script Web App
+    function sendToGoogleSheet(data) {
+      return new Promise((resolve, reject) => {
+        const url = 'https://script.google.com/macros/d/1dJHk1HZE8SRUt4KjvT0HiGknnoR7InfAiKGVpWoyctk/usercss';
+        
+        fetch(url, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        })
+        .then(() => resolve())
+        .catch(error => reject(error));
+      });
+    }
+
+    // Alternative: Direct Google Sheets API approach
+    async function addRowToSheet(values) {
+      try {
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}!A:H/append?valueInputOption=USER_ENTERED&key=${API_KEY}`;
+        
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            values: [values]
+          })
+        });
+
+        if (response.ok) {
+          return true;
+        } else {
+          throw new Error('Failed to add row');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        throw error;
+      }
+    }
+
+    // Form Submission
+    document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      // Validate form (basic)
+      // Get form values
       const name = document.getElementById('fullName').value.trim();
       const mobile = document.getElementById('mobile').value.trim();
       const service = document.getElementById('service').value;
       const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const address = document.getElementById('address').value.trim();
+
+      // Validation
       if (!name || !mobile || !service || !date) {
-        alert('कृपया सभी आवश्यक फील्ड भरें');
+        showError('कृपया सभी आवश्यक फील्ड भरें');
+        return;
+      }
+
+      if (mobile.length !== 10) {
+        showError('मोबाइल नंबर 10 अंकों का होना चाहिए');
         return;
       }
 
       // Generate token
       const token = generateToken();
+      const timestamp = new Date().toLocaleString('hi-IN');
 
-      // Hide form, show thank you
+      // Show loading
       document.getElementById('appointmentForm').style.display = 'none';
-      document.getElementById('tokenDisplay').innerText = token;
-      document.getElementById('thankYouMessage').style.display = 'block';
+      document.getElementById('loadingDiv').style.display = 'block';
+      document.getElementById('errorMessage').style.display = 'none';
 
-      // Scroll to thank you message
-      document.getElementById('thankYouMessage').scrollIntoView({ behavior: 'smooth' });
+      try {
+        // Prepare data for Google Sheet
+        const rowData = [
+          timestamp,      // Timestamp (Column A)
+          token,          // Token (Column B)
+          name,           // Full Name (Column C)
+          mobile,         // Mobile (Column D)
+          service,        // Service (Column E)
+          date,           // Date (Column F)
+          time,           // Time Slot (Column G)
+          address         // Address (Column H)
+        ];
+
+        // Send to Google Sheet
+        await addRowToSheet(rowData);
+
+        // Success - Show thank you message
+        document.getElementById('loadingDiv').style.display = 'none';
+        document.getElementById('tokenDisplay').innerText = token;
+        document.getElementById('thankYouMessage').style.display = 'block';
+        document.getElementById('thankYouMessage').scrollIntoView({ behavior: 'smooth' });
+
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('loadingDiv').style.display = 'none';
+        document.getElementById('appointmentForm').style.display = 'block';
+        showError('डेटा सेव करने में समस्या हुई। कृपया दोबारा कोशिश करें।');
+      }
     });
+
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.innerText = message;
+      errorDiv.style.display = 'block';
+      errorDiv.scrollIntoView({ behavior: 'smooth' });
+    }
 
     function resetForm() {
       document.getElementById('appointmentForm').reset();
       document.getElementById('appointmentForm').style.display = 'block';
       document.getElementById('thankYouMessage').style.display = 'none';
+      document.getElementById('errorMessage').style.display = 'none';
       document.getElementById('appointmentForm').scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 </body>
+</html>
