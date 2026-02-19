@@ -481,10 +481,8 @@
   </footer>
 
   <script>
-    // Google Sheet Configuration
-    const SHEET_ID = '1dJHk1HZE8SRUt4KjvT0HiGknnoR7InfAiKGVpWoyctk';
-    const SHEET_NAME = 'Sheet1';
-    const API_KEY = 'AIzaSyAzNJLNwRKWr9IqMuMxZvAQVVHmQqJ5yAA'; // Public API key for read/write
+    // Google Apps Script Web App URL
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxlJEXTl0XNK0DgOHHmTzbiM8utXK5DoZUxn2VWBpvaRqEuuRz2FLCIK7zP_augbRMOsw/exec';
 
     // Dynamic Year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
@@ -534,50 +532,6 @@
       return `CSC${dateStr}${random}`;
     }
 
-    // Send data to Google Sheet using Google Apps Script Web App
-    function sendToGoogleSheet(data) {
-      return new Promise((resolve, reject) => {
-        const url = 'https://script.google.com/macros/d/1dJHk1HZE8SRUt4KjvT0HiGknnoR7InfAiKGVpWoyctk/usercss';
-        
-        fetch(url, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-        })
-        .then(() => resolve())
-        .catch(error => reject(error));
-      });
-    }
-
-    // Alternative: Direct Google Sheets API approach
-    async function addRowToSheet(values) {
-      try {
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}!A:H/append?valueInputOption=USER_ENTERED&key=${API_KEY}`;
-        
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            values: [values]
-          })
-        });
-
-        if (response.ok) {
-          return true;
-        } else {
-          throw new Error('Failed to add row');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        throw error;
-      }
-    }
-
     // Form Submission
     document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -612,19 +566,26 @@
 
       try {
         // Prepare data for Google Sheet
-        const rowData = [
-          timestamp,      // Timestamp (Column A)
-          token,          // Token (Column B)
-          name,           // Full Name (Column C)
-          mobile,         // Mobile (Column D)
-          service,        // Service (Column E)
-          date,           // Date (Column F)
-          time,           // Time Slot (Column G)
-          address         // Address (Column H)
-        ];
+        const data = {
+          timestamp: timestamp,
+          token: token,
+          name: name,
+          mobile: mobile,
+          service: service,
+          date: date,
+          time: time,
+          address: address
+        };
 
-        // Send to Google Sheet
-        await addRowToSheet(rowData);
+        // Send to Google Apps Script
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
 
         // Success - Show thank you message
         document.getElementById('loadingDiv').style.display = 'none';
