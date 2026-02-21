@@ -37,6 +37,7 @@
       align-items: center;
     }
     .fb-btn, .whatsapp-btn {
+      color: white;
       padding: 0.7rem 1.5rem;
       border-radius: 50px;
       text-decoration: none;
@@ -48,7 +49,6 @@
       border: none;
       cursor: pointer;
       font-size: 1rem;
-      color: white;
     }
     .fb-btn { background: #1877f2; }
     .fb-btn:hover { background: #0a66c2; transform: translateY(-2px); }
@@ -106,6 +106,10 @@
       outline: none;
       transition: all 0.3s;
     }
+    .search-box input:focus {
+      border-color: #1d4ed8;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -159,13 +163,7 @@
       border: 2px solid #e2e8f0;
       border-radius: 12px;
       font-size: 1rem;
-      transition: 0.3s;
       font-family: 'Poppins', sans-serif;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: #2563eb;
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
     .submit-btn {
       background: #16a34a;
@@ -177,7 +175,6 @@
       font-weight: 600;
       width: 100%;
       cursor: pointer;
-      transition: all 0.3s;
     }
     .submit-btn:hover {
       background: #15803d;
@@ -229,6 +226,7 @@
     }
     .info-card p { font-size: 1.1rem; margin: 0.8rem 0; }
     .info-card strong { color: #2563eb; }
+    .info-card a { color: #2563eb; text-decoration: none; font-weight: 600; }
     .map-frame {
       width: 100%;
       height: 400px;
@@ -277,10 +275,11 @@
       h2 { font-size: 1.8rem; }
       header { flex-direction: column; gap: 1rem; }
       header h2 { font-size: 1.4rem; }
+      .header-buttons { width: 100%; justify-content: center; }
       .services-grid { padding: 0 1rem; }
     }
 
-    /* Chatbot Floating Button Styles */
+    /* Chatbot Styles (तुम्हारा सिंपल चैटबॉट) */
     #chatbot-toggle {
       position: fixed;
       bottom: 20px;
@@ -299,44 +298,90 @@
       gap: 8px;
       z-index: 9999;
     }
-    #chatbot-iframe-container {
-      display: none;
+    #chatbot-window {
       position: fixed;
       bottom: 90px;
       right: 20px;
       width: 380px;
       height: 550px;
-      border: none;
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
       background: white;
+      display: none;
+      flex-direction: column;
       z-index: 9998;
     }
-    #chatbot-iframe-container iframe {
-      width: 100%;
-      height: 100%;
+    #chatbot-window.active { display: flex; }
+    .chatbot-header {
+      background: #2563eb;
+      color: white;
+      padding: 15px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chatbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      background: #f8fafc;
+    }
+    .message { margin-bottom: 12px; display: flex; }
+    .message.user { justify-content: flex-end; }
+    .message-content { max-width: 75%; padding: 10px 15px; border-radius: 12px; }
+    .user .message-content {
+      background: #2563eb;
+      color: white;
+      border-radius: 18px 18px 4px 18px;
+    }
+    .bot .message-content {
+      background: white;
+      color: #1e293b;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px 18px 18px 4px;
+    }
+    .chatbot-input-area {
+      padding: 12px;
+      background: white;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      gap: 8px;
+    }
+    .chatbot-input-area input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      outline: none;
+    }
+    .chatbot-send-btn {
+      background: #2563eb;
+      color: white;
       border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
     <h2>🏢 cscalipur | आधिकारिक सेवा केंद्र</h2>
     <div class="header-buttons">
-      <a href="https://www.facebook.com/cscalipur" target="_blank" class="fb-btn">
-        <i class="fab fa-facebook-f"></i> Facebook
-      </a>
-      <a href="https://wa.me/919801735984" target="_blank" class="whatsapp-btn">
-        <i class="fab fa-whatsapp"></i> WhatsApp
-      </a>
+      <a href="https://www.facebook.com/cscalipur" target="_blank" class="fb-btn"><i class="fab fa-facebook-f"></i> Facebook</a>
+      <a href="https://wa.me/919801735984" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
     </div>
   </header>
 
+  <!-- Hero Section -->
   <section class="hero">
     <h1>CSC सेवाएं अब आपके गांव में</h1>
-    <p>सरकारी योजनाएं • ऑनलाइन आवेदन • डिजिटल सेवाएं • जनसेवा सहायता</p>
-    <a href="#appointment" class="btn">📅 ऑनलाइन अपॉइंटमेंट बुक करें</a>
+    <p>डिजिटल भारत की ओर एक कदम - आपकी सेवा में हमेशा तैयार</p>
+    <button class="btn" onclick="document.getElementById('appointmentSection').scrollIntoView({behavior: 'smooth'})">अभी बुकिंग करें</button>
   </section>
 
   <!-- Searchable Services -->
@@ -358,8 +403,8 @@
     </div>
   </section>
 
-  <!-- Appointment Form with Token & Thank You -->
-  <section id="appointment" class="appointment-section">
+  <!-- Appointment Form (Google Sheets Integrated) -->
+  <section class="appointment-section" id="appointmentSection">
     <h2>📝 ऑनलाइन अपॉइंटमेंट बुक करें</h2>
     <div class="form-container">
       <div id="errorMessage" class="error-message"></div>
@@ -428,7 +473,7 @@
     </div>
   </section>
 
-  <!-- Location -->
+  <!-- Location & Map -->
   <section class="location-section">
     <h2>हमारा केंद्र</h2>
     <div class="info-card">
@@ -455,30 +500,76 @@
     <iframe class="map-frame" src="https://www.google.com/maps?q=Alipur,Bihar&output=embed" allowfullscreen loading="lazy"></iframe>
   </section>
 
+  <!-- Footer -->
   <footer>
     <p>© <span id="currentYear"></span> cscalipur | सभी अधिकार सुरक्षित</p>
     <div class="visitor-counter">👁️ कुल विजिटर: <span id="visitorCount">0</span></div>
   </footer>
 
-  <!-- Chatbot Toggle Button -->
-  <button id="chatbot-toggle">
-    <i class="fab fa-rocketchat"></i> चैट करें
-  </button>
-
-  <!-- Chatbot Iframe Container (AI Chatbot) -->
-  <div id="chatbot-iframe-container">
-    <!-- ✅ सही URL (जो अभी काम कर रहा है) -->
-    <iframe src="https://script.google.com/macros/s/AKfycbz0oaGy3uv4MUNxUJlZdzA5FvabaUezGk-a_CaX8HCgIiyX9gr7BbwTt74rxdXbSoXrYA/exec"></iframe>
+  <!-- Chatbot -->
+  <button id="chatbot-toggle"><i class="fas fa-comments"></i> चैट करें</button>
+  <div id="chatbot-window">
+    <div class="chatbot-header">
+      <span>CSC सहायता</span>
+      <button id="chatbot-close" style="background:none;border:none;color:white;cursor:pointer;">✕</button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages"></div>
+    <div class="chatbot-input-area">
+      <input type="text" id="chatbot-input" placeholder="अपना सवाल पूछें...">
+      <button class="chatbot-send-btn" id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
+    </div>
   </div>
 
+  <!-- JavaScript -->
   <script>
-    // =============================================
-    // ✅ 1. Appointment Form Script (पुराना वाला)
-    // =============================================
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTK_LvKHgJEX4Bpj3NVYGdH_dKtKd5DogjZRNwRzGU_Uyr8E11OdtR-nBsDS1c7lmvPw/exec';
+    // ---------- सिंपल चैटबॉट लॉजिक ----------
+    const chatbotResponses = {
+      'नमस्ते': 'नमस्ते! 👋 CSC Alipur में आपका स्वागत है। मैं आपकी कैसे मदद कर सकता हूँ?',
+      'सेवाएं': 'हम आधार, पैन कार्ड, और सरकारी योजनाओं के लिए आवेदन जैसी सेवाएं देते हैं।',
+      'आधार': 'आधार अपडेट और डाउनलोड के लिए आप हमसे संपर्क कर सकते हैं।',
+      'पैन': 'नया पैन कार्ड बनवाने के लिए कृपया अपॉइंटमेंट बुक करें।',
+      'पता': 'हमारा पता: CSC Alipur, गांव अलीपुर।',
+      'फोन': 'संपर्क करें: +91 9801735984',
+      'default': 'क्षमा करें, मैं समझ नहीं पाया। कृपया +91 9801735984 पर कॉल करें।'
+    };
 
+    const toggle = document.getElementById('chatbot-toggle');
+    const window_ = document.getElementById('chatbot-window');
+    const messages = document.getElementById('chatbot-messages');
+    const input = document.getElementById('chatbot-input');
+    const send = document.getElementById('chatbot-send');
+
+    toggle.onclick = () => {
+      window_.classList.toggle('active');
+      if(messages.children.length === 0) addMsg('bot', chatbotResponses['नमस्ते']);
+    };
+    document.getElementById('chatbot-close').onclick = () => window_.classList.remove('active');
+
+    function addMsg(sender, text) {
+      const div = document.createElement('div');
+      div.className = `message ${sender}`;
+      div.innerHTML = `<div class="message-content">${text}</div>`;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    send.onclick = () => {
+      const msg = input.value.trim();
+      if(!msg) return;
+      addMsg('user', msg);
+      input.value = '';
+      setTimeout(() => {
+        const key = Object.keys(chatbotResponses).find(k => msg.includes(k));
+        const resp = key ? chatbotResponses[key] : chatbotResponses['default'];
+        addMsg('bot', resp);
+      }, 500);
+    };
+
+    // ---------- वेबसाइट के अन्य फंक्शन (सर्विस सर्च, टोकन, विजिटर, आदि) ----------
+    // Dynamic Year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
+    // Date picker limits
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -490,6 +581,7 @@
       dateInput.max = maxDate.toISOString().split('T')[0];
     }
 
+    // Visitor Counter
     if (localStorage.getItem('visitorCount')) {
       let count = parseInt(localStorage.getItem('visitorCount')) + 1;
       localStorage.setItem('visitorCount', count);
@@ -499,6 +591,7 @@
       document.getElementById('visitorCount').innerText = '1';
     }
 
+    // Services Search
     const searchInput = document.getElementById('serviceSearch');
     if (searchInput) {
       searchInput.addEventListener('keyup', function() {
@@ -515,6 +608,9 @@
         });
       });
     }
+
+    // Google Apps Script URL (Appointment Form)
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTK_LvKHgJEX4Bpj3NVYGdH_dKtKd5DogjZRNwRzGU_Uyr8E11OdtR-nBsDS1c7lmvPw/exec';
 
     function generateToken() {
       const now = new Date();
@@ -590,24 +686,6 @@
       document.getElementById('errorMessage').style.display = 'none';
       document.getElementById('appointmentForm').scrollIntoView({ behavior: 'smooth' });
     };
-
-    // =============================================
-    // ✅ 2. Chatbot Toggle Script (सिर्फ एक बार)
-    // =============================================
-    const toggleBtn = document.getElementById('chatbot-toggle');
-    const container = document.getElementById('chatbot-iframe-container');
-
-    if (toggleBtn && container) {
-      toggleBtn.addEventListener('click', function() {
-        if (container.style.display === 'none' || container.style.display === '') {
-          container.style.display = 'block';
-          this.innerHTML = '<i class="fab fa-rocketchat"></i> बंद करें';
-        } else {
-          container.style.display = 'none';
-          this.innerHTML = '<i class="fab fa-rocketchat"></i> चैट करें';
-        }
-      });
-    }
   </script>
 </body>
 </html>
