@@ -687,27 +687,6 @@
       document.getElementById('appointmentForm').scrollIntoView({ behavior: 'smooth' });
     };
   </script>
-<!-- Floating AI Chatbot Button -->
-<div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-    <button id="chatbot-toggle" style="background: #2563eb; color: white; border: none; border-radius: 60px; padding: 15px 25px; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 4px 15px rgba(37,99,235,0.4); display: flex; align-items: center; gap: 8px;">
-        <i class="fab fa-rocketchat"></i> चैट करें
-    </button>
-    <div id="chatbot-iframe-container" style="display: none; position: fixed; bottom: 90px; right: 20px; width: 380px; height: 550px; border: none; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); background: white;">
-        <iframe src="यहाँ_नया_URL_डालो" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
-</div>
 
-<script>
-    document.getElementById('chatbot-toggle').addEventListener('click', function() {
-        var container = document.getElementById('chatbot-iframe-container');
-        if (container.style.display === 'none' || container.style.display === '') {
-            container.style.display = 'block';
-            this.innerHTML = '<i class="fab fa-rocketchat"></i> बंद करें';
-        } else {
-            container.style.display = 'none';
-            this.innerHTML = '<i class="fab fa-rocketchat"></i> चैट करें';
-        }
-    });
-</script>
 </body>
 </html>
