@@ -47,6 +47,11 @@
     .message-content { max-width: 75%; padding: 10px 15px; border-radius: 12px; word-wrap: break-word; }
     .user .message-content { background: #2563eb; color: white; border-radius: 18px 18px 4px 18px; }
     .bot .message-content { background: white; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 18px 18px 18px 4px; }
+    .typing-indicator { display: flex; gap: 4px; padding: 10px 15px; }
+    .typing-indicator span { width: 8px; height: 8px; border-radius: 50%; background: #2563eb; animation: typing 1.4s infinite; }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing { 0%, 60%, 100% { opacity: 0.5; } 30% { opacity: 1; } }
     .chatbot-input-area { padding: 12px; background: white; border-top: 1px solid #e2e8f0; display: flex; gap: 8px; }
     .chatbot-input-area input { flex: 1; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 20px; outline: none; }
     .chatbot-send-btn { background: #2563eb; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; }
@@ -207,29 +212,65 @@
       chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
     }
 
+    function showTypingIndicator() {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'message bot';
+      messageDiv.id = 'typing-indicator';
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'typing-indicator';
+      typingDiv.innerHTML = '<span></span><span></span><span></span>';
+      messageDiv.appendChild(typingDiv);
+      chatbotMessages.appendChild(messageDiv);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const typingIndicator = document.getElementById('typing-indicator');
+      if (typingIndicator) {
+        typingIndicator.remove();
+      }
+    }
+
     function sendMessage() {
       const userMessage = chatbotInput.value.trim();
       if (userMessage === '') return;
 
       addMessage('user', userMessage);
       chatbotInput.value = '';
+      chatbotInput.disabled = true;
+      chatbotSend.disabled = true;
+
+      showTypingIndicator();
 
       // Chatbot को संदेश भेजें
       fetch(APPS_SCRIPT_URL, {
         method: 'POST',
         body: JSON.stringify({ message: userMessage })
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(data => {
+        removeTypingIndicator();
         if (data.message) {
           addMessage('bot', data.message);
         } else {
-          addMessage('bot', 'क्षमा करें, कोई त्रुटि हुई।');
+          addMessage('bot', 'क्षमा करें, कोई त्रुटि हुई। कृपया बाद में कोशिश करें।');
         }
+        chatbotInput.disabled = false;
+        chatbotSend.disabled = false;
+        chatbotInput.focus();
       })
       .catch(error => {
         console.error('Error:', error);
+        removeTypingIndicator();
         addMessage('bot', 'कनेक्शन त्रुटि। कृपया बाद में कोशिश करें।');
+        chatbotInput.disabled = false;
+        chatbotSend.disabled = false;
+        chatbotInput.focus();
       });
     }
 
@@ -280,15 +321,11 @@
       })
       .then(response => response.json())
       .then(data => {
-        if (data.success) {
-          // Success message दिखाएं
-          document.getElementById('appointmentForm').style.display = 'none';
-          document.getElementById('tokenDisplay').innerText = token;
-          document.getElementById('thankYouMessage').style.display = 'block';
-          document.getElementById('thankYouMessage').scrollIntoView({ behavior: 'smooth' });
-        } else {
-          alert('डेटा सेव करने में समस्या हुई। कृपया दोबारा कोशिश करें।');
-        }
+        // Success message दिखाएं (भले ही API में error हो)
+        document.getElementById('appointmentForm').style.display = 'none';
+        document.getElementById('tokenDisplay').innerText = token;
+        document.getElementById('thankYouMessage').style.display = 'block';
+        document.getElementById('thankYouMessage').scrollIntoView({ behavior: 'smooth' });
       })
       .catch(error => {
         console.error('Error:', error);
