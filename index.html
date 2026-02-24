@@ -177,8 +177,7 @@
 
   <script>
     // ==================== CONFIGURATION ====================
- // index.html के स्क्रिप्ट सेक्शन में इसे बदलें
-const GEMINI_API_KEY = "AIzaSyCvFOedZjrmyVdlFXceIAk1qGx0ibb_-cs"; // अपनी API Key यहाँ डालें
+ // const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbysC4oUcqS-z2YzDB1AAlt2K4roc5O0NqjbxccZZrI6mm00TLi31540IaAbUnEos070nw/exec";
 
 async function getGeminiResponse(userMessage) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
