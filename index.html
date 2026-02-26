@@ -7,8 +7,6 @@
   <title>cscalipur | CSC आधिकारिक पोर्टल</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -21,46 +19,20 @@
       background: #2563eb;
       color: white;
       padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      text-align: center;
       position: sticky;
       top: 0;
       z-index: 1000;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      flex-wrap: wrap;
     }
     header h2 { font-weight: 600; font-size: 1.8rem; }
-    .header-buttons {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
-    .fb-btn, .whatsapp-btn {
-      color: white;
-      padding: 0.7rem 1.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-    .fb-btn { background: #1877f2; }
-    .fb-btn:hover { background: #0a66c2; transform: translateY(-2px); }
-    .whatsapp-btn { background: #25d366; }
-    .whatsapp-btn:hover { background: #1faa59; transform: translateY(-2px); }
     .hero {
       background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       color: white;
       text-align: center;
       padding: 4rem 2rem;
     }
-    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 700; }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
     .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
     .btn {
       background: #16a34a;
@@ -75,7 +47,7 @@
       border: none;
       cursor: pointer;
     }
-    .btn:hover { background: #15803d; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3); }
+    .btn:hover { background: #15803d; transform: translateY(-3px); }
     h2 {
       font-size: 2.2rem;
       text-align: center;
@@ -104,11 +76,6 @@
       border-radius: 50px;
       font-size: 1rem;
       outline: none;
-      transition: all 0.3s;
-    }
-    .search-box input:focus {
-      border-color: #1d4ed8;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
     .services-grid {
       display: grid;
@@ -134,7 +101,7 @@
       border-color: #2563eb;
       box-shadow: 0 20px 40px rgba(37,99,235,0.15);
     }
-    .card h3 { font-size: 1.5rem; color: #2563eb; margin-bottom: 0.8rem; font-weight: 600; }
+    .card h3 { font-size: 1.5rem; color: #2563eb; margin-bottom: 0.8rem; }
     .card p { color: #334155; flex-grow: 1; }
     .appointment-section {
       background: #f1f5f9;
@@ -147,7 +114,6 @@
       border-radius: 32px;
       padding: 2rem;
       box-shadow: 0 20px 35px rgba(0,0,0,0.05);
-      position: relative;
     }
     .form-group {
       margin-bottom: 1.5rem;
@@ -165,12 +131,10 @@
       border-radius: 12px;
       font-size: 1rem;
       transition: 0.3s;
-      font-family: 'Poppins', sans-serif;
     }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    .form-group input:focus, .form-group select:focus {
       border-color: #2563eb;
       outline: none;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
     .submit-btn {
       background: #16a34a;
@@ -182,17 +146,6 @@
       font-weight: 600;
       width: 100%;
       cursor: pointer;
-      transition: all 0.3s;
-    }
-    .submit-btn:hover {
-      background: #15803d;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3);
-    }
-    .submit-btn:disabled {
-      background: #9ca3af;
-      cursor: not-allowed;
-      transform: none;
     }
     .thankyou-message {
       display: none;
@@ -201,11 +154,6 @@
       padding: 2rem;
       border-radius: 16px;
       text-align: center;
-      animation: slideIn 0.5s ease-out;
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
     .thankyou-message h3 { font-size: 2rem; margin-bottom: 1rem; }
     .token-box {
@@ -217,34 +165,6 @@
       border-radius: 12px;
       display: inline-block;
       margin: 1rem 0;
-      letter-spacing: 2px;
-    }
-    .error-message {
-      display: none;
-      background: #f87171;
-      color: white;
-      padding: 1rem;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-    .loading {
-      display: none;
-      text-align: center;
-      padding: 2rem;
-    }
-    .spinner {
-      border: 4px solid #f3f4f6;
-      border-top: 4px solid #2563eb;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
     .location-section {
       padding: 3rem 1.5rem;
@@ -257,12 +177,9 @@
       border-radius: 28px;
       max-width: 700px;
       margin: 0 auto 2rem;
-      border: 2px solid #e2e8f0;
     }
-    .info-card p { font-size: 1.1rem; margin: 0.8rem 0; }
-    .info-card strong { color: #2563eb; font-weight: 600; }
-    .info-card a { color: #2563eb; text-decoration: none; font-weight: 600; }
-    .info-card a:hover { text-decoration: underline; }
+    .info-card p { font-size: 1.2rem; margin: 0.5rem 0; }
+    .info-card strong { color: #2563eb; }
     .map-frame {
       width: 100%;
       height: 400px;
@@ -270,31 +187,6 @@
       border-radius: 28px;
       box-shadow: 0 20px 30px rgba(0,0,0,0.1);
     }
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin: 2rem 0;
-      flex-wrap: wrap;
-    }
-    .social-links a {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-decoration: none;
-      font-size: 1.5rem;
-      transition: all 0.3s;
-    }
-    .social-links .fb { background: #1877f2; }
-    .social-links .fb:hover { background: #0a66c2; transform: translateY(-3px); }
-    .social-links .wa { background: #25d366; }
-    .social-links .wa:hover { background: #1faa59; transform: translateY(-3px); }
-    .social-links .ig { background: #e4405f; }
-    .social-links .ig:hover { background: #c13584; transform: translateY(-3px); }
     footer {
       background: #1e293b;
       color: #cbd5e1;
@@ -307,25 +199,16 @@
       background: #334155;
       border-radius: 50px;
       display: inline-block;
-      font-weight: 600;
     }
     @media (max-width: 768px) {
       .hero h1 { font-size: 2rem; }
       h2 { font-size: 1.8rem; }
-      header { flex-direction: column; gap: 1rem; }
-      header h2 { font-size: 1.4rem; }
-      .header-buttons { width: 100%; justify-content: center; }
-      .services-grid { padding: 0 1rem; }
     }
   </style>
 </head>
 <body>
   <header>
     <h2>🏢 cscalipur | आधिकारिक सेवा केंद्र</h2>
-    <div class="header-buttons">
-      <a href="https://www.facebook.com/cscalipur" target="_blank" class="fb-btn"><i class="fab fa-facebook-f"></i> Facebook</a>
-      <a href="https://wa.me/919801735984" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-    </div>
   </header>
 
   <section class="hero">
@@ -357,8 +240,6 @@
   <section id="appointment" class="appointment-section">
     <h2>📝 ऑनलाइन अपॉइंटमेंट बुक करें</h2>
     <div class="form-container">
-      <div id="errorMessage" class="error-message"></div>
-      
       <form id="appointmentForm">
         <div class="form-group">
           <label>आपका पूरा नाम *</label>
@@ -385,39 +266,31 @@
         </div>
         <div class="form-group">
           <label>आने की तारीख *</label>
-          <input type="date" id="date" required>
+          <input type="date" id="date" required min="2025-02-20" max="2025-03-20">
         </div>
         <div class="form-group">
           <label>पसंदीदा समय</label>
           <select id="time">
-            <option>सुबह 9:00 - 10:00</option>
             <option>सुबह 10:00 - 11:00</option>
             <option>सुबह 11:00 - 12:00</option>
             <option>दोपहर 12:00 - 1:00</option>
             <option>दोपहर 2:00 - 3:00</option>
-            <option>दोपहर 3:00 - 4:00</option>
+            <option>शाम 3:00 - 4:00</option>
             <option>शाम 4:00 - 5:00</option>
-            <option>शाम 5:00 - 6:00</option>
           </select>
         </div>
         <div class="form-group">
           <label>पूरा पता</label>
           <textarea id="address" rows="3" placeholder="गांव, पोस्ट, थाना, जिला"></textarea>
         </div>
-        <button type="submit" class="submit-btn" id="submitBtn">📅 अपॉइंटमेंट बुक करें</button>
+        <button type="submit" class="submit-btn">📅 अपॉइंटमेंट बुक करें</button>
       </form>
-
-      <div id="loadingDiv" class="loading">
-        <div class="spinner"></div>
-        <p style="margin-top: 1rem; color: #2563eb;">आपका टोकन जनरेट हो रहा है...</p>
-      </div>
 
       <div id="thankYouMessage" class="thankyou-message">
         <h3>🎉 आपका अपॉइंटमेंट बुक हो गया!</h3>
-        <p style="font-size: 1.1rem; margin-bottom: 1rem;">आपका Token Number:</p>
         <div class="token-box" id="tokenDisplay"></div>
-        <p style="margin-top: 1rem;">कृपया यह Token Number नोट कर लें। CSC Center आने पर दिखाना होगा।</p>
-        <button class="btn" onclick="resetForm()" style="margin-top: 1.5rem;">नया अपॉइंटमेंट</button>
+        <p>कृपया यह Token Number नोट कर लें। CSC Center आने पर दिखाना होगा।</p>
+        <button class="btn" onclick="resetForm()">नया अपॉइंटमेंट</button>
       </div>
     </div>
   </section>
@@ -429,17 +302,9 @@
       <p><strong>🏢 CSC केंद्र : cscalipur</strong></p>
       <p>संचालक: राम प्रकाश कुमार</p>
       <p>📍 अलीपुर, बिहार (मुख्य चौक के पास)</p>
-      <p>📞 संपर्क: <a href="tel:+919801735984">+91 9801735984</a></p>
-      <p>⏰ समय: सोम-शनि 9:00 AM – 6:00 PM | रविवार 10:00 AM – 2:00 PM</p>
+      <p>📞 संपर्क: <a href="tel:+919876543210">+91 98765 43210</a></p>
+      <p>⏰ समय: सोम-शनि, सुबह 10:00 – शाम 6:00</p>
     </div>
-    
-    <h3 style="margin: 2rem 0 1rem; color: #2563eb;">हमसे जुड़ें</h3>
-    <div class="social-links">
-      <a href="https://www.facebook.com/cscalipur" target="_blank" class="fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://wa.me/919801735984" target="_blank" class="wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-      <a href="https://www.instagram.com/cscalipur" target="_blank" class="ig" title="Instagram"><i class="fab fa-instagram"></i></a>
-    </div>
-
     <iframe class="map-frame" src="https://www.google.com/maps?q=Alipur,Bihar&output=embed" allowfullscreen loading="lazy"></iframe>
   </section>
 
@@ -449,38 +314,18 @@
   </footer>
 
   <script>
-    // ==================== CONFIGURATION ====================
-    // ✅ तुम्हारा नया Apps Script URL
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyH3W5BVKZcO6qtr3jMAqqdxRXmi3c8xcG9lJjIX0RCurp3z2mzS-NRIH8r2X9G9vbPxw/exec';
-
-    // ==================== UTILITY FUNCTIONS ====================
     // Dynamic Year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    // Set minimum date to tomorrow
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const maxDate = new Date(today);
-    maxDate.setDate(maxDate.getDate() + 30);
-    
-    document.getElementById('date').min = tomorrow.toISOString().split('T')[0];
-    document.getElementById('date').max = maxDate.toISOString().split('T')[0];
-
-    // Visitor Counter (session-based)
-    function updateVisitorCounter() {
-      const countSpan = document.getElementById('visitorCount');
-      if (!sessionStorage.getItem('visitorCounted')) {
-        let count = localStorage.getItem('visitorCount');
-        count = count ? parseInt(count) + 1 : 1;
-        localStorage.setItem('visitorCount', count);
-        sessionStorage.setItem('visitorCounted', 'true');
-        countSpan.innerText = count;
-      } else {
-        countSpan.innerText = localStorage.getItem('visitorCount') || 1;
-      }
+    // Visitor Counter (localStorage)
+    if (localStorage.getItem('visitorCount')) {
+      let count = parseInt(localStorage.getItem('visitorCount')) + 1;
+      localStorage.setItem('visitorCount', count);
+      document.getElementById('visitorCount').innerText = count;
+    } else {
+      localStorage.setItem('visitorCount', '1');
+      document.getElementById('visitorCount').innerText = '1';
     }
-    updateVisitorCounter();
 
     // Services Search
     document.getElementById('serviceSearch').addEventListener('keyup', function() {
@@ -497,7 +342,7 @@
       });
     });
 
-    // Generate Token (local, for immediate display)
+    // Form Submission with Token
     function generateToken() {
       const now = new Date();
       const dateStr = now.getFullYear().toString().slice(-2) +
@@ -507,91 +352,35 @@
       return `CSC${dateStr}${random}`;
     }
 
-    function showError(message) {
-      const errorDiv = document.getElementById('errorMessage');
-      errorDiv.innerText = message;
-      errorDiv.style.display = 'block';
-      errorDiv.scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => errorDiv.style.display = 'none', 5000);
-    }
-
-    // ==================== APPOINTMENT FORM SUBMISSION ====================
-    document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Get form values
+      // Validate form (basic)
       const name = document.getElementById('fullName').value.trim();
       const mobile = document.getElementById('mobile').value.trim();
       const service = document.getElementById('service').value;
       const date = document.getElementById('date').value;
-      const time = document.getElementById('time').value;
-      const address = document.getElementById('address').value.trim();
-
-      // Validation
       if (!name || !mobile || !service || !date) {
-        showError('कृपया सभी आवश्यक फील्ड भरें');
+        alert('कृपया सभी आवश्यक फील्ड भरें');
         return;
       }
 
-      if (mobile.length !== 10 || isNaN(mobile)) {
-        showError('मोबाइल नंबर 10 अंकों का होना चाहिए');
-        return;
-      }
+      // Generate token
+      const token = generateToken();
 
-      // Generate local token for immediate display
-      const localToken = generateToken();
-      const timestamp = new Date().toLocaleString('hi-IN');
-
-      // Show loading, hide form
+      // Hide form, show thank you
       document.getElementById('appointmentForm').style.display = 'none';
-      document.getElementById('loadingDiv').style.display = 'block';
-      document.getElementById('errorMessage').style.display = 'none';
+      document.getElementById('tokenDisplay').innerText = token;
+      document.getElementById('thankYouMessage').style.display = 'block';
 
-      // Prepare data for Google Sheet
-      const formData = {
-        name: name,
-        mobile: mobile,
-        service: service,
-        date: date,
-        time: time,
-        address: address
-      };
-
-      try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        
-        const result = await response.json();
-
-        // Hide loading
-        document.getElementById('loadingDiv').style.display = 'none';
-        
-        if (result.success) {
-          // Use server-generated token if available, otherwise fallback to local token
-          document.getElementById('tokenDisplay').innerText = result.token || localToken;
-          document.getElementById('thankYouMessage').style.display = 'block';
-          document.getElementById('thankYouMessage').scrollIntoView({ behavior: 'smooth' });
-        } else {
-          showError(result.error || 'डेटा सेव करने में समस्या हुई।');
-          document.getElementById('appointmentForm').style.display = 'block';
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('loadingDiv').style.display = 'none';
-        document.getElementById('appointmentForm').style.display = 'block';
-        showError('नेटवर्क त्रुटि। कृपया दोबारा कोशिश करें।');
-      }
+      // Here you can send data to Google Forms via fetch if you set up CORS proxy
+      // For now, we just simulate success.
     });
 
     function resetForm() {
       document.getElementById('appointmentForm').reset();
       document.getElementById('appointmentForm').style.display = 'block';
       document.getElementById('thankYouMessage').style.display = 'none';
-      document.getElementById('errorMessage').style.display = 'none';
-      document.getElementById('appointmentForm').scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 </body>
