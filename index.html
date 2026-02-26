@@ -365,23 +365,46 @@
         return;
       }
 
-      // Generate token
-      const token = generateToken();
+      // // Generate token
+const token = generateToken();
 
-      // Hide form, show thank you
-      document.getElementById('appointmentForm').style.display = 'none';
-      document.getElementById('tokenDisplay').innerText = token;
-      document.getElementById('thankYouMessage').style.display = 'block';
+// Show loading
+document.getElementById('appointmentForm').style.display = 'none';
+document.getElementById('loadingDiv').style.display = 'block'; // loadingDiv पहले से होना चाहिए
 
-      // Here you can send data to Google Forms via fetch if you set up CORS proxy
-      // For now, we just simulate success.
-    });
+// Prepare data
+const formData = {
+  name: name,
+  mobile: mobile,
+  service: service,
+  date: date,
+  time: time,
+  address: address
+};
 
-    function resetForm() {
-      document.getElementById('appointmentForm').reset();
-      document.getElementById('appointmentForm').style.display = 'block';
-      document.getElementById('thankYouMessage').style.display = 'none';
-    }
+// Send to Apps Script
+fetch('तुम्हारा_Apps_Script_URL', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(formData)
+})
+.then(response => response.json())
+.then(data => {
+  document.getElementById('loadingDiv').style.display = 'none';
+  if (data.success) {
+    document.getElementById('tokenDisplay').innerText = data.token;
+    document.getElementById('thankYouMessage').style.display = 'block';
+  } else {
+    alert('डेटा सेव नहीं हुआ: ' + data.error);
+    document.getElementById('appointmentForm').style.display = 'block';
+  }
+})
+.catch(error => {
+  console.error('Error:', error);
+  document.getElementById('loadingDiv').style.display = 'none';
+  document.getElementById('appointmentForm').style.display = 'block';
+  alert('नेटवर्क त्रुटि। कृपया दोबारा कोशिश करें।');
+});
   </script>
 </body>
 </html>
