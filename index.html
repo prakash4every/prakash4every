@@ -58,6 +58,11 @@
     .chatbot-input-area { padding: 12px; background: white; border-top: 1px solid #e2e8f0; display: flex; gap: 8px; }
     .chatbot-input-area input { flex: 1; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 20px; outline: none; }
     .chatbot-send-btn { background: #2563eb; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; }
+    
+    #errorMessage { display: none; background: #f87171; color: white; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; text-align: center; }
+    #loadingDiv { display: none; text-align: center; padding: 2rem; }
+    .spinner { border: 4px solid #f3f4f6; border-top: 4px solid #2563eb; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -90,7 +95,7 @@
   <section class="appointment-section" id="appointmentSection">
     <h2>📝 अपॉइंटमेंट बुक करें</h2>
     <div class="form-container">
-      <div id="errorMessage" style="display: none; background: #f87171; color: white; padding: 1rem; border-radius: 12px; margin-bottom: 1rem;"></div>
+      <div id="errorMessage"></div>
       
       <form id="appointmentForm">
         <div class="form-group">
@@ -134,8 +139,8 @@
         <button type="submit" class="submit-btn" id="submitBtn">बुकिंग पूरी करें</button>
       </form>
 
-      <div id="loadingDiv" style="display: none; text-align: center; padding: 2rem;">
-        <div class="spinner" style="border: 4px solid #f3f4f6; border-top: 4px solid #2563eb; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+      <div id="loadingDiv">
+        <div class="spinner"></div>
         <p style="margin-top: 1rem; color: #2563eb;">आपका टोकन जनरेट हो रहा है...</p>
       </div>
 
@@ -167,7 +172,7 @@
   <div id="chatbot-window">
     <div class="chatbot-header">
       <span>🤖 CSC AI सहायता</span>
-      <button id="chatbot-close" style="background: none; border: none; color: white; font-size: 20px;">✕</button>
+      <button id="chatbot-close" style="background: none; border: none; color: white; cursor: pointer; font-size: 20px;">✕</button>
     </div>
     <div class="chatbot-messages" id="chatbot-messages"></div>
     <div class="chatbot-input-area">
@@ -177,10 +182,11 @@
   </div>
 
   <script>
-    // Configuration
+    // ==================== CONFIGURATION ====================
+    // ✅ अपना Apps Script URL यहाँ डालें
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydIrl9Uxmpm8gb-CrBUjlNWDgw7Mqudz8EwXY7eB2REsNtK2HDU1imie9sPzfbB9r68A/exec";
 
-    // Chatbot
+    // ==================== CHATBOT CODE ====================
     const chatbotToggle = document.getElementById('chatbot-toggle');
     const chatbotWindow = document.getElementById('chatbot-window');
     const chatbotClose = document.getElementById('chatbot-close');
@@ -191,24 +197,44 @@
     chatbotToggle.onclick = () => {
       chatbotWindow.classList.toggle('active');
       if (chatbotWindow.classList.contains('active') && chatbotMessages.children.length === 0) {
-        addMessage('bot', 'नमस्ते! 👋 मैं CSC अलीपुर का AI सहायक हूँ।');
+        addMessage('bot', 'नमस्ते! 👋 मैं CSC अलीपुर का AI सहायक हूँ। मैं आपकी कैसे मदद कर सकता हूँ?');
       }
     };
+    
     chatbotClose.onclick = () => chatbotWindow.classList.remove('active');
 
     function addMessage(sender, text) {
       const msgDiv = document.createElement('div');
       msgDiv.className = `message ${sender}`;
-      msgDiv.innerHTML = `<div class="message-content">${text}</div>`;
+      msgDiv.innerHTML = `<div class="message-content">${text.replace(/\n/g, '<br>')}</div>`;
       chatbotMessages.appendChild(msgDiv);
       chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'message bot';
+      msgDiv.id = 'typing-indicator';
+      msgDiv.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
+      chatbotMessages.appendChild(msgDiv);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const indicator = document.getElementById('typing-indicator');
+      if (indicator) indicator.remove();
     }
 
     async function sendMessage() {
       const msg = chatbotInput.value.trim();
       if (!msg) return;
+      
       addMessage('user', msg);
       chatbotInput.value = '';
+      chatbotInput.disabled = true;
+      chatbotSend.disabled = true;
+      
+      showTypingIndicator();
       
       try {
         const res = await fetch(APPS_SCRIPT_URL, {
@@ -216,34 +242,67 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: msg })
         });
+        
+        if (!res.ok) throw new Error('Network response was not ok');
+        
         const data = await res.json();
-        addMessage('bot', data.message || 'जवाब नहीं मिला।');
-      } catch {
-        addMessage('bot', 'कनेक्शन त्रुटि।');
+        removeTypingIndicator();
+        addMessage('bot', data.message || 'क्षमा करें, मैं समझ नहीं पाया।');
+      } catch (err) {
+        console.error('Chatbot Error:', err);
+        removeTypingIndicator();
+        addMessage('bot', 'कनेक्शन त्रुटि। कृपया बाद में कोशिश करें।');
+      } finally {
+        chatbotInput.disabled = false;
+        chatbotSend.disabled = false;
+        chatbotInput.focus();
       }
     }
 
     chatbotSend.onclick = sendMessage;
     chatbotInput.onkeypress = e => e.key === 'Enter' && sendMessage();
 
-    // Appointment Form
+    // ==================== APPOINTMENT FORM ====================
     document.getElementById('appointmentForm').addEventListener('submit', async e => {
       e.preventDefault();
       
-      const formData = {
-        name: document.getElementById('fullName').value.trim(),
-        mobile: document.getElementById('mobile').value.trim(),
-        service: document.getElementById('service').value,
-        date: document.getElementById('date').value,
-        timeSlot: document.getElementById('time').value
-      };
+      const name = document.getElementById('fullName').value.trim();
+      const mobile = document.getElementById('mobile').value.trim();
+      const service = document.getElementById('service').value;
+      const date = document.getElementById('date').value;
+      const timeSlot = document.getElementById('time').value;
 
-      if (!formData.name || !formData.mobile || !formData.service || !formData.date || !formData.timeSlot) {
-        return alert('सभी फील्ड भरें');
+      // Validation
+      if (!name || !mobile || !service || !date || !timeSlot) {
+        showError('कृपया सभी आवश्यक फील्ड भरें');
+        return;
       }
 
+      if (mobile.length !== 10 || isNaN(mobile)) {
+        showError('कृपया सही 10 अंकों का मोबाइल नंबर दर्ज करें');
+        return;
+      }
+
+      // Generate token
+      const token = 'CSC' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + 
+                    Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+      const timestamp = new Date().toLocaleString('hi-IN');
+
+      // Show loading
       document.getElementById('appointmentForm').style.display = 'none';
       document.getElementById('loadingDiv').style.display = 'block';
+
+      // Prepare data for Google Sheet
+      const formData = {
+        timestamp: timestamp,
+        token: token,
+        status: 'Pending',
+        name: name,
+        mobile: mobile,
+        service: service,
+        date: date,
+        timeSlot: timeSlot
+      };
 
       try {
         const res = await fetch(APPS_SCRIPT_URL, {
@@ -251,25 +310,47 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         });
+
+        if (!res.ok) throw new Error('Network response was not ok');
+
         const result = await res.json();
-        
+
         document.getElementById('loadingDiv').style.display = 'none';
-        
+
         if (result.success) {
-          document.getElementById('tokenDisplay').innerText = result.token;
+          document.getElementById('tokenDisplay').innerText = token;
           document.getElementById('thankYouMessage').style.display = 'block';
+          document.getElementById('thankYouMessage').scrollIntoView({ behavior: 'smooth' });
         } else {
-          alert('डेटा सेव नहीं हुआ: ' + (result.error || 'unknown'));
+          showError('डेटा सेव नहीं हुआ: ' + (result.message || 'अज्ञात त्रुटि'));
           document.getElementById('appointmentForm').style.display = 'block';
         }
       } catch (err) {
-        alert('नेटवर्क त्रुटि');
+        console.error('Form Error:', err);
         document.getElementById('loadingDiv').style.display = 'none';
         document.getElementById('appointmentForm').style.display = 'block';
+        showError('नेटवर्क त्रुटि। कृपया दोबारा कोशिश करें।');
       }
     });
 
-    // Utility
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.innerText = message;
+      errorDiv.style.display = 'block';
+      setTimeout(() => {
+        errorDiv.style.display = 'none';
+      }, 5000);
+    }
+
+    function resetForm() {
+      document.getElementById('appointmentForm').reset();
+      document.getElementById('appointmentForm').style.display = 'block';
+      document.getElementById('thankYouMessage').style.display = 'none';
+      document.getElementById('loadingDiv').style.display = 'none';
+      document.getElementById('errorMessage').style.display = 'none';
+    }
+
+    // ==================== UTILITY FUNCTIONS ====================
     document.getElementById('currentYear').innerText = new Date().getFullYear();
     
     // Visitor counter
@@ -283,17 +364,14 @@
     }
 
     // Date picker limits
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    document.getElementById('date').min = d.toISOString().split('T')[0];
-    d.setDate(d.getDate() + 30);
-    document.getElementById('date').max = d.toISOString().split('T')[0];
-
-    function resetForm() {
-      document.getElementById('appointmentForm').reset();
-      document.getElementById('appointmentForm').style.display = 'block';
-      document.getElementById('thankYouMessage').style.display = 'none';
-    }
+    const dateInput = document.getElementById('date');
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const maxDate = new Date(today);
+    maxDate.setDate(maxDate.getDate() + 30);
+    dateInput.min = tomorrow.toISOString().split('T')[0];
+    dateInput.max = maxDate.toISOString().split('T')[0];
   </script>
 </body>
 </html>
