@@ -31,25 +31,11 @@
     .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1300px; margin: 0 auto 3rem; padding: 0 2rem; }
     .card { background: white; padding: 1.8rem; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(37,99,235,0.1); transition: all 0.3s; height: 100%; display: flex; flex-direction: column; }
     .card:hover { transform: translateY(-6px); border-color: #2563eb; box-shadow: 0 20px 40px rgba(37,99,235,0.15); }
-    .card h3 { font-size: 1.5rem; color: #2563eb; margin-bottom: 0.8rem; font-weight: 600; }
+    .card h3 { font-size: 1.5rem; color: #2563eb; margin-bottom: 0.8rem; }
     .card p { color: #334155; flex-grow: 1; }
     .appointment-section { background: #f1f5f9; padding: 3rem 1.5rem; }
-    .form-container { max-width: 700px; margin: 0 auto; background: white; border-radius: 32px; padding: 2rem; box-shadow: 0 20px 35px rgba(0,0,0,0.05); }
-    .form-group { margin-bottom: 1.5rem; }
-    .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #2563eb; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem 1rem; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 1rem; transition: 0.3s; font-family: 'Poppins', sans-serif; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #2563eb; outline: none; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
-    .submit-btn { background: #16a34a; color: white; padding: 1rem; border: none; border-radius: 50px; font-size: 1.2rem; font-weight: 600; width: 100%; cursor: pointer; transition: all 0.3s; }
-    .submit-btn:hover { background: #15803d; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3); }
-    .submit-btn:disabled { background: #9ca3af; cursor: not-allowed; transform: none; }
-    .thankyou-message { display: none; background: #4CAF50; color: white; padding: 2rem; border-radius: 16px; text-align: center; animation: slideIn 0.5s ease-out; }
-    @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .thankyou-message h3 { font-size: 2rem; margin-bottom: 1rem; }
-    .token-box { background: white; color: #2563eb; font-size: 2.5rem; font-weight: bold; padding: 1rem; border-radius: 12px; display: inline-block; margin: 1rem 0; letter-spacing: 2px; }
-    .error-message { display: none; background: #f87171; color: white; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; text-align: center; }
-    .loading { display: none; text-align: center; padding: 2rem; }
-    .spinner { border: 4px solid #f3f4f6; border-top: 4px solid #2563eb; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .form-container { max-width: 800px; margin: 0 auto; background: white; border-radius: 32px; padding: 2rem; box-shadow: 0 20px 35px rgba(0,0,0,0.05); }
+    .form-container iframe { width: 100%; height: 900px; border: none; border-radius: 16px; }
     .location-section { padding: 3rem 1.5rem; background: white; text-align: center; }
     .info-card { background: #f8fafc; padding: 2rem; border-radius: 28px; max-width: 700px; margin: 0 auto 2rem; border: 2px solid #e2e8f0; }
     .info-card p { font-size: 1.1rem; margin: 0.8rem 0; }
@@ -63,27 +49,16 @@
     .social-links .wa { background: #25d366; }
     .social-links .ig { background: #e4405f; }
     footer { background: #1e293b; color: #cbd5e1; text-align: center; padding: 2rem; }
-    .visitor-counter { margin-top: 1rem; padding: 0.5rem 1.5rem; background: #334155; border-radius: 50px; display: inline-block; font-weight: 600; }
-
-    /* Chatbot Styles */
-    #chatbot-toggle { position: fixed; bottom: 20px; right: 20px; background: #2563eb; color: white; border: none; border-radius: 60px; padding: 15px 25px; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 4px 15px rgba(37,99,235,0.4); display: flex; align-items: center; gap: 8px; z-index: 9999; }
-    #chatbot-window { position: fixed; bottom: 90px; right: 20px; width: 380px; height: 550px; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); background: white; display: none; flex-direction: column; z-index: 9998; }
-    #chatbot-window.active { display: flex; }
-    .chatbot-header { background: #2563eb; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
-    .chatbot-messages { flex: 1; overflow-y: auto; padding: 15px; background: #f8fafc; }
-    .message { margin-bottom: 12px; display: flex; }
-    .message.user { justify-content: flex-end; }
-    .message-content { max-width: 75%; padding: 10px 15px; border-radius: 12px; word-wrap: break-word; }
-    .user .message-content { background: #2563eb; color: white; border-radius: 18px 18px 4px 18px; }
-    .bot .message-content { background: white; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 18px 18px 18px 4px; }
-    .typing-indicator { display: flex; gap: 4px; padding: 10px 15px; }
-    .typing-indicator span { width: 8px; height: 8px; border-radius: 50%; background: #2563eb; animation: typing 1.4s infinite; }
-    @keyframes typing { 0%, 60%, 100% { opacity: 0.5; } 30% { opacity: 1; } }
-    .chatbot-input-area { padding: 12px; background: white; border-top: 1px solid #e2e8f0; display: flex; gap: 8px; }
-    .chatbot-input-area input { flex: 1; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 20px; outline: none; }
-    .chatbot-send-btn { background: #2563eb; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; transition: all 0.3s; }
-    .chatbot-send-btn:hover { background: #1d4ed8; }
-    .chatbot-send-btn:disabled { background: #9ca3af; cursor: not-allowed; }
+    .visitor-counter { margin-top: 1rem; padding: 0.5rem 1.5rem; background: #334155; border-radius: 50px; display: inline-block; }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      h2 { font-size: 1.8rem; }
+      header { flex-direction: column; gap: 1rem; }
+      header h2 { font-size: 1.4rem; }
+      .header-buttons { width: 100%; justify-content: center; }
+      .services-grid { padding: 0 1rem; }
+      .form-container iframe { height: 1100px; }
+    }
   </style>
 </head>
 <body>
@@ -120,72 +95,12 @@
     </div>
   </section>
 
-  <!-- Appointment Form -->
+  <!-- Appointment Form (Google Form Embedded) -->
   <section id="appointment" class="appointment-section">
     <h2>📝 ऑनलाइन अपॉइंटमेंट बुक करें</h2>
     <div class="form-container">
-      <div id="errorMessage" class="error-message"></div>
-      
-      <form id="appointmentForm">
-        <div class="form-group">
-          <label>आपका पूरा नाम *</label>
-          <input type="text" id="fullName" required placeholder="पूरा नाम डाले">
-        </div>
-        <div class="form-group">
-          <label>मोबाइल नंबर *</label>
-          <input type="tel" id="mobile" required pattern="[0-9]{10}" placeholder="10 अंक">
-        </div>
-        <div class="form-group">
-          <label>कौन सी सेवा चाहिए? *</label>
-          <select id="service" required>
-            <option value="">-- चुनें --</option>
-            <option>आधार सेवा</option>
-            <option>आय प्रमाणपत्र</option>
-            <option>जाति प्रमाणपत्र</option>
-            <option>निवास प्रमाणपत्र</option>
-            <option>पेंशन आवेदन</option>
-            <option>राशन कार्ड</option>
-            <option>बैंकिंग सेवा</option>
-            <option>बीमा योजना</option>
-            <option>अन्य</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>आने की तारीख *</label>
-          <input type="date" id="date" required>
-        </div>
-        <div class="form-group">
-          <label>पसंदीदा समय</label>
-          <select id="time">
-            <option>सुबह 9:00 - 10:00</option>
-            <option>सुबह 10:00 - 11:00</option>
-            <option>सुबह 11:00 - 12:00</option>
-            <option>दोपहर 12:00 - 1:00</option>
-            <option>दोपहर 2:00 - 3:00</option>
-            <option>दोपहर 3:00 - 4:00</option>
-            <option>शाम 4:00 - 5:00</option>
-            <option>शाम 5:00 - 6:00</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>पूरा पता</label>
-          <textarea id="address" rows="3" placeholder="गांव, पोस्ट, थाना, जिला"></textarea>
-        </div>
-        <button type="submit" class="submit-btn" id="submitBtn">📅 अपॉइंटमेंट बुक करें</button>
-      </form>
-
-      <div id="loadingDiv" class="loading">
-        <div class="spinner"></div>
-        <p style="margin-top: 1rem; color: #2563eb;">आपका टोकन जनरेट हो रहा है...</p>
-      </div>
-
-      <div id="thankYouMessage" class="thankyou-message">
-        <h3>🎉 आपका अपॉइंटमेंट बुक हो गया!</h3>
-        <p style="font-size: 1.1rem; margin-bottom: 1rem;">आपका Token Number:</p>
-        <div class="token-box" id="tokenDisplay"></div>
-        <p style="margin-top: 1rem;">कृपया यह Token Number नोट कर लें। CSC Center आने पर दिखाना होगा।</p>
-        <button class="btn" onclick="resetForm()" style="margin-top: 1.5rem;">नया अपॉइंटमेंट</button>
-      </div>
+      <!-- ✅ यहाँ तुम्हारा Google Form iframe डाला गया है -->
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd71bE3B9sy7FNyXGroyZRUP8WgNrkldcVT2JJt8B0g-_uBkg/viewform?usp=header" width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
   </section>
 
@@ -215,51 +130,20 @@
     <div class="visitor-counter">👁️ कुल विजिटर: <span id="visitorCount">0</span></div>
   </footer>
 
-  <!-- Chatbot -->
-  <button id="chatbot-toggle"><i class="fas fa-comments"></i> चैट करें</button>
-  <div id="chatbot-window">
-    <div class="chatbot-header">
-      <span>🤖 CSC AI सहायता</span>
-      <button id="chatbot-close" style="background: none; border: none; color: white; cursor: pointer; font-size: 20px;">✕</button>
-    </div>
-    <div class="chatbot-messages" id="chatbot-messages"></div>
-    <div class="chatbot-input-area">
-      <input type="text" id="chatbot-input" placeholder="अपना सवाल पूछें...">
-      <button class="chatbot-send-btn" id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
-    </div>
-  </div>
-
   <script>
-    // ==================== CONFIGURATION ====================
-    // ✅ तुम्हारा नया Apps Script URL (जो अब डिप्लॉय हुआ है)
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbylPOGi87xspf22uHZ9SYBysbuXNqmCaAqZ11XnQ-vAottK00rDLFS4f8RtVDlXlwh2nA/exec';
-
-    // ==================== UTILITY FUNCTIONS ====================
+    // ==================== SIMPLE SCRIPT ====================
+    // Dynamic Year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    // Date picker limits
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const maxDate = new Date(today);
-    maxDate.setDate(maxDate.getDate() + 30);
-    document.getElementById('date').min = tomorrow.toISOString().split('T')[0];
-    document.getElementById('date').max = maxDate.toISOString().split('T')[0];
-
-    // Visitor Counter
-    function updateVisitorCounter() {
-      const countSpan = document.getElementById('visitorCount');
-      if (!sessionStorage.getItem('visitorCounted')) {
-        let count = localStorage.getItem('visitorCount');
-        count = count ? parseInt(count) + 1 : 1;
-        localStorage.setItem('visitorCount', count);
-        sessionStorage.setItem('visitorCounted', 'true');
-        countSpan.innerText = count;
-      } else {
-        countSpan.innerText = localStorage.getItem('visitorCount') || 1;
-      }
+    // Visitor Counter (Simple localStorage)
+    if (localStorage.getItem('visitorCount')) {
+      let count = parseInt(localStorage.getItem('visitorCount')) + 1;
+      localStorage.setItem('visitorCount', count);
+      document.getElementById('visitorCount').innerText = count;
+    } else {
+      localStorage.setItem('visitorCount', '1');
+      document.getElementById('visitorCount').innerText = '1';
     }
-    updateVisitorCounter();
 
     // Services Search
     document.getElementById('serviceSearch').addEventListener('keyup', function() {
@@ -268,151 +152,13 @@
       cards.forEach(card => {
         let title = card.querySelector('h3').innerText.toLowerCase();
         let desc = card.querySelector('p').innerText.toLowerCase();
-        card.style.display = (title.includes(search) || desc.includes(search) || search === '') ? 'flex' : 'none';
+        if (title.includes(search) || desc.includes(search) || search === '') {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
       });
     });
-
-    // ==================== CHATBOT CODE ====================
-    const chatbotToggle = document.getElementById('chatbot-toggle');
-    const chatbotWindow = document.getElementById('chatbot-window');
-    const chatbotClose = document.getElementById('chatbot-close');
-    const chatbotMessages = document.getElementById('chatbot-messages');
-    const chatbotInput = document.getElementById('chatbot-input');
-    const chatbotSend = document.getElementById('chatbot-send');
-
-    chatbotToggle.addEventListener('click', function() {
-      chatbotWindow.classList.toggle('active');
-      if (chatbotWindow.classList.contains('active') && chatbotMessages.children.length === 0) {
-        addMessage('bot', 'नमस्ते! 👋 मैं CSC अलीपुर का AI सहायक हूँ। मैं आपकी कैसे मदद कर सकता हूँ?');
-      }
-    });
-
-    chatbotClose.addEventListener('click', function() {
-      chatbotWindow.classList.remove('active');
-    });
-
-    function addMessage(sender, text) {
-      const msgDiv = document.createElement('div');
-      msgDiv.className = `message ${sender}`;
-      msgDiv.innerHTML = `<div class="message-content">${text}</div>`;
-      chatbotMessages.appendChild(msgDiv);
-      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-    }
-
-    function showTypingIndicator() {
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'message bot';
-      msgDiv.id = 'typing-indicator';
-      msgDiv.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
-      chatbotMessages.appendChild(msgDiv);
-      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-    }
-
-    function removeTypingIndicator() {
-      const indicator = document.getElementById('typing-indicator');
-      if (indicator) indicator.remove();
-    }
-
-    async function sendMessage() {
-      const userMessage = chatbotInput.value.trim();
-      if (!userMessage) return;
-
-      addMessage('user', userMessage);
-      chatbotInput.value = '';
-      chatbotInput.disabled = true;
-      chatbotSend.disabled = true;
-      showTypingIndicator();
-
-      try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: userMessage })
-        });
-        const data = await response.json();
-        removeTypingIndicator();
-        addMessage('bot', data.message || 'क्षमा करें, मैं समझ नहीं पाया।');
-      } catch (error) {
-        removeTypingIndicator();
-        addMessage('bot', 'कनेक्शन त्रुटि। कृपया बाद में कोशिश करें।');
-      } finally {
-        chatbotInput.disabled = false;
-        chatbotSend.disabled = false;
-        chatbotInput.focus();
-      }
-    }
-
-    chatbotSend.addEventListener('click', sendMessage);
-    chatbotInput.addEventListener('keypress', e => e.key === 'Enter' && sendMessage());
-
-    // ==================== APPOINTMENT FORM SUBMISSION ====================
-    document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const name = document.getElementById('fullName').value.trim();
-      const mobile = document.getElementById('mobile').value.trim();
-      const service = document.getElementById('service').value;
-      const date = document.getElementById('date').value;
-      const time = document.getElementById('time').value;
-      const address = document.getElementById('address').value.trim();
-
-      if (!name || !mobile || !service || !date) {
-        showError('कृपया सभी आवश्यक फील्ड भरें');
-        return;
-      }
-      if (mobile.length !== 10 || isNaN(mobile)) {
-        showError('मोबाइल नंबर 10 अंकों का होना चाहिए');
-        return;
-      }
-
-      const localToken = 'CSC' + new Date().toISOString().slice(0, 10).replace(/-/g, '') + Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-
-      document.getElementById('appointmentForm').style.display = 'none';
-      document.getElementById('loadingDiv').style.display = 'block';
-      document.getElementById('errorMessage').style.display = 'none';
-
-      const formData = { name, mobile, service, date, time, address };
-
-      try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        document.getElementById('loadingDiv').style.display = 'none';
-        
-        if (result.success) {
-          document.getElementById('tokenDisplay').innerText = result.token || localToken;
-          document.getElementById('thankYouMessage').style.display = 'block';
-        } else {
-          showError(result.error || 'डेटा सेव करने में समस्या हुई।');
-          document.getElementById('appointmentForm').style.display = 'block';
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('loadingDiv').style.display = 'none';
-        document.getElementById('appointmentForm').style.display = 'block';
-        showError('नेटवर्क त्रुटि। कृपया दोबारा कोशिश करें।');
-      }
-    });
-
-    function showError(message) {
-      const errorDiv = document.getElementById('errorMessage');
-      errorDiv.innerText = message;
-      errorDiv.style.display = 'block';
-      errorDiv.scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => errorDiv.style.display = 'none', 5000);
-    }
-
-    function resetForm() {
-      document.getElementById('appointmentForm').reset();
-      document.getElementById('appointmentForm').style.display = 'block';
-      document.getElementById('thankYouMessage').style.display = 'none';
-      document.getElementById('errorMessage').style.display = 'none';
-      document.getElementById('appointmentForm').scrollIntoView({ behavior: 'smooth' });
-    }
   </script>
 </body>
 </html>
