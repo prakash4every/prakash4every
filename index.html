@@ -115,24 +115,21 @@
       
       <form action="https://docs.google.com/forms/d/e/1FAIpQLSd71bE3B9sy7FNyXGroyZRUP8WgNrkldcVT2JJt8B0g-_uBkg/formResponse" method="POST" target="_blank" id="appointmentForm">
 
-        <!-- ⚠️ Token Number (Hidden Field) – ID तुम्हारे प्री-फिल्ड लिंक से ली गई है -->
+        <!-- Token Number (Hidden Field) -->
         <input type="hidden" name="entry.1481242426" id="tokenInput">
 
         <div class="form-group">
           <label>आपका पूरा नाम *</label>
-          <!-- ⚠️ Name Field – सही ID डाल दी गई है -->
           <input type="text" name="entry.107361189" required placeholder="पूरा नाम डाले">
         </div>
 
         <div class="form-group">
           <label>मोबाइल नंबर *</label>
-          <!-- ⚠️ Mobile Field – सही ID डाल दी गई है -->
           <input type="tel" name="entry.1364756197" required pattern="[0-9]{10}" placeholder="10 अंक">
         </div>
 
         <div class="form-group">
           <label>कौन सी सेवा चाहिए? *</label>
-          <!-- ⚠️ Service Field – सही ID डाल दी गई है -->
           <select name="entry.957456591" required>
             <option value="">-- चुनें --</option>
             <option value="✅ आधार सेवा (नया आधार, अपडेट, ई-आधार)">आधार सेवा</option>
@@ -150,19 +147,16 @@
 
         <div class="form-group">
           <label>अन्य सेवा का विवरण (यदि ऊपर "अन्य" चुना हो)</label>
-          <!-- ⚠️ Other Service Detail Field – सही ID डाल दी गई है -->
           <textarea name="entry.849591609" rows="2" placeholder="अन्य सेवा का नाम लिखें"></textarea>
         </div>
 
         <div class="form-group">
           <label>आने की तारीख *</label>
-          <!-- ⚠️ Date Field – सही ID डाल दी गई है -->
           <input type="date" name="entry.1788454306" required>
         </div>
 
         <div class="form-group">
           <label>पसंदीदा समय *</label>
-          <!-- ⚠️ Time Slot Field – सही ID डाल दी गई है -->
           <select name="entry.1112254037" required>
             <option value="">-- चुनें --</option>
             <option value="सुबह 10:00 - 11:00">सुबह 10:00 - 11:00</option>
@@ -217,6 +211,9 @@
     <p>© <span id="currentYear"></span> cscalipur | सभी अधिकार सुरक्षित</p>
     <div class="visitor-counter">👁️ कुल विजिटर: <span id="visitorCount">0</span></div>
   </footer>
+
+  <!-- Tidio Chatbot Script - इसे वापस जोड़ दिया गया है -->
+  <script src="//code.tidio.co/i3gpp9hs7jbvknttzs1azkcrygqv90gt.js" async></script>
 
   <script>
     // Dynamic Year
