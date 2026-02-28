@@ -452,9 +452,9 @@ const aiBox = document.getElementById("aiChatBox");
 const aiMessages = document.getElementById("aiMessages");
 
 aiBtn.onclick = () => {
-  aiBox.style.display = aiBox.style.display === "flex" ? "none" : "flex";
-  aiBox.style.flexDirection = "column";
-};
+  if (aiBox.style.display === "flex") {
+  speakReply("नमस्ते! मैं CSC अलीपुर डिजिटल सहायक हूँ। आप कैसे सहायता चाहते हैं?");
+}
 
 function addAIMessage(text, type) {
   const msg = document.createElement("div");
