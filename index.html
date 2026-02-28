@@ -483,11 +483,10 @@ function sendAI() {
     body: JSON.stringify({ message: message })
   })
   .then(res => res.json())
-  ..then(data => {
-  aiMessages.lastChild.remove();
-  addAIMessage(data.reply, "bot");
-  speakReply(data.reply);   // 🔊 AI अब बोलेगा
-})
+  .then(data => {
+    aiMessages.lastChild.remove();
+    addAIMessage(data.reply, "bot");
+    speakReply(data.reply);
   })
   .catch(() => {
     aiMessages.lastChild.remove();
