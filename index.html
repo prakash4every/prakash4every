@@ -436,9 +436,14 @@
   <div id="aiHeader">CSC अलीपुर डिजिटल सहायक</div>
   <div id="aiMessages"></div>
   <div id="aiInputBox">
-    <input type="text" id="aiInput" placeholder="अपना प्रश्न लिखें..." />
-    <button onclick="sendAI()">Send</button>
-  </div>
+  <input type="text" id="aiInput" placeholder="अपना प्रश्न लिखें..." />
+  <button onclick="sendAI()">Send</button>
+
+  <!-- 🎤 Voice Button -->
+  <button onclick="startVoice()" 
+    style="background:#10b981;color:white;border:none;padding:10px 12px;cursor:pointer;">
+    🎤
+  </button>
 </div>
 
 <script>
