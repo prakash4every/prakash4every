@@ -510,7 +510,7 @@ function startVoice() {
   const recognition = new webkitSpeechRecognition();
   recognition.lang = "hi-IN";
   recognition.interimResults = false;
-  recognition.start();
+  recognition.continuous = false;
 
   recognition.onstart = function() {
     addAIMessage("🎤 सुन रहा हूँ...", "bot");
@@ -519,12 +519,23 @@ function startVoice() {
   recognition.onresult = function(event) {
     const voiceText = event.results[0][0].transcript;
     document.getElementById("aiInput").value = voiceText;
+    recognition.stop();
     sendAI();
   };
 
-  recognition.onerror = function() {
-    addAIMessage("Voice error आया, फिर कोशिश करें।", "bot");
+  recognition.onerror = function(event) {
+    console.log("Voice Error:", event.error);
+
+    if (event.error === "not-allowed") {
+      addAIMessage("कृपया माइक्रोफोन अनुमति दें।", "bot");
+    } else if (event.error === "no-speech") {
+      addAIMessage("आवाज़ सुनाई नहीं दी, फिर कोशिश करें।", "bot");
+    } else {
+      addAIMessage("Voice error आया, फिर कोशिश करें।", "bot");
+    }
   };
+
+  recognition.start();
 }
 
 // 🔊 AI Reply बोलने के लिए
