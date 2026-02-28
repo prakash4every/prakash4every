@@ -453,9 +453,12 @@ const aiMessages = document.getElementById("aiMessages");
 
 aiBtn.onclick = () => {
   if (aiBox.style.display === "flex") {
-  speakReply("नमस्ते! मैं CSC अलीपुर डिजिटल सहायक हूँ। आप कैसे सहायता चाहते हैं?");
-}
-
+    aiBox.style.display = "none";
+  } else {
+    aiBox.style.display = "flex";
+    speakReply("नमस्ते! मैं CSC अलीपुर डिजिटल सहायक हूँ। आप कैसे सहायता चाहते हैं?");
+  }
+};
 function addAIMessage(text, type) {
   const msg = document.createElement("div");
   msg.className = "aiMsg " + (type === "user" ? "userMsg" : "botMsg");
