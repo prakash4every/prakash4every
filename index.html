@@ -339,5 +339,160 @@
     dateInput.min = tomorrow.toISOString().split('T')[0];
     dateInput.max = maxDate.toISOString().split('T')[0];
   </script>
+<!-- ===== CSC AI Professional Chatbot ===== -->
+
+<style>
+#aiChatBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#2563eb,#1d4ed8);
+  color: #fff;
+  font-size: 26px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  z-index: 9999;
+}
+
+#aiChatBox {
+  position: fixed;
+  bottom: 100px;
+  right: 25px;
+  width: 340px;
+  height: 480px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  z-index: 9999;
+}
+
+#aiHeader {
+  background: linear-gradient(135deg,#2563eb,#1d4ed8);
+  color: white;
+  padding: 14px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+#aiMessages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  font-size: 14px;
+  background: #f8fafc;
+}
+
+.aiMsg {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  max-width: 85%;
+}
+
+.userMsg {
+  background: #dbeafe;
+  margin-left: auto;
+}
+
+.botMsg {
+  background: #e2e8f0;
+  margin-right: auto;
+}
+
+#aiInputBox {
+  display: flex;
+  border-top: 1px solid #e2e8f0;
+}
+
+#aiInputBox input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+#aiInputBox button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+</style>
+
+<button id="aiChatBtn">💬</button>
+
+<div id="aiChatBox">
+  <div id="aiHeader">CSC अलीपुर डिजिटल सहायक</div>
+  <div id="aiMessages"></div>
+  <div id="aiInputBox">
+    <input type="text" id="aiInput" placeholder="अपना प्रश्न लिखें..." />
+    <button onclick="sendAI()">Send</button>
+  </div>
+</div>
+
+<script>
+const aiBtn = document.getElementById("aiChatBtn");
+const aiBox = document.getElementById("aiChatBox");
+const aiMessages = document.getElementById("aiMessages");
+
+aiBtn.onclick = () => {
+  aiBox.style.display = aiBox.style.display === "flex" ? "none" : "flex";
+  aiBox.style.flexDirection = "column";
+};
+
+function addAIMessage(text, type) {
+  const msg = document.createElement("div");
+  msg.className = "aiMsg " + (type === "user" ? "userMsg" : "botMsg");
+  msg.innerText = text;
+  aiMessages.appendChild(msg);
+  aiMessages.scrollTop = aiMessages.scrollHeight;
+}
+
+function sendAI() {
+  const input = document.getElementById("aiInput");
+  const message = input.value.trim();
+  if (!message) return;
+
+  addAIMessage(message, "user");
+  input.value = "";
+
+  addAIMessage("कृपया प्रतीक्षा करें...", "bot");
+
+  fetch("https://csc-ylts.onrender.com/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: message })
+  })
+  .then(res => res.json())
+  .then(data => {
+    aiMessages.lastChild.remove();
+    addAIMessage(data.reply, "bot");
+  })
+  .catch(() => {
+    aiMessages.lastChild.remove();
+    addAIMessage("सर्वर से कनेक्शन में समस्या है।", "bot");
+  });
+}
+
+// Enter key support
+document.getElementById("aiInput").addEventListener("keypress", function(e) {
+  if (e.key === "Enter") {
+    sendAI();
+  }
+});
+</script>
+
+<!-- ===== End CSC AI Chatbot ===== -->
 </body>
 </html>
