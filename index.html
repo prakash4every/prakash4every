@@ -539,6 +539,9 @@ function startVoice() {
 }
 
 // 🔊 AI Reply बोलने के लिए
+window.speechSynthesis.onvoiceschanged = function() {
+  window.speechSynthesis.getVoices();
+};
 function speakReply(text) {
   const speech = new SpeechSynthesisUtterance(text);
   speech.lang = "hi-IN";
