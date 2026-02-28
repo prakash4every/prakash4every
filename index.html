@@ -531,6 +531,16 @@ function startVoice() {
 function speakReply(text) {
   const speech = new SpeechSynthesisUtterance(text);
   speech.lang = "hi-IN";
+
+  const voices = window.speechSynthesis.getVoices();
+  const hindiVoice = voices.find(voice => 
+    voice.lang.includes("hi") && voice.name.toLowerCase().includes("female")
+  );
+
+  if (hindiVoice) {
+    speech.voice = hindiVoice;
+  }
+
   speech.rate = 1;
   window.speechSynthesis.speak(speech);
 }
