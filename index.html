@@ -496,6 +496,40 @@ document.getElementById("aiInput").addEventListener("keypress", function(e) {
     sendAI();
   }
 });
+// 🎤 Voice Recognition
+function startVoice() {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert("Voice recognition इस browser में supported नहीं है। कृपया Chrome इस्तेमाल करें।");
+    return;
+  }
+
+  const recognition = new webkitSpeechRecognition();
+  recognition.lang = "hi-IN";
+  recognition.interimResults = false;
+  recognition.start();
+
+  recognition.onstart = function() {
+    addAIMessage("🎤 सुन रहा हूँ...", "bot");
+  };
+
+  recognition.onresult = function(event) {
+    const voiceText = event.results[0][0].transcript;
+    document.getElementById("aiInput").value = voiceText;
+    sendAI();
+  };
+
+  recognition.onerror = function() {
+    addAIMessage("Voice error आया, फिर कोशिश करें।", "bot");
+  };
+}
+
+// 🔊 AI Reply बोलने के लिए
+function speakReply(text) {
+  const speech = new SpeechSynthesisUtterance(text);
+  speech.lang = "hi-IN";
+  speech.rate = 1;
+  window.speechSynthesis.speak(speech);
+}
 </script>
 
 <!-- ===== End CSC AI Chatbot ===== -->
