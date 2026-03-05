@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* ===== तुम्हारा सारा स्टाइल यहाँ रहेगा ===== */
+    /* ===== तुम्हारा पुराना सारा स्टाइल बिल्कुल वैसा ही ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Poppins', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
     header { background: #2563eb; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex-wrap: wrap; }
@@ -71,9 +71,197 @@
       .header-buttons { width: 100%; justify-content: center; }
       .services-grid { padding: 0 1rem; }
     }
+
+    /* ===== नया Omni AI Chatbot (बायीं तरफ) ===== */
+    #omniChatBtn {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;    /* left: 25px रखा है */
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #b45309, #92400e);
+      color: white;
+      font-size: 28px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(180, 83, 9, 0.3);
+      z-index: 9999;
+    }
+    #omniChatBox {
+      position: fixed;
+      bottom: 100px;
+      left: 25px;    /* left में रखा है */
+      width: 340px;
+      height: 480px;
+      background: #fffaf0;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      z-index: 9999;
+      border: 2px solid #b45309;
+    }
+    #omniHeader {
+      background: linear-gradient(135deg, #b45309, #92400e);
+      color: white;
+      padding: 14px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    #omniMessages {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      font-size: 14px;
+      background: #fffaf0;
+    }
+    .omniMsg {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      max-width: 85%;
+    }
+    .omniUserMsg {
+      background: #d1d5db;
+      margin-left: auto;
+    }
+    .omniBotMsg {
+      background: #fde68a;
+      margin-right: auto;
+    }
+    #omniInputBox {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px;
+      border-top: 2px solid #b45309;
+      background: white;
+    }
+    #omniInputBox input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 30px;
+      outline: none;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+    }
+    #omniSendBtn {
+      background: #b45309;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 16px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: 0.2s;
+      min-width: 50px;
+    }
+    #omniSendBtn:hover {
+      background: #92400e;
+      transform: scale(1.05);
+    }
+    #omniMicBtn {
+      background: #10b981;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 18px;
+      font-size: 22px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    #omniMicBtn:hover {
+      background: #059669;
+      transform: scale(1.05);
+    }
+
+    /* ===== पुराना CSC Chatbot (दायीं तरफ) – कुछ नहीं बदला ===== */
+    #aiChatBtn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: linear-gradient(135deg,#2563eb,#1d4ed8);
+      color: #fff;
+      font-size: 26px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      z-index: 9999;
+    }
+    #aiChatBox {
+      position: fixed;
+      bottom: 100px;
+      right: 25px;
+      width: 340px;
+      height: 480px;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      z-index: 9999;
+    }
+    #aiHeader {
+      background: linear-gradient(135deg,#2563eb,#1d4ed8);
+      color: white;
+      padding: 14px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    #aiMessages {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      font-size: 14px;
+      background: #f8fafc;
+    }
+    .aiMsg {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      max-width: 85%;
+    }
+    .userMsg {
+      background: #dbeafe;
+      margin-left: auto;
+    }
+    .botMsg {
+      background: #e2e8f0;
+      margin-right: auto;
+    }
+    #aiInputBox {
+      display: flex;
+      border-top: 1px solid #e2e8f0;
+    }
+    #aiInputBox input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+    #aiInputBox button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+  <!-- ===== पूरा CSC कंटेंट (बिल्कुल वैसा ही) ===== -->
   <header>
     <h2>🏢 cscalipur | आधिकारिक सेवा केंद्र</h2>
     <div class="header-buttons">
@@ -107,32 +295,24 @@
     </div>
   </section>
 
-  <!-- Appointment Form (Custom Form that submits to Google Forms) -->
+  <!-- Appointment Form (बिल्कुल वैसा ही) -->
   <section id="appointment" class="appointment-section">
     <h2>📝 ऑनलाइन अपॉइंटमेंट बुक करें</h2>
     <div class="form-container">
       <div id="errorMessage" class="error-message"></div>
       
       <form action="https://docs.google.com/forms/d/e/1FAIpQLSd71bE3B9sy7FNyXGroyZRUP8WgNrkldcVT2JJt8B0g-_uBkg/formResponse" method="POST" target="_blank" id="appointmentForm">
-
-        <!-- ⚠️ Token Number (Hidden Field) – ID तुम्हारे प्री-फिल्ड लिंक से ली गई है -->
         <input type="hidden" name="entry.1481242426" id="tokenInput">
-
         <div class="form-group">
           <label>आपका पूरा नाम *</label>
-          <!-- ⚠️ Name Field – सही ID डाल दी गई है -->
           <input type="text" name="entry.107361189" required placeholder="पूरा नाम डाले">
         </div>
-
         <div class="form-group">
           <label>मोबाइल नंबर *</label>
-          <!-- ⚠️ Mobile Field – सही ID डाल दी गई है -->
           <input type="tel" name="entry.1364756197" required pattern="[0-9]{10}" placeholder="10 अंक">
         </div>
-
         <div class="form-group">
           <label>कौन सी सेवा चाहिए? *</label>
-          <!-- ⚠️ Service Field – सही ID डाल दी गई है -->
           <select name="entry.957456591" required>
             <option value="">-- चुनें --</option>
             <option value="✅ आधार सेवा (नया आधार, अपडेट, ई-आधार)">आधार सेवा</option>
@@ -147,22 +327,16 @@
             <option value="✅ अन्य (कृपया नीचे लिखें)">अन्य</option>
           </select>
         </div>
-
         <div class="form-group">
           <label>अन्य सेवा का विवरण (यदि ऊपर "अन्य" चुना हो)</label>
-          <!-- ⚠️ Other Service Detail Field – सही ID डाल दी गई है -->
           <textarea name="entry.849591609" rows="2" placeholder="अन्य सेवा का नाम लिखें"></textarea>
         </div>
-
         <div class="form-group">
           <label>आने की तारीख *</label>
-          <!-- ⚠️ Date Field – सही ID डाल दी गई है -->
           <input type="date" name="entry.1788454306" required>
         </div>
-
         <div class="form-group">
           <label>पसंदीदा समय *</label>
-          <!-- ⚠️ Time Slot Field – सही ID डाल दी गई है -->
           <select name="entry.1112254037" required>
             <option value="">-- चुनें --</option>
             <option value="सुबह 10:00 - 11:00">सुबह 10:00 - 11:00</option>
@@ -173,7 +347,6 @@
             <option value="शाम 4:00 - 5:00">शाम 4:00 - 5:00</option>
           </select>
         </div>
-
         <button type="submit" class="submit-btn" id="submitBtn">📅 अपॉइंटमेंट बुक करें</button>
       </form>
 
@@ -218,7 +391,34 @@
     <div class="visitor-counter">👁️ कुल विजिटर: <span id="visitorCount">0</span></div>
   </footer>
 
+  <!-- ===== CSC AI Chatbot (दायीं तरफ) – बिल्कुल वैसा ही ===== -->
+  <button id="aiChatBtn">💬</button>
+
+  <div id="aiChatBox">
+    <div id="aiHeader">CSC अलीपुर डिजिटल सहायक</div>
+    <div id="aiMessages"></div>
+    <div id="aiInputBox">
+      <input type="text" id="aiInput" placeholder="अपना प्रश्न लिखें..." />
+      <button onclick="sendAI()">Send</button>
+      <button onclick="startVoice()" style="background:#10b981;color:white;border:none;padding:10px 12px;cursor:pointer;">🎤</button>
+    </div>
+  </div>
+
+  <!-- ===== NEW Omni AI Chatbot (बायीं तरफ) ===== -->
+  <button id="omniChatBtn">🧘</button>
+
+  <div id="omniChatBox">
+    <div id="omniHeader">सहचर ओम्नी AI</div>
+    <div id="omniMessages"></div>
+    <div id="omniInputBox">
+      <input type="text" id="omniInput" placeholder="अपना प्रश्न पूछिए..." />
+      <button id="omniSendBtn" onclick="sendOmniMsg()">➤</button>
+      <button id="omniMicBtn" onclick="startOmniVoice()">🎤</button>
+    </div>
+  </div>
+
   <script>
+    // ========== CSC वाले स्क्रिप्ट (बिल्कुल वैसा ही) ==========
     // Dynamic Year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
@@ -262,7 +462,6 @@
     document.getElementById('appointmentForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Get form values for validation
       const name = document.querySelector('input[name="entry.107361189"]').value.trim();
       const mobile = document.querySelector('input[name="entry.1364756197"]').value.trim();
       const service = document.querySelector('select[name="entry.957456591"]').value;
@@ -278,21 +477,14 @@
         return;
       }
 
-      // Generate token
       const token = generateToken();
-
-      // Set token in hidden input
       document.getElementById('tokenInput').value = token;
-      
-      // Show token on screen
       document.getElementById('tokenDisplay').innerText = token;
 
-      // Show loading
       document.getElementById('appointmentForm').style.display = 'none';
       document.getElementById('loadingDiv').style.display = 'block';
       document.getElementById('errorMessage').style.display = 'none';
 
-      // Submit the form to Google Forms
       const formData = new FormData(document.getElementById('appointmentForm'));
       fetch(document.getElementById('appointmentForm').action, {
         method: 'POST',
@@ -300,7 +492,6 @@
         mode: 'no-cors'
       })
       .then(() => {
-        // Success
         document.getElementById('loadingDiv').style.display = 'none';
         document.getElementById('thankYouMessage').style.display = 'block';
         document.getElementById('thankYouMessage').scrollIntoView({ behavior: 'smooth' });
@@ -329,7 +520,6 @@
       document.getElementById('appointmentForm').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Date picker limits
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -338,228 +528,188 @@
     const dateInput = document.querySelector('input[name="entry.1788454306"]');
     dateInput.min = tomorrow.toISOString().split('T')[0];
     dateInput.max = maxDate.toISOString().split('T')[0];
-  </script>
-<!-- ===== CSC AI Professional Chatbot ===== -->
 
-<style>
-#aiChatBtn {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  background: linear-gradient(135deg,#2563eb,#1d4ed8);
-  color: #fff;
-  font-size: 26px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-  z-index: 9999;
-}
+    // ========== CSC Chatbot JavaScript (बिल्कुल वैसा ही) ==========
+    const aiBtn = document.getElementById("aiChatBtn");
+    const aiBox = document.getElementById("aiChatBox");
+    const aiMessages = document.getElementById("aiMessages");
 
-#aiChatBox {
-  position: fixed;
-  bottom: 100px;
-  right: 25px;
-  width: 340px;
-  height: 480px;
-  background: #ffffff;
-  border-radius: 24px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-  display: none;
-  flex-direction: column;
-  overflow: hidden;
-  font-family: 'Poppins', sans-serif;
-  z-index: 9999;
-}
+    aiBtn.onclick = () => {
+      aiBox.style.display = aiBox.style.display === "flex" ? "none" : "flex";
+      if (aiBox.style.display === "flex" && !aiMessages.hasChildNodes()) {
+        speakReply("नमस्ते! मैं CSC अलीपुर डिजिटल सहायक हूँ। आप कैसे सहायता चाहते हैं?");
+      }
+    };
 
-#aiHeader {
-  background: linear-gradient(135deg,#2563eb,#1d4ed8);
-  color: white;
-  padding: 14px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-#aiMessages {
-  flex: 1;
-  padding: 12px;
-  overflow-y: auto;
-  font-size: 14px;
-  background: #f8fafc;
-}
-
-.aiMsg {
-  margin-bottom: 10px;
-  padding: 8px 12px;
-  border-radius: 12px;
-  max-width: 85%;
-}
-
-.userMsg {
-  background: #dbeafe;
-  margin-left: auto;
-}
-
-.botMsg {
-  background: #e2e8f0;
-  margin-right: auto;
-}
-
-#aiInputBox {
-  display: flex;
-  border-top: 1px solid #e2e8f0;
-}
-
-#aiInputBox input {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  outline: none;
-  font-size: 14px;
-}
-
-#aiInputBox button {
-  background: #2563eb;
-  color: white;
-  border: none;
-  padding: 10px 14px;
-  cursor: pointer;
-}
-</style>
-
-<button id="aiChatBtn">💬</button>
-
-<div id="aiChatBox">
-  <div id="aiHeader">CSC अलीपुर डिजिटल सहायक</div>
-  <div id="aiMessages"></div>
-  <div id="aiInputBox">
-  <input type="text" id="aiInput" placeholder="अपना प्रश्न लिखें..." />
-  <button onclick="sendAI()">Send</button>
-
-  <!-- 🎤 Voice Button -->
-  <button onclick="startVoice()" 
-    style="background:#10b981;color:white;border:none;padding:10px 12px;cursor:pointer;">
-    🎤
-  </button>
-</div>
-
-<script>
-const aiBtn = document.getElementById("aiChatBtn");
-const aiBox = document.getElementById("aiChatBox");
-const aiMessages = document.getElementById("aiMessages");
-
-aiBtn.onclick = () => {
-  if (aiBox.style.display === "flex") {
-    aiBox.style.display = "none";
-  } else {
-    aiBox.style.display = "flex";
-    speakReply("नमस्ते! मैं CSC अलीपुर डिजिटल सहायक हूँ। आप कैसे सहायता चाहते हैं?");
-  }
-};
-function addAIMessage(text, type) {
-  const msg = document.createElement("div");
-  msg.className = "aiMsg " + (type === "user" ? "userMsg" : "botMsg");
-  msg.innerText = text;
-  aiMessages.appendChild(msg);
-  aiMessages.scrollTop = aiMessages.scrollHeight;
-}
-
-function sendAI() {
-  const input = document.getElementById("aiInput");
-  const message = input.value.trim();
-  if (!message) return;
-
-  addAIMessage(message, "user");
-  input.value = "";
-
-  addAIMessage("कृपया प्रतीक्षा करें...", "bot");
-
-  fetch("https://csc-ylts.onrender.com/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: message })
-  })
-  .then(res => res.json())
-  .then(data => {
-    aiMessages.lastChild.remove();
-    addAIMessage(data.reply, "bot");
-    speakReply(data.reply);
-  })
-  .catch(() => {
-    aiMessages.lastChild.remove();
-    addAIMessage("सर्वर से कनेक्शन में समस्या है।", "bot");
-  });
-}
-
-// Enter key support
-document.getElementById("aiInput").addEventListener("keypress", function(e) {
-  if (e.key === "Enter") {
-    sendAI();
-  }
-});
-// 🎤 Voice Recognition
-function startVoice() {
-  if (!('webkitSpeechRecognition' in window)) {
-    alert("Voice recognition इस browser में supported नहीं है। कृपया Chrome इस्तेमाल करें।");
-    return;
-  }
-
-  const recognition = new webkitSpeechRecognition();
-  recognition.lang = "hi-IN";
-  recognition.interimResults = false;
-  recognition.continuous = false;
-
-  recognition.onstart = function() {
-    addAIMessage("🎤 सुन रहा हूँ...", "bot");
-  };
-
-  recognition.onresult = function(event) {
-    const voiceText = event.results[0][0].transcript;
-    document.getElementById("aiInput").value = voiceText;
-    recognition.stop();
-    sendAI();
-  };
-
-  recognition.onerror = function(event) {
-    console.log("Voice Error:", event.error);
-
-    if (event.error === "not-allowed") {
-      addAIMessage("कृपया माइक्रोफोन अनुमति दें।", "bot");
-    } else if (event.error === "no-speech") {
-      addAIMessage("आवाज़ सुनाई नहीं दी, फिर कोशिश करें।", "bot");
-    } else {
-      addAIMessage("Voice error आया, फिर कोशिश करें।", "bot");
+    function addAIMessage(text, type) {
+      const msg = document.createElement("div");
+      msg.className = "aiMsg " + (type === "user" ? "userMsg" : "botMsg");
+      msg.innerText = text;
+      aiMessages.appendChild(msg);
+      aiMessages.scrollTop = aiMessages.scrollHeight;
     }
-  };
 
-  recognition.start();
-}
+    function sendAI() {
+      const input = document.getElementById("aiInput");
+      const message = input.value.trim();
+      if (!message) return;
 
-// 🔊 AI Reply बोलने के लिए
-window.speechSynthesis.onvoiceschanged = function() {
-  window.speechSynthesis.getVoices();
-};
-function speakReply(text) {
-  const speech = new SpeechSynthesisUtterance(text);
-  speech.lang = "hi-IN";
+      addAIMessage(message, "user");
+      input.value = "";
+      addAIMessage("कृपया प्रतीक्षा करें...", "bot");
 
-  const voices = window.speechSynthesis.getVoices();
-  const hindiVoice = voices.find(voice => 
-    voice.lang.includes("hi") && voice.name.toLowerCase().includes("female")
-  );
+      fetch("https://csc-ylts.onrender.com/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message })
+      })
+      .then(res => res.json())
+      .then(data => {
+        aiMessages.lastChild.remove();
+        addAIMessage(data.reply, "bot");
+        speakReply(data.reply);
+      })
+      .catch(() => {
+        aiMessages.lastChild.remove();
+        addAIMessage("सर्वर से कनेक्शन में समस्या है।", "bot");
+      });
+    }
 
-  if (hindiVoice) {
-    speech.voice = hindiVoice;
-  }
+    document.getElementById("aiInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") sendAI();
+    });
 
-  speech.rate = 1;
-  window.speechSynthesis.speak(speech);
-}
-</script>
+    function startVoice() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Voice recognition इस browser में supported नहीं है। कृपया Chrome इस्तेमाल करें।");
+        return;
+      }
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = "hi-IN";
+      recognition.interimResults = false;
+      recognition.continuous = false;
 
-<!-- ===== End CSC AI Chatbot ===== -->
+      recognition.onstart = function() {
+        addAIMessage("🎤 सुन रहा हूँ...", "bot");
+      };
+      recognition.onresult = function(event) {
+        const voiceText = event.results[0][0].transcript;
+        document.getElementById("aiInput").value = voiceText;
+        recognition.stop();
+        sendAI();
+      };
+      recognition.onerror = function(event) {
+        console.log("Voice Error:", event.error);
+        if (event.error === "not-allowed") {
+          addAIMessage("कृपया माइक्रोफोन अनुमति दें।", "bot");
+        } else if (event.error === "no-speech") {
+          addAIMessage("आवाज़ सुनाई नहीं दी, फिर कोशिश करें।", "bot");
+        } else {
+          addAIMessage("Voice error आया, फिर कोशिश करें।", "bot");
+        }
+      };
+      recognition.start();
+    }
+
+    window.speechSynthesis.onvoiceschanged = function() {
+      window.speechSynthesis.getVoices();
+    };
+    function speakReply(text) {
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.lang = "hi-IN";
+      const voices = window.speechSynthesis.getVoices();
+      const hindiVoice = voices.find(voice => 
+        voice.lang.includes("hi") && voice.name.toLowerCase().includes("female")
+      );
+      if (hindiVoice) speech.voice = hindiVoice;
+      speech.rate = 1;
+      window.speechSynthesis.speak(speech);
+    }
+
+    // ========== NEW Omni AI Chatbot JavaScript (बायीं तरफ) ==========
+    const omniBtn = document.getElementById("omniChatBtn");
+    const omniBox = document.getElementById("omniChatBox");
+    const omniMessages = document.getElementById("omniMessages");
+
+    omniBtn.onclick = () => {
+      omniBox.style.display = omniBox.style.display === "flex" ? "none" : "flex";
+      if (omniBox.style.display === "flex" && !omniMessages.hasChildNodes()) {
+        addOmniMsg("नमस्ते! मैं सहचर ओम्नी AI हूँ – बुद्ध-चरित AI। आप कैसे सहायता चाहते हैं?", "bot");
+        speakOmni("नमस्ते! मैं सहचर ओम्नी AI हूँ।");
+      }
+    };
+
+    function addOmniMsg(text, type) {
+      const msg = document.createElement("div");
+      msg.className = "omniMsg " + (type === "user" ? "omniUserMsg" : "omniBotMsg");
+      msg.innerText = text;
+      omniMessages.appendChild(msg);
+      omniMessages.scrollTop = omniMessages.scrollHeight;
+    }
+
+    function sendOmniMsg() {
+      const input = document.getElementById("omniInput");
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      addOmniMsg(msg, "user");
+      input.value = "";
+      addOmniMsg("🤔 सोच रहा हूँ...", "bot");
+
+      fetch("https://sahchar-omni-backend.onrender.com/api/chat/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg, language: "hi" })
+      })
+      .then(res => res.json())
+      .then(data => {
+        const lastMsg = omniMessages.lastChild;
+        if (lastMsg && lastMsg.innerText === "🤔 सोच रहा हूँ...") lastMsg.remove();
+        addOmniMsg(data.response || data.error || "कोई जवाब नहीं", "bot");
+        speakOmni(data.response || "कोई जवाब नहीं");
+      })
+      .catch(err => {
+        const lastMsg = omniMessages.lastChild;
+        if (lastMsg && lastMsg.innerText === "🤔 सोच रहा हूँ...") lastMsg.remove();
+        addOmniMsg("सर्वर से संपर्क नहीं हो पाया।", "bot");
+        console.error(err);
+      });
+    }
+
+    document.getElementById("omniInput").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendOmniMsg();
+    });
+
+    function startOmniVoice() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Voice recognition के लिए Chrome या Edge इस्तेमाल करें।");
+        return;
+      }
+      const recog = new webkitSpeechRecognition();
+      recog.lang = "hi-IN";
+      recog.interimResults = false;
+      recog.continuous = false;
+
+      recog.onstart = () => addOmniMsg("🎤 सुन रहा हूँ...", "bot");
+      recog.onresult = (e) => {
+        const voiceText = e.results[0][0].transcript;
+        document.getElementById("omniInput").value = voiceText;
+        recog.stop();
+        sendOmniMsg();
+      };
+      recog.onerror = (e) => {
+        if (e.error === "not-allowed") addOmniMsg("माइक्रोफोन अनुमति दें।", "bot");
+        else addOmniMsg("आवाज़ सुनाई नहीं दी, फिर कोशिश करें।", "bot");
+      };
+      recog.start();
+    }
+
+    function speakOmni(text) {
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.lang = "hi-IN";
+      speech.rate = 1;
+      window.speechSynthesis.speak(speech);
+    }
+  </script>
 </body>
 </html>
