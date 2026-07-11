@@ -76,7 +76,7 @@
     #omniChatBtn {
       position: fixed;
       bottom: 25px;
-      left: 25px;    /* left: 25px रखा है */
+      left: 25px;
       width: 65px;
       height: 65px;
       border-radius: 50%;
@@ -91,7 +91,7 @@
     #omniChatBox {
       position: fixed;
       bottom: 100px;
-      left: 25px;    /* left में रखा है */
+      left: 25px;
       width: 340px;
       height: 480px;
       background: #fffaf0;
@@ -180,7 +180,7 @@
       transform: scale(1.05);
     }
 
-    /* ===== पुराना CSC Chatbot (दायीं तरफ) – कुछ नहीं बदला ===== */
+    /* ===== पुराना CSC Chatbot (दायीं तरफ) ===== */
     #aiChatBtn {
       position: fixed;
       bottom: 25px;
@@ -261,7 +261,7 @@
   </style>
 </head>
 <body>
-  <!-- ===== पूरा CSC कंटेंट (बिल्कुल वैसा ही) ===== -->
+  <!-- ===== पूरा CSC कंटेंट ===== -->
   <header>
     <h2>🏢 cscalipur | आधिकारिक सेवा केंद्र</h2>
     <div class="header-buttons">
@@ -295,7 +295,7 @@
     </div>
   </section>
 
-  <!-- Appointment Form (बिल्कुल वैसा ही) -->
+  <!-- Appointment Form -->
   <section id="appointment" class="appointment-section">
     <h2>📝 ऑनलाइन अपॉइंटमेंट बुक करें</h2>
     <div class="form-container">
@@ -391,7 +391,7 @@
     <div class="visitor-counter">👁️ कुल विजिटर: <span id="visitorCount">0</span></div>
   </footer>
 
-  <!-- ===== CSC AI Chatbot (दायीं तरफ) – बिल्कुल वैसा ही ===== -->
+  <!-- ===== CSC AI Chatbot (दायीं तरफ) ===== -->
   <button id="aiChatBtn">💬</button>
 
   <div id="aiChatBox">
@@ -418,11 +418,9 @@
   </div>
 
   <script>
-    // ========== CSC वाले स्क्रिप्ट (बिल्कुल वैसा ही) ==========
-    // Dynamic Year
+    // ========== CSC वाले स्क्रिप्ट ==========
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    // Visitor Counter
     function updateVisitorCounter() {
       const countSpan = document.getElementById('visitorCount');
       if (!sessionStorage.getItem('visitorCounted')) {
@@ -437,7 +435,6 @@
     }
     updateVisitorCounter();
 
-    // Services Search
     document.getElementById('serviceSearch').addEventListener('keyup', function() {
       let search = this.value.toLowerCase();
       let cards = document.querySelectorAll('.card');
@@ -448,7 +445,6 @@
       });
     });
 
-    // Generate Token Function
     function generateToken() {
       const now = new Date();
       const dateStr = now.getFullYear().toString().slice(-2) +
@@ -458,7 +454,6 @@
       return `CSC${dateStr}${random}`;
     }
 
-    // Form submission handling
     document.getElementById('appointmentForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -529,7 +524,7 @@
     dateInput.min = tomorrow.toISOString().split('T')[0];
     dateInput.max = maxDate.toISOString().split('T')[0];
 
-    // ========== CSC Chatbot JavaScript (बिल्कुल वैसा ही) ==========
+    // ========== CSC Chatbot JavaScript ==========
     const aiBtn = document.getElementById("aiChatBtn");
     const aiBox = document.getElementById("aiChatBox");
     const aiMessages = document.getElementById("aiMessages");
@@ -648,44 +643,44 @@
     }
 
     function sendOmniMsg() {
-    const input = document.getElementById("omniInput");
-    const msg = input.value.trim();
-    if (!msg) return;
+      const input = document.getElementById("omniInput");
+      const msg = input.value.trim();
+      if (!msg) return;
 
-    addOmniMsg(msg, "user");
-    input.value = "";
-    addOmniMsg("🤔 सोच रहा हूँ...", "bot");
+      addOmniMsg(msg, "user");
+      input.value = "";
+      addOmniMsg("🤔 सोच रहा हूँ...", "bot");
 
-    fetch("https://api-5n6fh3d24a-uc.a.run.app/chat", {
+      fetch("https://api-5n6fh3d24a-uc.a.run.app/chat", {
         method: "POST",
         headers: { 
-            "Content-Type": "application/json",
-            "Accept": "application/json"
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: JSON.stringify({ 
-            message: msg,
-            sessionId: "web_user_" + Date.now()
+          message: msg,
+          sessionId: "web_user_" + Date.now()
         })
-    })
-    .then(res => {
+      })
+      .then(res => {
         if (!res.ok) throw new Error('Server error: ' + res.status);
         return res.json();
-    })
-    .then(data => {
+      })
+      .then(data => {
         const lastMsg = omniMessages.lastChild;
         if (lastMsg && lastMsg.innerText === "🤔 सोच रहा हूँ...") lastMsg.remove();
-        // ✅ FIXED: Use 'reply' (backend returns reply)
         const reply = data.reply || data.message || "क्षमा करें, उत्तर नहीं मिला। 🙏";
         addOmniMsg(reply, "bot");
         speakOmni(reply);
-    })
-    .catch(err => {
+      })
+      .catch(err => {
         const lastMsg = omniMessages.lastChild;
         if (lastMsg && lastMsg.innerText === "🤔 सोच रहा हूँ...") lastMsg.remove();
         addOmniMsg("सर्वर से संपर्क नहीं हो पाया। कृपया बाद में प्रयास करें। 🙏", "bot");
         console.error("❌ Chat error:", err);
-    });
-}
+      });
+    }
+
     document.getElementById("omniInput").addEventListener("keypress", (e) => {
       if (e.key === "Enter") sendOmniMsg();
     });
