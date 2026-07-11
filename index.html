@@ -73,7 +73,7 @@
     }
 
     /* ============================================================ */
-    /* ===== PROFESSIONAL CHATBOT WITH FEATURE ICONS ===== */
+    /* ===== CHATBOT STYLES ===== */
     /* ============================================================ */
 
     /* Chat Button */
@@ -104,9 +104,9 @@
       bottom: 100px;
       right: 25px;
       width: 400px;
-      max-width: 90vw;
-      height: 580px;
-      max-height: 85vh;
+      max-width: 92vw;
+      height: 560px;
+      max-height: 82vh;
       background: #ffffff;
       border-radius: 24px;
       box-shadow: 0 25px 60px rgba(0,0,0,0.25);
@@ -127,7 +127,7 @@
     #sahcharHeader {
       background: linear-gradient(135deg, #b45309, #92400e);
       color: white;
-      padding: 14px 18px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -144,7 +144,7 @@
       font-size: 1.3rem;
     }
     .status-badge {
-      font-size: 0.6rem;
+      font-size: 0.55rem;
       opacity: 0.7;
       font-weight: 400;
       background: rgba(255,255,255,0.2);
@@ -168,7 +168,7 @@
     /* Messages Area */
     #sahcharMessages {
       flex: 1;
-      padding: 14px;
+      padding: 12px 14px;
       overflow-y: auto;
       font-size: 14px;
       background: #fcf8f2;
@@ -210,40 +210,6 @@
       border-bottom-left-radius: 4px;
     }
 
-    /* ===== FEATURE GRID IN CHAT ===== */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .feature-grid .feature-item {
-      background: rgba(255,255,255,0.6);
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 8px 4px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 0.7rem;
-      color: #1e293b;
-    }
-    .feature-grid .feature-item:hover {
-      background: #b45309;
-      color: white;
-      transform: scale(1.05);
-      border-color: #b45309;
-    }
-    .feature-grid .feature-item .icon {
-      font-size: 1.5rem;
-      display: block;
-      margin-bottom: 2px;
-    }
-    .feature-grid .feature-item .label {
-      font-size: 0.6rem;
-      font-weight: 500;
-    }
-
     /* Feature Tag in messages */
     .feature-tag {
       display: inline-block;
@@ -281,12 +247,12 @@
       30% { transform: translateY(-8px); }
     }
 
-    /* Input Area */
+    /* ===== INPUT AREA WITH PLUS ICON ===== */
     #sahcharInputBox {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px 12px;
+      gap: 4px;
+      padding: 8px 10px;
       border-top: 2px solid #b45309;
       background: white;
       flex-shrink: 0;
@@ -307,8 +273,8 @@
     #sahcharInputBox button {
       border: none;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       font-size: 16px;
       cursor: pointer;
       transition: all 0.3s;
@@ -328,7 +294,7 @@
     #micBtn {
       background: #10b981;
       color: white;
-      font-size: 18px;
+      font-size: 17px;
     }
     #micBtn:hover {
       background: #059669;
@@ -341,6 +307,179 @@
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.1); }
+    }
+
+    /* ===== PLUS ICON ===== */
+    #plusBtn {
+      background: #b45309;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #plusBtn:hover {
+      background: #92400e;
+      transform: scale(1.05) rotate(90deg);
+    }
+
+    /* ===== FEATURE MODAL ===== */
+    .feature-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+      animation: fadeInModal 0.3s ease;
+    }
+    @keyframes fadeInModal {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .feature-modal-content {
+      background: white;
+      border-radius: 28px;
+      padding: 24px;
+      max-width: 500px;
+      width: 92%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .feature-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .feature-modal-header h3 {
+      font-size: 1.2rem;
+      color: #b45309;
+    }
+    .feature-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #888;
+      transition: color 0.3s;
+    }
+    .feature-modal-close:hover {
+      color: #b45309;
+    }
+    .feature-grid-modal {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 12px 0 16px;
+    }
+    .feature-item-modal {
+      background: #f8f4f0;
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 12px 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .feature-item-modal:hover {
+      background: #b45309;
+      color: white;
+      transform: scale(1.05);
+      border-color: #b45309;
+    }
+    .feature-item-modal .icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .feature-item-modal .label {
+      font-size: 0.6rem;
+      font-weight: 500;
+    }
+    .feature-item-modal .desc {
+      font-size: 0.55rem;
+      color: #888;
+      margin-top: 2px;
+    }
+    .feature-item-modal:hover .desc {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Prompt Input in Modal */
+    .feature-prompt-area {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 2px dashed #e2e8f0;
+    }
+    .feature-prompt-area.active {
+      display: block;
+    }
+    .feature-prompt-area label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #b45309;
+      margin-bottom: 6px;
+    }
+    .feature-prompt-area .prompt-input-row {
+      display: flex;
+      gap: 8px;
+    }
+    .feature-prompt-area input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 30px;
+      outline: none;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .feature-prompt-area input:focus {
+      border-color: #b45309;
+    }
+    .feature-prompt-area button {
+      background: #b45309;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .feature-prompt-area button:hover {
+      background: #92400e;
+      transform: scale(1.05);
+    }
+    .feature-prompt-area .selected-feature-name {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 480px) {
+      .feature-grid-modal {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .feature-modal-content {
+        padding: 16px;
+      }
     }
   </style>
 </head>
@@ -385,67 +524,48 @@
     <h2>📝 ऑनलाइन अपॉइंटमेंट बुक करें</h2>
     <div class="form-container">
       <div id="errorMessage" class="error-message"></div>
-      
       <form action="https://docs.google.com/forms/d/e/1FAIpQLSd71bE3B9sy7FNyXGroyZRUP8WgNrkldcVT2JJt8B0g-_uBkg/formResponse" method="POST" target="_blank" id="appointmentForm">
         <input type="hidden" name="entry.1481242426" id="tokenInput">
-        <div class="form-group">
-          <label>आपका पूरा नाम *</label>
-          <input type="text" name="entry.107361189" required placeholder="पूरा नाम डाले">
-        </div>
-        <div class="form-group">
-          <label>मोबाइल नंबर *</label>
-          <input type="tel" name="entry.1364756197" required pattern="[0-9]{10}" placeholder="10 अंक">
-        </div>
+        <div class="form-group"><label>आपका पूरा नाम *</label><input type="text" name="entry.107361189" required placeholder="पूरा नाम डाले"></div>
+        <div class="form-group"><label>मोबाइल नंबर *</label><input type="tel" name="entry.1364756197" required pattern="[0-9]{10}" placeholder="10 अंक"></div>
         <div class="form-group">
           <label>कौन सी सेवा चाहिए? *</label>
           <select name="entry.957456591" required>
             <option value="">-- चुनें --</option>
-            <option value="✅ आधार सेवा (नया आधार, अपडेट, ई-आधार)">आधार सेवा</option>
-            <option value="✅ जाति/आय/निवास प्रमाणपत्र">जाति/आय/निवास प्रमाणपत्र</option>
-            <option value="✅ पेंशन आवेदन">पेंशन आवेदन</option>
-            <option value="✅ राशन कार्ड संबंधित">राशन कार्ड</option>
-            <option value="✅ बैंकिंग सेवा (खाता खोलना, निकासी)">बैंकिंग सेवा</option>
-            <option value="✅ बीमा योजनाएं">बीमा योजनाएं</option>
-            <option value="✅ विद्युत बिल भुगतान">विद्युत बिल भुगतान</option>
+            <option value="✅ आधार सेवा">आधार सेवा</option>
+            <option value="✅ जाति/आय/निवास प्रमाणपत्र">प्रमाणपत्र</option>
+            <option value="✅ पेंशन आवेदन">पेंशन</option>
+            <option value="✅ राशन कार्ड">राशन कार्ड</option>
+            <option value="✅ बैंकिंग सेवा">बैंकिंग</option>
+            <option value="✅ बीमा योजनाएं">बीमा</option>
+            <option value="✅ विद्युत बिल">बिल भुगतान</option>
             <option value="✅ पैन कार्ड">पैन कार्ड</option>
-            <option value="✅ आयुष्मान कार्ड">आयुष्मान कार्ड</option>
-            <option value="✅ अन्य (कृपया नीचे लिखें)">अन्य</option>
+            <option value="✅ आयुष्मान कार्ड">आयुष्मान</option>
+            <option value="✅ अन्य">अन्य</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>अन्य सेवा का विवरण (यदि ऊपर "अन्य" चुना हो)</label>
-          <textarea name="entry.849591609" rows="2" placeholder="अन्य सेवा का नाम लिखें"></textarea>
-        </div>
-        <div class="form-group">
-          <label>आने की तारीख *</label>
-          <input type="date" name="entry.1788454306" required>
-        </div>
+        <div class="form-group"><label>अन्य सेवा का विवरण</label><textarea name="entry.849591609" rows="2" placeholder="अन्य सेवा का नाम लिखें"></textarea></div>
+        <div class="form-group"><label>आने की तारीख *</label><input type="date" name="entry.1788454306" required></div>
         <div class="form-group">
           <label>पसंदीदा समय *</label>
           <select name="entry.1112254037" required>
             <option value="">-- चुनें --</option>
-            <option value="सुबह 10:00 - 11:00">सुबह 10:00 - 11:00</option>
-            <option value="सुबह 11:00 - 12:00">सुबह 11:00 - 12:00</option>
-            <option value="दोपहर 12:00 - 1:00">दोपहर 12:00 - 1:00</option>
-            <option value="दोपहर 2:00 - 3:00">दोपहर 2:00 - 3:00</option>
-            <option value="दोपहर 3:00 - 4:00">दोपहर 3:00 - 4:00</option>
-            <option value="शाम 4:00 - 5:00">शाम 4:00 - 5:00</option>
+            <option value="सुबह 10:00 - 11:00">10:00 - 11:00</option>
+            <option value="सुबह 11:00 - 12:00">11:00 - 12:00</option>
+            <option value="दोपहर 12:00 - 1:00">12:00 - 1:00</option>
+            <option value="दोपहर 2:00 - 3:00">2:00 - 3:00</option>
+            <option value="दोपहर 3:00 - 4:00">3:00 - 4:00</option>
+            <option value="शाम 4:00 - 5:00">4:00 - 5:00</option>
           </select>
         </div>
-        <button type="submit" class="submit-btn" id="submitBtn">📅 अपॉइंटमेंट बुक करें</button>
+        <button type="submit" class="submit-btn">📅 अपॉइंटमेंट बुक करें</button>
       </form>
-
-      <div id="loadingDiv" class="loading">
-        <div class="spinner"></div>
-        <p style="margin-top: 1rem; color: #2563eb;">आपका टोकन जनरेट हो रहा है...</p>
-      </div>
-
+      <div id="loadingDiv" class="loading"><div class="spinner"></div><p style="margin-top:1rem;color:#2563eb;">आपका टोकन जनरेट हो रहा है...</p></div>
       <div id="thankYouMessage" class="thankyou-message">
-        <h3>🎉 आपका अपॉइंटमेंट बुक हो गया!</h3>
-        <p style="font-size: 1.1rem; margin-bottom: 1rem;">आपका Token Number:</p>
+        <h3>🎉 अपॉइंटमेंट बुक हो गया!</h3>
+        <p>आपका Token Number:</p>
         <div class="token-box" id="tokenDisplay"></div>
-        <p style="margin-top: 1rem;">कृपया यह Token Number नोट कर लें। CSC Center आने पर दिखाना होगा।</p>
-        <button class="btn" onclick="resetForm()" style="margin-top: 1.5rem;">नया अपॉइंटमेंट</button>
+        <button class="btn" onclick="resetForm()">नया अपॉइंटमेंट</button>
       </div>
     </div>
   </section>
@@ -460,14 +580,11 @@
       <p>📞 संपर्क: <a href="tel:+919801735984">+91 9801735984</a></p>
       <p>⏰ समय: सोम-शनि 9:00 AM – 6:00 PM | रविवार 10:00 AM – 2:00 PM</p>
     </div>
-    
-    <h3 style="margin: 2rem 0 1rem; color: #2563eb;">हमसे जुड़ें</h3>
     <div class="social-links">
-      <a href="https://www.facebook.com/cscalipur" target="_blank" class="fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://wa.me/919801735984" target="_blank" class="wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-      <a href="https://www.instagram.com/cscalipur" target="_blank" class="ig" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/cscalipur" target="_blank" class="fb"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://wa.me/919801735984" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/cscalipur" target="_blank" class="ig"><i class="fab fa-instagram"></i></a>
     </div>
-
     <iframe class="map-frame" src="https://www.google.com/maps?q=Alipur,Bihar&output=embed" allowfullscreen loading="lazy"></iframe>
   </section>
 
@@ -478,32 +595,59 @@
   </footer>
 
   <!-- ============================================================ -->
-  <!-- ===== CHATBOT WITH FEATURE ICONS ===== -->
+  <!-- ===== CHATBOT ===== -->
   <!-- ============================================================ -->
   <button id="sahcharChatBtn">🧘</button>
 
   <div id="sahcharChatBox">
     <div id="sahcharHeader">
-      <div class="header-title">
-        <span>🧘</span> सहचर AI
-        <span class="status-badge">● Online</span>
-      </div>
+      <div class="header-title"><span>🧘</span> सहचर AI <span class="status-badge">● Online</span></div>
       <button id="closeChatBtn" onclick="closeChat()">✕</button>
     </div>
     <div id="sahcharMessages"></div>
-    <div class="typing-indicator" id="typingIndicator">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="typing-indicator" id="typingIndicator"><span></span><span></span><span></span></div>
     <div id="sahcharInputBox">
       <input type="text" id="sahcharInput" placeholder="अपना प्रश्न पूछिए..." />
+      <button id="plusBtn" onclick="openFeatureModal()" title="Features">+</button>
       <button id="micBtn" onclick="startVoiceInput()" title="Voice Input">🎤</button>
       <button id="sendBtn" onclick="sendMessage()">➤</button>
     </div>
   </div>
 
+  <!-- ============================================================ -->
+  <!-- ===== FEATURE MODAL ===== -->
+  <!-- ============================================================ -->
+  <div class="feature-modal" id="featureModal" onclick="closeFeatureModalOutside(event)">
+    <div class="feature-modal-content" onclick="event.stopPropagation()">
+      <div class="feature-modal-header">
+        <h3>✨ सहचर AI Features</h3>
+        <button class="feature-modal-close" onclick="closeFeatureModal()">✕</button>
+      </div>
+      <p style="font-size:0.85rem;color:#666;margin-bottom:12px;">कोई feature select करें और prompt लिखें:</p>
+      <div class="feature-grid-modal" id="featureGridModal">
+        <div class="feature-item-modal" onclick="selectFeature('🔍','Web Search','खोज')"><span class="icon">🔍</span><span class="label">Web Search</span><div class="desc">वेब पर खोजें</div></div>
+        <div class="feature-item-modal" onclick="selectFeature('🎨','Image Gen','तस्वीर बनाओ')"><span class="icon">🎨</span><span class="label">Image Gen</span><div class="desc">AI तस्वीर बनाएं</div></div>
+        <div class="feature-item-modal" onclick="selectFeature('🎬','Video Gen','वीडियो बनाओ')"><span class="icon">🎬</span><span class="label">Video Gen</span><div class="desc">AI वीडियो बनाएं</div></div>
+        <div class="feature-item-modal" onclick="selectFeature('📄','Document','document analyze')"><span class="icon">📄</span><span class="label">Document</span><div class="desc">दस्तावेज़ विश्लेषण</div></div>
+        <div class="feature-item-modal" onclick="selectFeature('💾','Memory','पिछली बात')"><span class="icon">💾</span><span class="label">Memory</span><div class="desc">पिछली बातें याद</div></div>
+        <div class="feature-item-modal" onclick="selectFeature('🧠','Self-Learn','सीखो')"><span class="icon">🧠</span><span class="label">Self-Learn</span><div class="desc">खुद सीखना</div></div>
+        <div class="feature-item-modal" onclick="selectFeature('🔄','Auto-Upgrade','upgrade')"><span class="icon">🔄</span><span class="label">Auto-Upgrade</span><div class="desc">खुद अपग्रेड</div></div>
+        <div class="feature-item-modal" onclick="selectFeature('🌐','Multilingual','hello')"><span class="icon">🌐</span><span class="label">Multilingual</span><div class="desc">हिंदी/English</div></div>
+      </div>
+      <div class="feature-prompt-area" id="featurePromptArea">
+        <label id="featurePromptLabel">🔍 Web Search: अपना प्रश्न लिखें</label>
+        <div class="prompt-input-row">
+          <input type="text" id="featurePromptInput" placeholder="जैसे: आज का मौसम" />
+          <button onclick="sendFeaturePrompt()">➤</button>
+        </div>
+        <div class="selected-feature-name" id="selectedFeatureName">Web Search</div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ============================================================ //
-    // ===== CHATBOT WITH FEATURE ICONS ===== //
+    // ===== CHATBOT SCRIPT ===== //
     // ============================================================ //
 
     // ===== DOM Elements =====
@@ -512,81 +656,25 @@
     const messagesDiv = document.getElementById("sahcharMessages");
     const inputField = document.getElementById("sahcharInput");
     const typingIndicator = document.getElementById("typingIndicator");
-
-    // ===== API URL =====
     const API_URL = "https://api-5n6fh3d24a-uc.a.run.app/chat";
-
-    // ===== Feature Icons =====
-    const FEATURES_LIST = [
-      { icon: "🔍", label: "Web Search", prompt: "खोज" },
-      { icon: "🎨", label: "Image Gen", prompt: "तस्वीर बनाओ" },
-      { icon: "🎬", label: "Video Gen", prompt: "वीडियो बनाओ" },
-      { icon: "📄", label: "Document", prompt: "document analyze" },
-      { icon: "💾", label: "Memory", prompt: "पिछली बात" },
-      { icon: "🧠", label: "Self-Learn", prompt: "सीखो" },
-      { icon: "🔄", label: "Auto-Upgrade", prompt: "upgrade" },
-      { icon: "🌐", label: "Multilingual", prompt: "hello" }
-    ];
-
-    // ===== Feature Detection =====
-    function detectFeature(message) {
-      const lower = message.toLowerCase();
-      if (lower.includes("तस्वीर") || lower.includes("इमेज") || lower.includes("image")) return "🎨 Image";
-      if (lower.includes("वीडियो") || lower.includes("video")) return "🎬 Video";
-      if (lower.includes("खोज") || lower.includes("search") || lower.includes("news") || lower.includes("समाचार")) return "🔍 Search";
-      if (lower.includes("document") || lower.includes("दस्तावेज़") || lower.includes("फाइल")) return "📄 Document";
-      if (lower.includes("पिछली बात") || lower.includes("history") || lower.includes("याद")) return "💾 Memory";
-      if (lower.includes("समय") || lower.includes("time") || lower.includes("तारीख") || lower.includes("date")) return "⏰ Time";
-      return "💬 Chat";
-    }
+    let selectedFeature = null;
 
     // ===== Toggle Chat =====
     chatBtn.onclick = () => {
       const isOpen = chatBox.style.display === "flex";
       chatBox.style.display = isOpen ? "none" : "flex";
       if (!isOpen && messagesDiv.children.length === 0) {
-        showWelcomeMessage();
+        addMessage("नमस्ते! मैं सहचर AI हूँ – बुद्ध की शिक्षाओं का साथी। 🙏\n\nमुझसे पूछें: खोज, तस्वीर, वीडियो, दस्तावेज़, या कोई प्रश्न।\n\n✅ + icon पर click करें और features चुनें!", "bot");
       }
-      if (!isOpen) {
-        inputField.focus();
-      }
+      if (!isOpen) inputField.focus();
     };
 
-    function showWelcomeMessage() {
-      const welcomeDiv = document.createElement("div");
-      welcomeDiv.className = "sahcharMsg sahcharBotMsg";
-      welcomeDiv.innerHTML = `
-        <strong>नमस्ते! मैं सहचर AI हूँ 🙏</strong><br>
-        <small style="color:#666;">नीचे दिए गए icons पर click करके features use करें:</small>
-        <div class="feature-grid">
-          ${FEATURES_LIST.map(f => `
-            <div class="feature-item" onclick="sendFeaturePrompt('${f.prompt}')">
-              <span class="icon">${f.icon}</span>
-              <span class="label">${f.label}</span>
-            </div>
-          `).join('')}
-        </div>
-        <small style="color:#666; display:block; margin-top:6px;">या अपना प्रश्न टाइप करें</small>
-      `;
-      messagesDiv.appendChild(welcomeDiv);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-
-    // ===== Send Feature Prompt =====
-    function sendFeaturePrompt(prompt) {
-      inputField.value = prompt;
-      sendMessage();
-    }
-
-    function closeChat() {
-      chatBox.style.display = "none";
-    }
+    function closeChat() { chatBox.style.display = "none"; }
 
     // ===== Add Message =====
     function addMessage(text, type, feature = null) {
       const msg = document.createElement("div");
       msg.className = "sahcharMsg " + (type === "user" ? "sahcharUserMsg" : "sahcharBotMsg");
-      
       if (feature && type === "bot") {
         const span = document.createElement("span");
         span.innerHTML = text;
@@ -598,71 +686,53 @@
       } else {
         msg.innerText = text;
       }
-      
       messagesDiv.appendChild(msg);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    // ===== Show/Hide Typing =====
     function showTyping(show) {
       typingIndicator.style.display = show ? "flex" : "none";
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    // ===== Remove Emoji for TTS =====
-    function removeEmojiForTTS(text) {
-      if (!text) return "";
-      const emojiRegex = /[\u{1F600}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F300}-\u{1F5FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{FE00}-\u{FEFF}\u{2300}-\u{23FF}\u{2B50}\u{2934}\u{2935}\u{2190}-\u{21FF}]/gu;
-      let cleaned = text.replace(emojiRegex, '').trim();
-      cleaned = cleaned.replace(/[^a-zA-Z0-9\u0900-\u097F\s.,!?;:'"()\-]/g, '');
-      cleaned = cleaned.replace(/\s+/g, ' ').trim();
-      return cleaned || text;
-    }
-
     // ===== Speak =====
     function speakText(text) {
       if (!text) return;
-      const clean = removeEmojiForTTS(text);
+      const clean = text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '').trim();
       const speech = new SpeechSynthesisUtterance(clean);
       speech.lang = "hi-IN";
       speech.rate = 1;
       window.speechSynthesis.speak(speech);
     }
 
+    // ===== Detect Feature =====
+    function detectFeature(message) {
+      const lower = message.toLowerCase();
+      if (lower.includes("तस्वीर") || lower.includes("इमेज") || lower.includes("image")) return "🎨 Image";
+      if (lower.includes("वीडियो") || lower.includes("video")) return "🎬 Video";
+      if (lower.includes("खोज") || lower.includes("search") || lower.includes("news") || lower.includes("समाचार") || lower.includes("मौसम")) return "🔍 Search";
+      if (lower.includes("document") || lower.includes("दस्तावेज़") || lower.includes("फाइल")) return "📄 Document";
+      if (lower.includes("पिछली बात") || lower.includes("history") || lower.includes("याद")) return "💾 Memory";
+      if (lower.includes("समय") || lower.includes("time") || lower.includes("तारीख") || lower.includes("date")) return "⏰ Time";
+      return "💬 Chat";
+    }
+
     // ===== Send Message =====
     function sendMessage() {
       const msg = inputField.value.trim();
       if (!msg) return;
-
       addMessage(msg, "user");
       inputField.value = "";
       showTyping(true);
-
       const feature = detectFeature(msg);
-      
-      let cleanMsg = msg.replace(/[\u{1F600}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F300}-\u{1F5FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{FE00}-\u{FEFF}\u{2300}-\u{23FF}\u{2B50}\u{2934}\u{2935}\u{2190}-\u{21FF}]/gu, '').trim();
-      
-      if (!cleanMsg) {
-        showTyping(false);
-        addMessage("⚠️ कृपया टेक्स्ट के साथ इमोजी भेजें। 🙏", "bot");
-        return;
-      }
-
+      let cleanMsg = msg.replace(/[\u{1F600}-\u{1F6FF}]/gu, '').trim();
+      if (!cleanMsg) { showTyping(false); addMessage("⚠️ कृपया टेक्स्ट लिखें।", "bot"); return; }
       fetch(API_URL, {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({ 
-          message: cleanMsg,
-          sessionId: "web_user_" + Date.now()
-        })
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({ message: cleanMsg, sessionId: "web_user_" + Date.now() })
       })
-      .then(res => {
-        if (!res.ok) throw new Error('Server error: ' + res.status);
-        return res.json();
-      })
+      .then(res => res.json())
       .then(data => {
         showTyping(false);
         const reply = data.reply || data.message || "क्षमा करें, उत्तर नहीं मिला। 🙏";
@@ -671,33 +741,23 @@
       })
       .catch(err => {
         showTyping(false);
-        addMessage("सर्वर से संपर्क नहीं हो पाया। कृपया बाद में प्रयास करें। 🙏", "bot");
-        console.error("❌ Chat error:", err);
+        addMessage("सर्वर से संपर्क नहीं हो पाया। 🙏", "bot");
+        console.error("Chat error:", err);
       });
     }
 
-    // ===== Enter Key =====
-    inputField.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
+    inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
 
     // ===== Voice Input =====
     function startVoiceInput() {
-      if (!('webkitSpeechRecognition' in window)) {
-        addMessage("⚠️ Voice recognition के लिए Chrome या Edge इस्तेमाल करें।", "bot");
-        return;
-      }
+      if (!('webkitSpeechRecognition' in window)) { addMessage("⚠️ Chrome या Edge इस्तेमाल करें।", "bot"); return; }
       const micBtn = document.getElementById("micBtn");
       micBtn.classList.add("listening");
-
       const recognition = new webkitSpeechRecognition();
       recognition.lang = "hi-IN";
       recognition.interimResults = false;
       recognition.continuous = false;
-
-      recognition.onstart = () => {
-        addMessage("🎤 सुन रहा हूँ...", "bot");
-      };
+      recognition.onstart = () => addMessage("🎤 सुन रहा हूँ...", "bot");
       recognition.onresult = (e) => {
         const voiceText = e.results[0][0].transcript;
         inputField.value = voiceText;
@@ -705,16 +765,51 @@
         recognition.stop();
         sendMessage();
       };
-      recognition.onerror = (e) => {
-        micBtn.classList.remove("listening");
-        if (e.error === "not-allowed") {
-          addMessage("⚠️ माइक्रोफोन अनुमति दें।", "bot");
-        } else {
-          addMessage("⚠️ आवाज़ सुनाई नहीं दी, फिर कोशिश करें।", "bot");
-        }
-      };
+      recognition.onerror = () => micBtn.classList.remove("listening");
       recognition.start();
     }
+
+    // ============================================================ //
+    // ===== FEATURE MODAL ===== //
+    // ============================================================ //
+
+    function openFeatureModal() {
+      document.getElementById("featureModal").style.display = "flex";
+      document.getElementById("featurePromptArea").classList.remove("active");
+      selectedFeature = null;
+    }
+
+    function closeFeatureModal() {
+      document.getElementById("featureModal").style.display = "none";
+    }
+
+    function closeFeatureModalOutside(e) {
+      if (e.target === e.currentTarget) closeFeatureModal();
+    }
+
+    function selectFeature(icon, label, prompt) {
+      selectedFeature = { icon, label, prompt };
+      document.getElementById("featurePromptLabel").innerHTML = `${icon} ${label}: अपना प्रश्न लिखें`;
+      document.getElementById("featurePromptInput").placeholder = `जैसे: ${prompt}`;
+      document.getElementById("selectedFeatureName").textContent = label;
+      document.getElementById("featurePromptArea").classList.add("active");
+      document.getElementById("featurePromptInput").focus();
+    }
+
+    function sendFeaturePrompt() {
+      const input = document.getElementById("featurePromptInput");
+      const prompt = input.value.trim();
+      if (!prompt || !selectedFeature) return;
+      closeFeatureModal();
+      const fullMessage = `${selectedFeature.icon} ${selectedFeature.label}: ${prompt}`;
+      inputField.value = fullMessage;
+      sendMessage();
+      input.value = "";
+    }
+
+    document.getElementById("featurePromptInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") sendFeaturePrompt();
+    });
 
     // ============================================================ //
     // ===== EXISTING SCRIPT (CSC Functionality) ===== //
@@ -738,8 +833,7 @@
 
     document.getElementById('serviceSearch').addEventListener('keyup', function() {
       let search = this.value.toLowerCase();
-      let cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
+      document.querySelectorAll('.card').forEach(card => {
         let title = card.querySelector('h3').innerText.toLowerCase();
         let desc = card.querySelector('p').innerText.toLowerCase();
         card.style.display = (title.includes(search) || desc.includes(search) || search === '') ? 'flex' : 'none';
@@ -757,46 +851,29 @@
 
     document.getElementById('appointmentForm').addEventListener('submit', function(e) {
       e.preventDefault();
-
       const name = document.querySelector('input[name="entry.107361189"]').value.trim();
       const mobile = document.querySelector('input[name="entry.1364756197"]').value.trim();
       const service = document.querySelector('select[name="entry.957456591"]').value;
       const date = document.querySelector('input[name="entry.1788454306"]').value;
-
-      if (!name || !mobile || !service || !date) {
-        showError('कृपया सभी आवश्यक फील्ड भरें');
-        return;
-      }
-
-      if (mobile.length !== 10 || isNaN(mobile)) {
-        showError('मोबाइल नंबर 10 अंकों का होना चाहिए');
-        return;
-      }
-
+      if (!name || !mobile || !service || !date) { showError('कृपया सभी फील्ड भरें'); return; }
+      if (mobile.length !== 10 || isNaN(mobile)) { showError('10 अंकों का नंबर डालें'); return; }
       const token = generateToken();
       document.getElementById('tokenInput').value = token;
       document.getElementById('tokenDisplay').innerText = token;
-
       document.getElementById('appointmentForm').style.display = 'none';
       document.getElementById('loadingDiv').style.display = 'block';
       document.getElementById('errorMessage').style.display = 'none';
-
       const formData = new FormData(document.getElementById('appointmentForm'));
-      fetch(document.getElementById('appointmentForm').action, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
-      })
+      fetch(document.getElementById('appointmentForm').action, { method: 'POST', body: formData, mode: 'no-cors' })
       .then(() => {
         document.getElementById('loadingDiv').style.display = 'none';
         document.getElementById('thankYouMessage').style.display = 'block';
         document.getElementById('thankYouMessage').scrollIntoView({ behavior: 'smooth' });
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch(() => {
         document.getElementById('loadingDiv').style.display = 'none';
         document.getElementById('appointmentForm').style.display = 'block';
-        showError('डेटा भेजने में समस्या हुई। कृपया दोबारा कोशिश करें।');
+        showError('डेटा भेजने में समस्या हुई।');
       });
     });
 
