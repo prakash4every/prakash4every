@@ -73,7 +73,7 @@
     }
 
     /* ============================================================ */
-    /* ===== PROFESSIONAL CHATBOT (RIGHT SIDE - ONLY ONE) ===== */
+    /* ===== PROFESSIONAL CHATBOT WITH FEATURE ICONS ===== */
     /* ============================================================ */
 
     /* Chat Button */
@@ -103,10 +103,10 @@
       position: fixed;
       bottom: 100px;
       right: 25px;
-      width: 380px;
+      width: 400px;
       max-width: 90vw;
-      height: 520px;
-      max-height: 80vh;
+      height: 580px;
+      max-height: 85vh;
       background: #ffffff;
       border-radius: 24px;
       box-shadow: 0 25px 60px rgba(0,0,0,0.25);
@@ -127,29 +127,37 @@
     #sahcharHeader {
       background: linear-gradient(135deg, #b45309, #92400e);
       color: white;
-      padding: 16px 20px;
+      padding: 14px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1rem;
       flex-shrink: 0;
     }
     #sahcharHeader .header-title {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
     #sahcharHeader .header-title span {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
+    }
+    .status-badge {
+      font-size: 0.6rem;
+      opacity: 0.7;
+      font-weight: 400;
+      background: rgba(255,255,255,0.2);
+      padding: 2px 10px;
+      border-radius: 20px;
     }
     #closeChatBtn {
       background: rgba(255,255,255,0.15);
       border: none;
       color: white;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       cursor: pointer;
-      padding: 4px 10px;
+      padding: 2px 10px;
       border-radius: 50%;
       transition: background 0.3s;
     }
@@ -160,13 +168,13 @@
     /* Messages Area */
     #sahcharMessages {
       flex: 1;
-      padding: 16px;
+      padding: 14px;
       overflow-y: auto;
       font-size: 14px;
       background: #fcf8f2;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
     #sahcharMessages::-webkit-scrollbar {
       width: 4px;
@@ -178,10 +186,10 @@
 
     /* Message Bubbles */
     .sahcharMsg {
-      max-width: 85%;
+      max-width: 88%;
       padding: 10px 14px;
       border-radius: 16px;
-      line-height: 1.5;
+      line-height: 1.6;
       word-wrap: break-word;
       animation: fadeIn 0.3s ease;
     }
@@ -202,66 +210,50 @@
       border-bottom-left-radius: 4px;
     }
 
-    /* Input Area */
-    #sahcharInputBox {
-      display: flex;
-      align-items: center;
+    /* ===== FEATURE GRID IN CHAT ===== */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      padding: 10px 14px;
-      border-top: 2px solid #b45309;
-      background: white;
-      flex-shrink: 0;
+      margin-top: 8px;
     }
-    #sahcharInputBox input {
-      flex: 1;
-      padding: 10px 14px;
+    .feature-grid .feature-item {
+      background: rgba(255,255,255,0.6);
       border: 1px solid #e2e8f0;
-      border-radius: 30px;
-      outline: none;
-      font-size: 14px;
-      font-family: 'Poppins', sans-serif;
-      transition: border-color 0.3s;
-    }
-    #sahcharInputBox input:focus {
-      border-color: #b45309;
-    }
-    #sahcharInputBox button {
-      border: none;
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      font-size: 18px;
+      border-radius: 12px;
+      padding: 8px 4px;
+      text-align: center;
       cursor: pointer;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      transition: all 0.3s ease;
+      font-size: 0.7rem;
+      color: #1e293b;
     }
-    #sendBtn {
+    .feature-grid .feature-item:hover {
       background: #b45309;
       color: white;
-    }
-    #sendBtn:hover {
-      background: #92400e;
       transform: scale(1.05);
+      border-color: #b45309;
     }
-    #micBtn {
-      background: #10b981;
-      color: white;
-      font-size: 20px;
+    .feature-grid .feature-item .icon {
+      font-size: 1.5rem;
+      display: block;
+      margin-bottom: 2px;
     }
-    #micBtn:hover {
-      background: #059669;
-      transform: scale(1.05);
+    .feature-grid .feature-item .label {
+      font-size: 0.6rem;
+      font-weight: 500;
     }
-    #micBtn.listening {
-      background: #ef4444;
-      animation: pulse 1s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+
+    /* Feature Tag in messages */
+    .feature-tag {
+      display: inline-block;
+      background: rgba(37, 99, 235, 0.1);
+      color: #2563eb;
+      font-size: 0.55rem;
+      padding: 1px 8px;
+      border-radius: 12px;
+      margin-left: 6px;
+      font-weight: 500;
     }
 
     /* Typing Indicator */
@@ -289,55 +281,66 @@
       30% { transform: translateY(-8px); }
     }
 
-    /* Status Badge */
-    .status-badge {
-      font-size: 0.65rem;
-      opacity: 0.7;
-      font-weight: 400;
-      background: rgba(255,255,255,0.2);
-      padding: 2px 10px;
-      border-radius: 20px;
-    }
-
-    /* Quick Reply Suggestions */
-    .quick-replies {
+    /* Input Area */
+    #sahcharInputBox {
       display: flex;
+      align-items: center;
       gap: 6px;
-      padding: 4px 14px 10px 14px;
-      flex-wrap: wrap;
-      background: #fcf8f2;
-      border-top: 1px solid #f0ebe4;
+      padding: 8px 12px;
+      border-top: 2px solid #b45309;
+      background: white;
       flex-shrink: 0;
     }
-    .quick-reply-btn {
-      background: #f0ebe4;
+    #sahcharInputBox input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 30px;
+      outline: none;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s;
+    }
+    #sahcharInputBox input:focus {
+      border-color: #b45309;
+    }
+    #sahcharInputBox button {
       border: none;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      color: #5a3e2b;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
       cursor: pointer;
       transition: all 0.3s;
-      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
-    .quick-reply-btn:hover {
+    #sendBtn {
       background: #b45309;
       color: white;
-      transform: translateY(-1px);
     }
-
-    /* ============================================================ */
-    /* ===== FEATURE INDICATORS IN CHAT ===== */
-    /* ============================================================ */
-    .feature-tag {
-      display: inline-block;
-      background: rgba(37, 99, 235, 0.1);
-      color: #2563eb;
-      font-size: 0.6rem;
-      padding: 1px 8px;
-      border-radius: 12px;
-      margin-left: 4px;
-      font-weight: 500;
+    #sendBtn:hover {
+      background: #92400e;
+      transform: scale(1.05);
+    }
+    #micBtn {
+      background: #10b981;
+      color: white;
+      font-size: 18px;
+    }
+    #micBtn:hover {
+      background: #059669;
+      transform: scale(1.05);
+    }
+    #micBtn.listening {
+      background: #ef4444;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
     }
   </style>
 </head>
@@ -475,7 +478,7 @@
   </footer>
 
   <!-- ============================================================ -->
-  <!-- ===== PROFESSIONAL CHATBOT (RIGHT SIDE - WITH ALL FEATURES) ===== -->
+  <!-- ===== CHATBOT WITH FEATURE ICONS ===== -->
   <!-- ============================================================ -->
   <button id="sahcharChatBtn">🧘</button>
 
@@ -491,12 +494,6 @@
     <div class="typing-indicator" id="typingIndicator">
       <span></span><span></span><span></span>
     </div>
-    <div class="quick-replies" id="quickReplies">
-      <button class="quick-reply-btn" onclick="sendQuickReply('नमस्ते')">🙏 नमस्ते</button>
-      <button class="quick-reply-btn" onclick="sendQuickReply('बुद्ध की शिक्षाएं')">🪷 शिक्षाएं</button>
-      <button class="quick-reply-btn" onclick="sendQuickReply('आज का मौसम')">🌤️ मौसम</button>
-      <button class="quick-reply-btn" onclick="sendQuickReply('तस्वीर बनाओ')">🎨 तस्वीर</button>
-    </div>
     <div id="sahcharInputBox">
       <input type="text" id="sahcharInput" placeholder="अपना प्रश्न पूछिए..." />
       <button id="micBtn" onclick="startVoiceInput()" title="Voice Input">🎤</button>
@@ -506,7 +503,7 @@
 
   <script>
     // ============================================================ //
-    // ===== CHATBOT WITH ALL FEATURES ===== //
+    // ===== CHATBOT WITH FEATURE ICONS ===== //
     // ============================================================ //
 
     // ===== DOM Elements =====
@@ -519,22 +516,28 @@
     // ===== API URL =====
     const API_URL = "https://api-5n6fh3d24a-uc.a.run.app/chat";
 
-    // ===== Feature Detection Keywords =====
-    const FEATURES = {
-      webSearch: ["खोज", "search", "news", "समाचार", "मौसम", "weather", "cricket", "क्रिकेट", "बाजार", "market", "स्कोर", "score"],
-      imageGen: ["तस्वीर बनाओ", "इमेज बनाओ", "picture", "image", "draw", "चित्र बनाओ"],
-      videoGen: ["video बनाओ", "वीडियो बनाओ", "animate", "एनिमेशन"],
-      timeDate: ["टाइम", "समय", "time", "तारीख", "date", "क्या बजा", "day", "दिन"]
-    };
+    // ===== Feature Icons =====
+    const FEATURES_LIST = [
+      { icon: "🔍", label: "Web Search", prompt: "खोज" },
+      { icon: "🎨", label: "Image Gen", prompt: "तस्वीर बनाओ" },
+      { icon: "🎬", label: "Video Gen", prompt: "वीडियो बनाओ" },
+      { icon: "📄", label: "Document", prompt: "document analyze" },
+      { icon: "💾", label: "Memory", prompt: "पिछली बात" },
+      { icon: "🧠", label: "Self-Learn", prompt: "सीखो" },
+      { icon: "🔄", label: "Auto-Upgrade", prompt: "upgrade" },
+      { icon: "🌐", label: "Multilingual", prompt: "hello" }
+    ];
 
-    // ===== Detect Feature =====
+    // ===== Feature Detection =====
     function detectFeature(message) {
       const lower = message.toLowerCase();
-      if (FEATURES.timeDate.some(k => lower.includes(k))) return "time";
-      if (FEATURES.imageGen.some(k => lower.includes(k))) return "image";
-      if (FEATURES.videoGen.some(k => lower.includes(k))) return "video";
-      if (FEATURES.webSearch.some(k => lower.includes(k))) return "search";
-      return "chat";
+      if (lower.includes("तस्वीर") || lower.includes("इमेज") || lower.includes("image")) return "🎨 Image";
+      if (lower.includes("वीडियो") || lower.includes("video")) return "🎬 Video";
+      if (lower.includes("खोज") || lower.includes("search") || lower.includes("news") || lower.includes("समाचार")) return "🔍 Search";
+      if (lower.includes("document") || lower.includes("दस्तावेज़") || lower.includes("फाइल")) return "📄 Document";
+      if (lower.includes("पिछली बात") || lower.includes("history") || lower.includes("याद")) return "💾 Memory";
+      if (lower.includes("समय") || lower.includes("time") || lower.includes("तारीख") || lower.includes("date")) return "⏰ Time";
+      return "💬 Chat";
     }
 
     // ===== Toggle Chat =====
@@ -542,25 +545,38 @@
       const isOpen = chatBox.style.display === "flex";
       chatBox.style.display = isOpen ? "none" : "flex";
       if (!isOpen && messagesDiv.children.length === 0) {
-        const welcome = `नमस्ते! मैं सहचर AI हूँ – बुद्ध की शिक्षाओं का साथी। 🙏
-
-मेरी ये special capabilities हैं:
-🔍 Web Search - वास्तविक समय में जानकारी
-🎨 Image Generation - AI से तस्वीर बनाना
-🎬 Video Generation - AI से वीडियो बनाना
-📄 Document Analysis - दस्तावेज़ विश्लेषण
-💾 Chat Memory - पिछली बातें याद रखना
-🧠 Self-Learning - खुद सीखना और सुधरना
-🔄 Auto-Upgrade - हर 50 संदेशों पर अपग्रेड
-🌐 Multilingual - हिंदी और अंग्रेजी
-
-आप किसी भी feature का उपयोग कर सकते हैं!`;
-        addMessage(welcome, "bot");
+        showWelcomeMessage();
       }
       if (!isOpen) {
         inputField.focus();
       }
     };
+
+    function showWelcomeMessage() {
+      const welcomeDiv = document.createElement("div");
+      welcomeDiv.className = "sahcharMsg sahcharBotMsg";
+      welcomeDiv.innerHTML = `
+        <strong>नमस्ते! मैं सहचर AI हूँ 🙏</strong><br>
+        <small style="color:#666;">नीचे दिए गए icons पर click करके features use करें:</small>
+        <div class="feature-grid">
+          ${FEATURES_LIST.map(f => `
+            <div class="feature-item" onclick="sendFeaturePrompt('${f.prompt}')">
+              <span class="icon">${f.icon}</span>
+              <span class="label">${f.label}</span>
+            </div>
+          `).join('')}
+        </div>
+        <small style="color:#666; display:block; margin-top:6px;">या अपना प्रश्न टाइप करें</small>
+      `;
+      messagesDiv.appendChild(welcomeDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // ===== Send Feature Prompt =====
+    function sendFeaturePrompt(prompt) {
+      inputField.value = prompt;
+      sendMessage();
+    }
 
     function closeChat() {
       chatBox.style.display = "none";
@@ -622,7 +638,6 @@
       inputField.value = "";
       showTyping(true);
 
-      // Detect feature and add tag
       const feature = detectFeature(msg);
       
       let cleanMsg = msg.replace(/[\u{1F600}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F300}-\u{1F5FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{FE00}-\u{FEFF}\u{2300}-\u{23FF}\u{2B50}\u{2934}\u{2935}\u{2190}-\u{21FF}]/gu, '').trim();
@@ -651,14 +666,7 @@
       .then(data => {
         showTyping(false);
         const reply = data.reply || data.message || "क्षमा करें, उत्तर नहीं मिला। 🙏";
-        const featureName = {
-          time: "⏰ Time",
-          image: "🎨 Image",
-          video: "🎬 Video",
-          search: "🔍 Search",
-          chat: "💬 Chat"
-        }[feature] || "💬 Chat";
-        addMessage(reply, "bot", featureName);
+        addMessage(reply, "bot", feature);
         speakText(reply);
       })
       .catch(err => {
@@ -666,12 +674,6 @@
         addMessage("सर्वर से संपर्क नहीं हो पाया। कृपया बाद में प्रयास करें। 🙏", "bot");
         console.error("❌ Chat error:", err);
       });
-    }
-
-    // ===== Quick Reply =====
-    function sendQuickReply(text) {
-      inputField.value = text;
-      sendMessage();
     }
 
     // ===== Enter Key =====
@@ -718,10 +720,8 @@
     // ===== EXISTING SCRIPT (CSC Functionality) ===== //
     // ============================================================ //
 
-    // Dynamic Year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    // Visitor Counter
     function updateVisitorCounter() {
       const countSpan = document.getElementById('visitorCount');
       if (!sessionStorage.getItem('visitorCounted')) {
@@ -736,7 +736,6 @@
     }
     updateVisitorCounter();
 
-    // Services Search
     document.getElementById('serviceSearch').addEventListener('keyup', function() {
       let search = this.value.toLowerCase();
       let cards = document.querySelectorAll('.card');
@@ -747,7 +746,6 @@
       });
     });
 
-    // Generate Token
     function generateToken() {
       const now = new Date();
       const dateStr = now.getFullYear().toString().slice(-2) +
@@ -757,7 +755,6 @@
       return `CSC${dateStr}${random}`;
     }
 
-    // Form Submission
     document.getElementById('appointmentForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
