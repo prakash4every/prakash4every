@@ -648,34 +648,44 @@
     }
 
     function sendOmniMsg() {
-      const input = document.getElementById("omniInput");
-      const msg = input.value.trim();
-      if (!msg) return;
+    const input = document.getElementById("omniInput");
+    const msg = input.value.trim();
+    if (!msg) return;
 
-      addOmniMsg(msg, "user");
-      input.value = "";
-      addOmniMsg("🤔 सोच रहा हूँ...", "bot");
+    addOmniMsg(msg, "user");
+    input.value = "";
+    addOmniMsg("🤔 सोच रहा हूँ...", "bot");
 
-      fetch("https://api-5n6fh3d24a-uc.a.run.app/chat", {
+    fetch("https://api-5n6fh3d24a-uc.a.run.app/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: msg, language: "hi" })
-      })
-      .then(res => res.json())
-      .then(data => {
+        headers: { 
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({ 
+            message: msg,
+            sessionId: "web_user_" + Date.now()
+        })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error('Server error: ' + res.status);
+        return res.json();
+    })
+    .then(data => {
         const lastMsg = omniMessages.lastChild;
         if (lastMsg && lastMsg.innerText === "🤔 सोच रहा हूँ...") lastMsg.remove();
-        addOmniMsg(data.response || data.error || "कोई जवाब नहीं", "bot");
-        speakOmni(data.response || "कोई जवाब नहीं");
-      })
-      .catch(err => {
+        // ✅ FIXED: Use 'reply' (backend returns reply)
+        const reply = data.reply || data.message || "क्षमा करें, उत्तर नहीं मिला। 🙏";
+        addOmniMsg(reply, "bot");
+        speakOmni(reply);
+    })
+    .catch(err => {
         const lastMsg = omniMessages.lastChild;
         if (lastMsg && lastMsg.innerText === "🤔 सोच रहा हूँ...") lastMsg.remove();
-        addOmniMsg("सर्वर से संपर्क नहीं हो पाया।", "bot");
-        console.error(err);
-      });
-    }
-
+        addOmniMsg("सर्वर से संपर्क नहीं हो पाया। कृपया बाद में प्रयास करें। 🙏", "bot");
+        console.error("❌ Chat error:", err);
+    });
+}
     document.getElementById("omniInput").addEventListener("keypress", (e) => {
       if (e.key === "Enter") sendOmniMsg();
     });
