@@ -656,7 +656,7 @@
       input.value = "";
       addOmniMsg("🤔 सोच रहा हूँ...", "bot");
 
-      fetch("https://sahchar-omni-backend.onrender.com/api/chat/send", {
+      fetch("https://api-5n6fh3d24a-uc.a.run.app/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: msg, language: "hi" })
