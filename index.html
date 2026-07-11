@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* ===== तुम्हारा पुराना सारा स्टाइल बिल्कुल वैसा ही ===== */
+    /* ===== Base Styles ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Poppins', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; }
     header { background: #2563eb; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex-wrap: wrap; }
@@ -72,11 +72,15 @@
       .services-grid { padding: 0 1rem; }
     }
 
-    /* ===== नया Omni AI Chatbot (बायीं तरफ) ===== */
-    #omniChatBtn {
+    /* ============================================================ */
+    /* ===== PROFESSIONAL CHATBOT (RIGHT SIDE - ONLY ONE) ===== */
+    /* ============================================================ */
+
+    /* Chat Button */
+    #sahcharChatBtn {
       position: fixed;
       bottom: 25px;
-      left: 25px;
+      right: 25px;
       width: 65px;
       height: 65px;
       border-radius: 50%;
@@ -85,183 +89,246 @@
       font-size: 28px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(180, 83, 9, 0.3);
+      box-shadow: 0 8px 25px rgba(180, 83, 9, 0.35);
       z-index: 9999;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    #omniChatBox {
+    #sahcharChatBtn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 35px rgba(180, 83, 9, 0.45);
+    }
+
+    /* Chat Box */
+    #sahcharChatBox {
       position: fixed;
       bottom: 100px;
-      left: 25px;
-      width: 340px;
-      height: 480px;
-      background: #fffaf0;
+      right: 25px;
+      width: 380px;
+      max-width: 90vw;
+      height: 520px;
+      max-height: 80vh;
+      background: #ffffff;
       border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.25);
       display: none;
       flex-direction: column;
       overflow: hidden;
       font-family: 'Poppins', sans-serif;
       z-index: 9999;
       border: 2px solid #b45309;
+      animation: slideUp 0.3s ease-out;
     }
-    #omniHeader {
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Header */
+    #sahcharHeader {
       background: linear-gradient(135deg, #b45309, #92400e);
       color: white;
-      padding: 14px;
-      text-align: center;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-weight: 600;
       font-size: 1.1rem;
+      flex-shrink: 0;
     }
-    #omniMessages {
-      flex: 1;
-      padding: 12px;
-      overflow-y: auto;
-      font-size: 14px;
-      background: #fffaf0;
-    }
-    .omniMsg {
-      margin-bottom: 10px;
-      padding: 8px 12px;
-      border-radius: 12px;
-      max-width: 85%;
-    }
-    .omniUserMsg {
-      background: #d1d5db;
-      margin-left: auto;
-    }
-    .omniBotMsg {
-      background: #fde68a;
-      margin-right: auto;
-    }
-    #omniInputBox {
+    #sahcharHeader .header-title {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px;
+      gap: 10px;
+    }
+    #sahcharHeader .header-title span {
+      font-size: 1.4rem;
+    }
+    #closeChatBtn {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    #closeChatBtn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* Messages Area */
+    #sahcharMessages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      font-size: 14px;
+      background: #fcf8f2;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    #sahcharMessages::-webkit-scrollbar {
+      width: 4px;
+    }
+    #sahcharMessages::-webkit-scrollbar-thumb {
+      background: #b45309;
+      border-radius: 10px;
+    }
+
+    /* Message Bubbles */
+    .sahcharMsg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      line-height: 1.5;
+      word-wrap: break-word;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .sahcharUserMsg {
+      background: #d1d5db;
+      color: #1e293b;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .sahcharBotMsg {
+      background: #fde68a;
+      color: #1e293b;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    /* Input Area */
+    #sahcharInputBox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
       border-top: 2px solid #b45309;
       background: white;
+      flex-shrink: 0;
     }
-    #omniInputBox input {
+    #sahcharInputBox input {
       flex: 1;
-      padding: 12px;
-      border: 1px solid #ccc;
+      padding: 10px 14px;
+      border: 1px solid #e2e8f0;
       border-radius: 30px;
       outline: none;
       font-size: 14px;
       font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s;
     }
-    #omniSendBtn {
+    #sahcharInputBox input:focus {
+      border-color: #b45309;
+    }
+    #sahcharInputBox button {
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    #sendBtn {
       background: #b45309;
       color: white;
-      border: none;
-      border-radius: 30px;
-      padding: 12px 16px;
-      font-size: 20px;
-      cursor: pointer;
-      transition: 0.2s;
-      min-width: 50px;
     }
-    #omniSendBtn:hover {
+    #sendBtn:hover {
       background: #92400e;
       transform: scale(1.05);
     }
-    #omniMicBtn {
+    #micBtn {
       background: #10b981;
       color: white;
-      border: none;
-      border-radius: 30px;
-      padding: 12px 18px;
-      font-size: 22px;
-      cursor: pointer;
-      transition: 0.2s;
+      font-size: 20px;
     }
-    #omniMicBtn:hover {
+    #micBtn:hover {
       background: #059669;
       transform: scale(1.05);
     }
+    #micBtn.listening {
+      background: #ef4444;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
 
-    /* ===== पुराना CSC Chatbot (दायीं तरफ) ===== */
-    #aiChatBtn {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      background: linear-gradient(135deg,#2563eb,#1d4ed8);
-      color: #fff;
-      font-size: 26px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-      z-index: 9999;
-    }
-    #aiChatBox {
-      position: fixed;
-      bottom: 100px;
-      right: 25px;
-      width: 340px;
-      height: 480px;
-      background: #ffffff;
-      border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    /* Typing Indicator */
+    .typing-indicator {
       display: none;
-      flex-direction: column;
-      overflow: hidden;
-      font-family: 'Poppins', sans-serif;
-      z-index: 9999;
+      align-self: flex-start;
+      background: #fde68a;
+      padding: 10px 16px;
+      border-radius: 16px;
+      border-bottom-left-radius: 4px;
+      gap: 4px;
     }
-    #aiHeader {
-      background: linear-gradient(135deg,#2563eb,#1d4ed8);
-      color: white;
-      padding: 14px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 1rem;
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: #92400e;
+      border-radius: 50%;
+      display: inline-block;
+      animation: typingBounce 1.4s infinite;
     }
-    #aiMessages {
-      flex: 1;
-      padding: 12px;
-      overflow-y: auto;
-      font-size: 14px;
-      background: #f8fafc;
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-8px); }
     }
-    .aiMsg {
-      margin-bottom: 10px;
-      padding: 8px 12px;
-      border-radius: 12px;
-      max-width: 85%;
+
+    /* Status Badge */
+    .status-badge {
+      font-size: 0.65rem;
+      opacity: 0.7;
+      font-weight: 400;
+      background: rgba(255,255,255,0.2);
+      padding: 2px 10px;
+      border-radius: 20px;
     }
-    .userMsg {
-      background: #dbeafe;
-      margin-left: auto;
-    }
-    .botMsg {
-      background: #e2e8f0;
-      margin-right: auto;
-    }
-    #aiInputBox {
+
+    /* Quick Reply Suggestions */
+    .quick-replies {
       display: flex;
-      border-top: 1px solid #e2e8f0;
+      gap: 6px;
+      padding: 4px 14px 10px 14px;
+      flex-wrap: wrap;
+      background: #fcf8f2;
+      border-top: 1px solid #f0ebe4;
+      flex-shrink: 0;
     }
-    #aiInputBox input {
-      flex: 1;
-      padding: 10px;
+    .quick-reply-btn {
+      background: #f0ebe4;
       border: none;
-      outline: none;
-      font-size: 14px;
-    }
-    #aiInputBox button {
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 10px 14px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #5a3e2b;
       cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+    .quick-reply-btn:hover {
+      background: #b45309;
+      color: white;
+      transform: translateY(-1px);
     }
   </style>
 </head>
 <body>
-  <!-- ===== पूरा CSC कंटेंट ===== -->
+  <!-- ===== HEADER ===== -->
   <header>
     <h2>🏢 cscalipur | आधिकारिक सेवा केंद्र</h2>
     <div class="header-buttons">
@@ -270,13 +337,14 @@
     </div>
   </header>
 
+  <!-- ===== HERO ===== -->
   <section class="hero">
     <h1>CSC सेवाएं अब आपके गांव में</h1>
     <p>सरकारी योजनाएं • ऑनलाइन आवेदन • डिजिटल सेवाएं • जनसेवा सहायता</p>
     <a href="#appointment" class="btn">📅 ऑनलाइन अपॉइंटमेंट बुक करें</a>
   </section>
 
-  <!-- Searchable Services -->
+  <!-- ===== SEARCH & SERVICES ===== -->
   <div class="search-box">
     <input type="text" id="serviceSearch" placeholder="🔍 सेवा खोजें... (जैसे: आधार, पेंशन, बैंक)">
   </div>
@@ -295,7 +363,7 @@
     </div>
   </section>
 
-  <!-- Appointment Form -->
+  <!-- ===== APPOINTMENT FORM ===== -->
   <section id="appointment" class="appointment-section">
     <h2>📝 ऑनलाइन अपॉइंटमेंट बुक करें</h2>
     <div class="form-container">
@@ -365,7 +433,7 @@
     </div>
   </section>
 
-  <!-- Location -->
+  <!-- ===== LOCATION ===== -->
   <section class="location-section">
     <h2>हमारा केंद्र</h2>
     <div class="info-card">
@@ -386,41 +454,208 @@
     <iframe class="map-frame" src="https://www.google.com/maps?q=Alipur,Bihar&output=embed" allowfullscreen loading="lazy"></iframe>
   </section>
 
+  <!-- ===== FOOTER ===== -->
   <footer>
     <p>© <span id="currentYear"></span> cscalipur | सभी अधिकार सुरक्षित</p>
     <div class="visitor-counter">👁️ कुल विजिटर: <span id="visitorCount">0</span></div>
   </footer>
 
-  <!-- ===== CSC AI Chatbot (दायीं तरफ) ===== -->
-  <button id="aiChatBtn">💬</button>
+  <!-- ============================================================ -->
+  <!-- ===== PROFESSIONAL CHATBOT (RIGHT SIDE - ONLY ONE) ===== -->
+  <!-- ============================================================ -->
+  <button id="sahcharChatBtn">🧘</button>
 
-  <div id="aiChatBox">
-    <div id="aiHeader">CSC अलीपुर डिजिटल सहायक</div>
-    <div id="aiMessages"></div>
-    <div id="aiInputBox">
-      <input type="text" id="aiInput" placeholder="अपना प्रश्न लिखें..." />
-      <button onclick="sendAI()">Send</button>
-      <button onclick="startVoice()" style="background:#10b981;color:white;border:none;padding:10px 12px;cursor:pointer;">🎤</button>
+  <div id="sahcharChatBox">
+    <div id="sahcharHeader">
+      <div class="header-title">
+        <span>🧘</span> सहचर AI
+        <span class="status-badge">● Online</span>
+      </div>
+      <button id="closeChatBtn" onclick="closeChat()">✕</button>
     </div>
-  </div>
-
-  <!-- ===== NEW Omni AI Chatbot (बायीं तरफ) ===== -->
-  <button id="omniChatBtn">🧘</button>
-
-  <div id="omniChatBox">
-    <div id="omniHeader">सहचर ओम्नी AI</div>
-    <div id="omniMessages"></div>
-    <div id="omniInputBox">
-      <input type="text" id="omniInput" placeholder="अपना प्रश्न पूछिए..." />
-      <button id="omniSendBtn" onclick="sendOmniMsg()">➤</button>
-      <button id="omniMicBtn" onclick="startOmniVoice()">🎤</button>
+    <div id="sahcharMessages"></div>
+    <div class="typing-indicator" id="typingIndicator">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="quick-replies" id="quickReplies">
+      <button class="quick-reply-btn" onclick="sendQuickReply('नमस्ते')">🙏 नमस्ते</button>
+      <button class="quick-reply-btn" onclick="sendQuickReply('सेवाएं')">📋 सेवाएं</button>
+      <button class="quick-reply-btn" onclick="sendQuickReply('संपर्क')">📞 संपर्क</button>
+      <button class="quick-reply-btn" onclick="sendQuickReply('बुद्ध विचार')">🪷 विचार</button>
+    </div>
+    <div id="sahcharInputBox">
+      <input type="text" id="sahcharInput" placeholder="अपना प्रश्न पूछिए..." />
+      <button id="micBtn" onclick="startVoiceInput()" title="Voice Input">🎤</button>
+      <button id="sendBtn" onclick="sendMessage()">➤</button>
     </div>
   </div>
 
   <script>
-    // ========== CSC वाले स्क्रिप्ट ==========
+    // ============================================================ //
+    // ===== MAIN SCRIPT ===== //
+    // ============================================================ //
+
+    // ===== DOM Elements =====
+    const chatBtn = document.getElementById("sahcharChatBtn");
+    const chatBox = document.getElementById("sahcharChatBox");
+    const messagesDiv = document.getElementById("sahcharMessages");
+    const inputField = document.getElementById("sahcharInput");
+    const typingIndicator = document.getElementById("typingIndicator");
+
+    // ===== API URL =====
+    const API_URL = "https://api-5n6fh3d24a-uc.a.run.app/chat";
+
+    // ===== Toggle Chat =====
+    chatBtn.onclick = () => {
+      const isOpen = chatBox.style.display === "flex";
+      chatBox.style.display = isOpen ? "none" : "flex";
+      if (!isOpen && messagesDiv.children.length === 0) {
+        addMessage("नमस्ते! मैं सहचर AI हूँ – बुद्ध की शिक्षाओं का साथी। आप कैसे सहायता चाहते हैं? 🙏", "bot");
+      }
+      if (!isOpen) {
+        inputField.focus();
+      }
+    };
+
+    function closeChat() {
+      chatBox.style.display = "none";
+    }
+
+    // ===== Add Message =====
+    function addMessage(text, type) {
+      const msg = document.createElement("div");
+      msg.className = "sahcharMsg " + (type === "user" ? "sahcharUserMsg" : "sahcharBotMsg");
+      msg.innerText = text;
+      messagesDiv.appendChild(msg);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // ===== Show/Hide Typing =====
+    function showTyping(show) {
+      typingIndicator.style.display = show ? "flex" : "none";
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // ===== Remove Emoji for TTS =====
+    function removeEmojiForTTS(text) {
+      if (!text) return "";
+      const emojiRegex = /[\u{1F600}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F300}-\u{1F5FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{FE00}-\u{FEFF}\u{2300}-\u{23FF}\u{2B50}\u{2934}\u{2935}\u{2190}-\u{21FF}]/gu;
+      let cleaned = text.replace(emojiRegex, '').trim();
+      cleaned = cleaned.replace(/[^a-zA-Z0-9\u0900-\u097F\s.,!?;:'"()\-]/g, '');
+      cleaned = cleaned.replace(/\s+/g, ' ').trim();
+      return cleaned || text;
+    }
+
+    // ===== Speak =====
+    function speakText(text) {
+      if (!text) return;
+      const clean = removeEmojiForTTS(text);
+      const speech = new SpeechSynthesisUtterance(clean);
+      speech.lang = "hi-IN";
+      speech.rate = 1;
+      window.speechSynthesis.speak(speech);
+    }
+
+    // ===== Send Message =====
+    function sendMessage() {
+      const msg = inputField.value.trim();
+      if (!msg) return;
+
+      addMessage(msg, "user");
+      inputField.value = "";
+      showTyping(true);
+
+      // Clean message for API
+      let cleanMsg = msg.replace(/[\u{1F600}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F300}-\u{1F5FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{FE00}-\u{FEFF}\u{2300}-\u{23FF}\u{2B50}\u{2934}\u{2935}\u{2190}-\u{21FF}]/gu, '').trim();
+      
+      if (!cleanMsg) {
+        showTyping(false);
+        addMessage("⚠️ कृपया टेक्स्ट के साथ इमोजी भेजें। 🙏", "bot");
+        return;
+      }
+
+      fetch(API_URL, {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({ 
+          message: cleanMsg,
+          sessionId: "web_user_" + Date.now()
+        })
+      })
+      .then(res => {
+        if (!res.ok) throw new Error('Server error: ' + res.status);
+        return res.json();
+      })
+      .then(data => {
+        showTyping(false);
+        const reply = data.reply || data.message || "क्षमा करें, उत्तर नहीं मिला। 🙏";
+        addMessage(reply, "bot");
+        speakText(reply);
+      })
+      .catch(err => {
+        showTyping(false);
+        addMessage("सर्वर से संपर्क नहीं हो पाया। कृपया बाद में प्रयास करें। 🙏", "bot");
+        console.error("❌ Chat error:", err);
+      });
+    }
+
+    // ===== Quick Reply =====
+    function sendQuickReply(text) {
+      inputField.value = text;
+      sendMessage();
+    }
+
+    // ===== Enter Key =====
+    inputField.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    // ===== Voice Input =====
+    function startVoiceInput() {
+      if (!('webkitSpeechRecognition' in window)) {
+        addMessage("⚠️ Voice recognition के लिए Chrome या Edge इस्तेमाल करें।", "bot");
+        return;
+      }
+      const micBtn = document.getElementById("micBtn");
+      micBtn.classList.add("listening");
+
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = "hi-IN";
+      recognition.interimResults = false;
+      recognition.continuous = false;
+
+      recognition.onstart = () => {
+        addMessage("🎤 सुन रहा हूँ...", "bot");
+      };
+      recognition.onresult = (e) => {
+        const voiceText = e.results[0][0].transcript;
+        inputField.value = voiceText;
+        micBtn.classList.remove("listening");
+        recognition.stop();
+        sendMessage();
+      };
+      recognition.onerror = (e) => {
+        micBtn.classList.remove("listening");
+        if (e.error === "not-allowed") {
+          addMessage("⚠️ माइक्रोफोन अनुमति दें।", "bot");
+        } else {
+          addMessage("⚠️ आवाज़ सुनाई नहीं दी, फिर कोशिश करें।", "bot");
+        }
+      };
+      recognition.start();
+    }
+
+    // ============================================================ //
+    // ===== EXISTING SCRIPT (CSC Functionality) ===== //
+    // ============================================================ //
+
+    // Dynamic Year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
 
+    // Visitor Counter
     function updateVisitorCounter() {
       const countSpan = document.getElementById('visitorCount');
       if (!sessionStorage.getItem('visitorCounted')) {
@@ -435,6 +670,7 @@
     }
     updateVisitorCounter();
 
+    // Services Search
     document.getElementById('serviceSearch').addEventListener('keyup', function() {
       let search = this.value.toLowerCase();
       let cards = document.querySelectorAll('.card');
@@ -445,6 +681,7 @@
       });
     });
 
+    // Generate Token
     function generateToken() {
       const now = new Date();
       const dateStr = now.getFullYear().toString().slice(-2) +
@@ -454,6 +691,7 @@
       return `CSC${dateStr}${random}`;
     }
 
+    // Form Submission
     document.getElementById('appointmentForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -523,198 +761,6 @@
     const dateInput = document.querySelector('input[name="entry.1788454306"]');
     dateInput.min = tomorrow.toISOString().split('T')[0];
     dateInput.max = maxDate.toISOString().split('T')[0];
-
-    // ========== CSC Chatbot JavaScript ==========
-    const aiBtn = document.getElementById("aiChatBtn");
-    const aiBox = document.getElementById("aiChatBox");
-    const aiMessages = document.getElementById("aiMessages");
-
-    aiBtn.onclick = () => {
-      aiBox.style.display = aiBox.style.display === "flex" ? "none" : "flex";
-      if (aiBox.style.display === "flex" && !aiMessages.hasChildNodes()) {
-        speakReply("नमस्ते! मैं CSC अलीपुर डिजिटल सहायक हूँ। आप कैसे सहायता चाहते हैं?");
-      }
-    };
-
-    function addAIMessage(text, type) {
-      const msg = document.createElement("div");
-      msg.className = "aiMsg " + (type === "user" ? "userMsg" : "botMsg");
-      msg.innerText = text;
-      aiMessages.appendChild(msg);
-      aiMessages.scrollTop = aiMessages.scrollHeight;
-    }
-
-    function sendAI() {
-      const input = document.getElementById("aiInput");
-      const message = input.value.trim();
-      if (!message) return;
-
-      addAIMessage(message, "user");
-      input.value = "";
-      addAIMessage("कृपया प्रतीक्षा करें...", "bot");
-
-      fetch("https://csc-ylts.onrender.com/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: message })
-      })
-      .then(res => res.json())
-      .then(data => {
-        aiMessages.lastChild.remove();
-        addAIMessage(data.reply, "bot");
-        speakReply(data.reply);
-      })
-      .catch(() => {
-        aiMessages.lastChild.remove();
-        addAIMessage("सर्वर से कनेक्शन में समस्या है।", "bot");
-      });
-    }
-
-    document.getElementById("aiInput").addEventListener("keypress", function(e) {
-      if (e.key === "Enter") sendAI();
-    });
-
-    function startVoice() {
-      if (!('webkitSpeechRecognition' in window)) {
-        alert("Voice recognition इस browser में supported नहीं है। कृपया Chrome इस्तेमाल करें।");
-        return;
-      }
-      const recognition = new webkitSpeechRecognition();
-      recognition.lang = "hi-IN";
-      recognition.interimResults = false;
-      recognition.continuous = false;
-
-      recognition.onstart = function() {
-        addAIMessage("🎤 सुन रहा हूँ...", "bot");
-      };
-      recognition.onresult = function(event) {
-        const voiceText = event.results[0][0].transcript;
-        document.getElementById("aiInput").value = voiceText;
-        recognition.stop();
-        sendAI();
-      };
-      recognition.onerror = function(event) {
-        console.log("Voice Error:", event.error);
-        if (event.error === "not-allowed") {
-          addAIMessage("कृपया माइक्रोफोन अनुमति दें।", "bot");
-        } else if (event.error === "no-speech") {
-          addAIMessage("आवाज़ सुनाई नहीं दी, फिर कोशिश करें।", "bot");
-        } else {
-          addAIMessage("Voice error आया, फिर कोशिश करें।", "bot");
-        }
-      };
-      recognition.start();
-    }
-
-    window.speechSynthesis.onvoiceschanged = function() {
-      window.speechSynthesis.getVoices();
-    };
-    function speakReply(text) {
-      const speech = new SpeechSynthesisUtterance(text);
-      speech.lang = "hi-IN";
-      const voices = window.speechSynthesis.getVoices();
-      const hindiVoice = voices.find(voice => 
-        voice.lang.includes("hi") && voice.name.toLowerCase().includes("female")
-      );
-      if (hindiVoice) speech.voice = hindiVoice;
-      speech.rate = 1;
-      window.speechSynthesis.speak(speech);
-    }
-
-    // ========== NEW Omni AI Chatbot JavaScript (बायीं तरफ) ==========
-    const omniBtn = document.getElementById("omniChatBtn");
-    const omniBox = document.getElementById("omniChatBox");
-    const omniMessages = document.getElementById("omniMessages");
-
-    omniBtn.onclick = () => {
-      omniBox.style.display = omniBox.style.display === "flex" ? "none" : "flex";
-      if (omniBox.style.display === "flex" && !omniMessages.hasChildNodes()) {
-        addOmniMsg("नमस्ते! मैं सहचर ओम्नी AI हूँ – बुद्ध-चरित AI। आप कैसे सहायता चाहते हैं?", "bot");
-        speakOmni("नमस्ते! मैं सहचर ओम्नी AI हूँ।");
-      }
-    };
-
-    function addOmniMsg(text, type) {
-      const msg = document.createElement("div");
-      msg.className = "omniMsg " + (type === "user" ? "omniUserMsg" : "omniBotMsg");
-      msg.innerText = text;
-      omniMessages.appendChild(msg);
-      omniMessages.scrollTop = omniMessages.scrollHeight;
-    }
-
-    function sendOmniMsg() {
-      const input = document.getElementById("omniInput");
-      const msg = input.value.trim();
-      if (!msg) return;
-
-      addOmniMsg(msg, "user");
-      input.value = "";
-      addOmniMsg("🤔 सोच रहा हूँ...", "bot");
-
-      fetch("https://api-5n6fh3d24a-uc.a.run.app/chat", {
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({ 
-          message: msg,
-          sessionId: "web_user_" + Date.now()
-        })
-      })
-      .then(res => {
-        if (!res.ok) throw new Error('Server error: ' + res.status);
-        return res.json();
-      })
-      .then(data => {
-        const lastMsg = omniMessages.lastChild;
-        if (lastMsg && lastMsg.innerText === "🤔 सोच रहा हूँ...") lastMsg.remove();
-        const reply = data.reply || data.message || "क्षमा करें, उत्तर नहीं मिला। 🙏";
-        addOmniMsg(reply, "bot");
-        speakOmni(reply);
-      })
-      .catch(err => {
-        const lastMsg = omniMessages.lastChild;
-        if (lastMsg && lastMsg.innerText === "🤔 सोच रहा हूँ...") lastMsg.remove();
-        addOmniMsg("सर्वर से संपर्क नहीं हो पाया। कृपया बाद में प्रयास करें। 🙏", "bot");
-        console.error("❌ Chat error:", err);
-      });
-    }
-
-    document.getElementById("omniInput").addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendOmniMsg();
-    });
-
-    function startOmniVoice() {
-      if (!('webkitSpeechRecognition' in window)) {
-        alert("Voice recognition के लिए Chrome या Edge इस्तेमाल करें।");
-        return;
-      }
-      const recog = new webkitSpeechRecognition();
-      recog.lang = "hi-IN";
-      recog.interimResults = false;
-      recog.continuous = false;
-
-      recog.onstart = () => addOmniMsg("🎤 सुन रहा हूँ...", "bot");
-      recog.onresult = (e) => {
-        const voiceText = e.results[0][0].transcript;
-        document.getElementById("omniInput").value = voiceText;
-        recog.stop();
-        sendOmniMsg();
-      };
-      recog.onerror = (e) => {
-        if (e.error === "not-allowed") addOmniMsg("माइक्रोफोन अनुमति दें।", "bot");
-        else addOmniMsg("आवाज़ सुनाई नहीं दी, फिर कोशिश करें।", "bot");
-      };
-      recog.start();
-    }
-
-    function speakOmni(text) {
-      const speech = new SpeechSynthesisUtterance(text);
-      speech.lang = "hi-IN";
-      speech.rate = 1;
-      window.speechSynthesis.speak(speech);
-    }
   </script>
 </body>
 </html>
