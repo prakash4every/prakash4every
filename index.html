@@ -73,49 +73,6 @@
     }
 
     /* ============================================================ */
-    /* ===== CHATBOT FEATURES SECTION ===== */
-    /* ============================================================ */
-    .chatbot-features {
-      background: #f8fafc;
-      padding: 3rem 1.5rem;
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .feature-card {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 16px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      border: 1px solid #e2e8f0;
-      transition: all 0.3s ease;
-    }
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.12);
-      border-color: #2563eb;
-    }
-    .feature-icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    .feature-card h4 {
-      font-size: 1rem;
-      color: #2563eb;
-      margin-bottom: 0.5rem;
-    }
-    .feature-card p {
-      font-size: 0.85rem;
-      color: #64748b;
-      line-height: 1.5;
-    }
-
-    /* ============================================================ */
     /* ===== PROFESSIONAL CHATBOT (RIGHT SIDE - ONLY ONE) ===== */
     /* ============================================================ */
 
@@ -368,6 +325,20 @@
       color: white;
       transform: translateY(-1px);
     }
+
+    /* ============================================================ */
+    /* ===== FEATURE INDICATORS IN CHAT ===== */
+    /* ============================================================ */
+    .feature-tag {
+      display: inline-block;
+      background: rgba(37, 99, 235, 0.1);
+      color: #2563eb;
+      font-size: 0.6rem;
+      padding: 1px 8px;
+      border-radius: 12px;
+      margin-left: 4px;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
@@ -403,64 +374,6 @@
       <div class="card"><h3>🚗 परिवहन सेवाएं</h3><p>ड्राइविंग लाइसेंस, वाहन पंजीकरण, RC अपडेट।</p></div>
       <div class="card"><h3>🌾 कृषि सेवाएं</h3><p>किसान क्रेडिट कार्ड, PM किसान, फसल बीमा।</p></div>
       <div class="card"><h3>🏥 स्वास्थ्य सेवाएं</h3><p>आयुष्मान कार्ड, स्वास्थ्य बीमा, टेली-मेडिसिन।</p></div>
-    </div>
-  </section>
-
-  <!-- ============================================================ -->
-  <!-- ===== CHATBOT FEATURES SECTION ===== -->
-  <!-- ============================================================ -->
-  <section class="chatbot-features">
-    <h2>🤖 AI Chatbot Features</h2>
-    <p style="text-align:center; color:#555; margin-bottom:2rem; max-width:700px; margin-left:auto; margin-right:auto;">
-      SahcharAI chatbot की ये special capabilities हैं जो इसे और भी smart बनाती हैं। 
-      आप नीचे दिए गए 🧘 बटन पर click करके chatbot से बात कर सकते हैं।
-    </p>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🔍</div>
-        <h4>Web Search</h4>
-        <p>वास्तविक समय में वेब पर आपके प्रश्नों के उत्तर ढूंढता है।</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎨</div>
-        <h4>Image Generation & Analysis</h4>
-        <p>AI से इमेज बनाता है और उन्हें विश्लेषित करता है।</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📄</div>
-        <h4>Document Analysis</h4>
-        <p>दस्तावेज़ों को पढ़ता, समझता और सारांश प्रदान करता है।</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎬</div>
-        <h4>Video Generation</h4>
-        <p>AI से वीडियो बनाता है और डेमो दिखाता है।</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">💾</div>
-        <h4>Chat Memory & History</h4>
-        <p>पिछले संवादों को याद रखता है और बेहतर समझ प्रदान करता है।</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🧠</div>
-        <h4>Self-Learning</h4>
-        <p>संवादों से सीखता है और अपने आप में सुधार करता है।</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <h4>Task Complexity Analysis</h4>
-        <p>प्रश्नों की जटिलता का विश्लेषण कर उपयुक्त उत्तर देता है।</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔄</div>
-        <h4>Auto Self-Upgrade</h4>
-        <p>हर 50 संदेशों या 24 घंटों में स्वयं अपग्रेड होता है।</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌐</div>
-        <h4>Multilingual Support</h4>
-        <p>हिंदी और अंग्रेजी दोनों में संवाद कर सकता है।</p>
-      </div>
     </div>
   </section>
 
@@ -562,7 +475,7 @@
   </footer>
 
   <!-- ============================================================ -->
-  <!-- ===== PROFESSIONAL CHATBOT (RIGHT SIDE - ONLY ONE) ===== -->
+  <!-- ===== PROFESSIONAL CHATBOT (RIGHT SIDE - WITH ALL FEATURES) ===== -->
   <!-- ============================================================ -->
   <button id="sahcharChatBtn">🧘</button>
 
@@ -580,9 +493,9 @@
     </div>
     <div class="quick-replies" id="quickReplies">
       <button class="quick-reply-btn" onclick="sendQuickReply('नमस्ते')">🙏 नमस्ते</button>
-      <button class="quick-reply-btn" onclick="sendQuickReply('सेवाएं')">📋 सेवाएं</button>
-      <button class="quick-reply-btn" onclick="sendQuickReply('संपर्क')">📞 संपर्क</button>
-      <button class="quick-reply-btn" onclick="sendQuickReply('बुद्ध विचार')">🪷 विचार</button>
+      <button class="quick-reply-btn" onclick="sendQuickReply('बुद्ध की शिक्षाएं')">🪷 शिक्षाएं</button>
+      <button class="quick-reply-btn" onclick="sendQuickReply('आज का मौसम')">🌤️ मौसम</button>
+      <button class="quick-reply-btn" onclick="sendQuickReply('तस्वीर बनाओ')">🎨 तस्वीर</button>
     </div>
     <div id="sahcharInputBox">
       <input type="text" id="sahcharInput" placeholder="अपना प्रश्न पूछिए..." />
@@ -593,7 +506,7 @@
 
   <script>
     // ============================================================ //
-    // ===== MAIN SCRIPT ===== //
+    // ===== CHATBOT WITH ALL FEATURES ===== //
     // ============================================================ //
 
     // ===== DOM Elements =====
@@ -606,12 +519,43 @@
     // ===== API URL =====
     const API_URL = "https://api-5n6fh3d24a-uc.a.run.app/chat";
 
+    // ===== Feature Detection Keywords =====
+    const FEATURES = {
+      webSearch: ["खोज", "search", "news", "समाचार", "मौसम", "weather", "cricket", "क्रिकेट", "बाजार", "market", "स्कोर", "score"],
+      imageGen: ["तस्वीर बनाओ", "इमेज बनाओ", "picture", "image", "draw", "चित्र बनाओ"],
+      videoGen: ["video बनाओ", "वीडियो बनाओ", "animate", "एनिमेशन"],
+      timeDate: ["टाइम", "समय", "time", "तारीख", "date", "क्या बजा", "day", "दिन"]
+    };
+
+    // ===== Detect Feature =====
+    function detectFeature(message) {
+      const lower = message.toLowerCase();
+      if (FEATURES.timeDate.some(k => lower.includes(k))) return "time";
+      if (FEATURES.imageGen.some(k => lower.includes(k))) return "image";
+      if (FEATURES.videoGen.some(k => lower.includes(k))) return "video";
+      if (FEATURES.webSearch.some(k => lower.includes(k))) return "search";
+      return "chat";
+    }
+
     // ===== Toggle Chat =====
     chatBtn.onclick = () => {
       const isOpen = chatBox.style.display === "flex";
       chatBox.style.display = isOpen ? "none" : "flex";
       if (!isOpen && messagesDiv.children.length === 0) {
-        addMessage("नमस्ते! मैं सहचर AI हूँ – बुद्ध की शिक्षाओं का साथी। आप कैसे सहायता चाहते हैं? 🙏", "bot");
+        const welcome = `नमस्ते! मैं सहचर AI हूँ – बुद्ध की शिक्षाओं का साथी। 🙏
+
+मेरी ये special capabilities हैं:
+🔍 Web Search - वास्तविक समय में जानकारी
+🎨 Image Generation - AI से तस्वीर बनाना
+🎬 Video Generation - AI से वीडियो बनाना
+📄 Document Analysis - दस्तावेज़ विश्लेषण
+💾 Chat Memory - पिछली बातें याद रखना
+🧠 Self-Learning - खुद सीखना और सुधरना
+🔄 Auto-Upgrade - हर 50 संदेशों पर अपग्रेड
+🌐 Multilingual - हिंदी और अंग्रेजी
+
+आप किसी भी feature का उपयोग कर सकते हैं!`;
+        addMessage(welcome, "bot");
       }
       if (!isOpen) {
         inputField.focus();
@@ -623,10 +567,22 @@
     }
 
     // ===== Add Message =====
-    function addMessage(text, type) {
+    function addMessage(text, type, feature = null) {
       const msg = document.createElement("div");
       msg.className = "sahcharMsg " + (type === "user" ? "sahcharUserMsg" : "sahcharBotMsg");
-      msg.innerText = text;
+      
+      if (feature && type === "bot") {
+        const span = document.createElement("span");
+        span.innerHTML = text;
+        msg.appendChild(span);
+        const tag = document.createElement("span");
+        tag.className = "feature-tag";
+        tag.textContent = feature;
+        msg.appendChild(tag);
+      } else {
+        msg.innerText = text;
+      }
+      
       messagesDiv.appendChild(msg);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
@@ -666,7 +622,9 @@
       inputField.value = "";
       showTyping(true);
 
-      // Clean message for API
+      // Detect feature and add tag
+      const feature = detectFeature(msg);
+      
       let cleanMsg = msg.replace(/[\u{1F600}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F300}-\u{1F5FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{FE00}-\u{FEFF}\u{2300}-\u{23FF}\u{2B50}\u{2934}\u{2935}\u{2190}-\u{21FF}]/gu, '').trim();
       
       if (!cleanMsg) {
@@ -693,7 +651,14 @@
       .then(data => {
         showTyping(false);
         const reply = data.reply || data.message || "क्षमा करें, उत्तर नहीं मिला। 🙏";
-        addMessage(reply, "bot");
+        const featureName = {
+          time: "⏰ Time",
+          image: "🎨 Image",
+          video: "🎬 Video",
+          search: "🔍 Search",
+          chat: "💬 Chat"
+        }[feature] || "💬 Chat";
+        addMessage(reply, "bot", featureName);
         speakText(reply);
       })
       .catch(err => {
