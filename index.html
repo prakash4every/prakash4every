@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="cscalipur – CSC सेवा केंद्र, सरकारी योजनाएं, ऑनलाइन आवेदन">
   <title>cscalipur | CSC आधिकारिक पोर्टल</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -116,6 +115,8 @@
 
     .sahcharMsg img { max-width: 100%; border-radius: 12px; margin-top: 6px; cursor: pointer; border: 2px solid #e2e8f0; }
     .sahcharMsg img:hover { border-color: #b45309; }
+
+    .sahcharMsg video { max-width: 100%; border-radius: 12px; margin-top: 6px; max-height: 200px; border: 2px solid #e2e8f0; }
 
     .feature-tag { display: inline-block; background: rgba(37, 99, 235, 0.1); color: #2563eb; font-size: 0.55rem; padding: 1px 8px; border-radius: 12px; margin-left: 6px; font-weight: 500; }
 
@@ -333,7 +334,7 @@
 
   <script>
     // ============================================================ //
-    // ===== CHATBOT SCRIPT WITH IMAGE/VIDEO GENERATION ===== //
+    // ===== CHATBOT SCRIPT ===== //
     // ============================================================ //
 
     // ===== DOM Elements =====
@@ -344,6 +345,8 @@
     const typingIndicator = document.getElementById("typingIndicator");
     const API_URL = "https://api-5n6fh3d24a-uc.a.run.app";
     let selectedFeature = null;
+    let isSpeaking = false;
+    let speechSynth = window.speechSynthesis;
 
     // ===== Toggle Chat =====
     chatBtn.onclick = () => {
@@ -357,10 +360,21 @@
 
     function closeChat() { chatBox.style.display = "none"; }
 
-    // ===== Helper: Clean Text (Remove Emoji & Special Chars) =====
-    function cleanText(text) {
+    // ===== Helper: Clean Text (Remove Emoji & Special Chars for TTS) =====
+    function cleanTextForTTS(text) {
       if (!text) return '';
-      // Remove emojis and special characters
+      // Remove emojis (Unicode range)
+      return text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '')
+                 .replace(/[\u{2600}-\u{26FF}]/gu, '')
+                 .replace(/[\u{2700}-\u{27BF}]/gu, '')
+                 .replace(/[^\w\s.,!?;:'"()\-]/g, ' ')
+                 .replace(/\s+/g, ' ')
+                 .trim();
+    }
+
+    // ===== Helper: Clean Text for API (Remove Emoji & Special Chars) =====
+    function cleanTextForAPI(text) {
+      if (!text) return '';
       return text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '')
                  .replace(/[\u{2600}-\u{26FF}]/gu, '')
                  .replace(/[\u{2700}-\u{27BF}]/gu, '')
@@ -375,7 +389,6 @@
       msg.className = "sahcharMsg " + (type === "user" ? "sahcharUserMsg" : "sahcharBotMsg");
       
       if (imageUrl) {
-        // Display original text with emoji
         const textSpan = document.createElement("span");
         textSpan.innerHTML = text; // Display original with emoji
         msg.appendChild(textSpan);
@@ -399,8 +412,7 @@
         video.preload = "metadata";
         msg.appendChild(video);
       } else {
-        // Display original text with emoji
-        msg.innerHTML = text; // Keep original with emoji
+        msg.innerHTML = text; // Display original with emoji
       }
       
       if (feature && type === "bot") {
@@ -414,20 +426,34 @@
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
+    // ===== Typing Animation =====
     function showTyping(show) {
       typingIndicator.style.display = show ? "flex" : "none";
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    // ===== Speak (Clean Text Only) =====
+    // ===== Speak Text (Clean Only) =====
     function speakText(text) {
-      if (!text) return;
-      const clean = cleanText(text); // Remove emoji for TTS
+      if (!text || isSpeaking) return;
+      
+      // Cancel any ongoing speech
+      if (speechSynth.speaking) {
+        speechSynth.cancel();
+      }
+      
+      const clean = cleanTextForTTS(text);
       if (!clean) return;
+      
+      isSpeaking = true;
       const speech = new SpeechSynthesisUtterance(clean);
       speech.lang = "hi-IN";
-      speech.rate = 1;
-      window.speechSynthesis.speak(speech);
+      speech.rate = 0.9;
+      speech.pitch = 1;
+      
+      speech.onend = () => { isSpeaking = false; };
+      speech.onerror = () => { isSpeaking = false; };
+      
+      speechSynth.speak(speech);
     }
 
     // ===== Detect Feature =====
@@ -450,21 +476,21 @@
       const msg = inputField.value.trim();
       if (!msg) return;
 
-      // Display original message with emoji
       const feature = detectFeature(msg);
+      // Display original message with emoji
       addMessage(msg, "user");
       inputField.value = "";
       showTyping(true);
 
       // Clean text for API
-      const cleanMsg = cleanText(msg);
+      const cleanMsg = cleanTextForAPI(msg);
       if (!cleanMsg) {
         showTyping(false);
         addMessage("⚠️ कृपया टेक्स्ट लिखें।", "bot");
         return;
       }
 
-      // ===== Check for Image Generation =====
+      // ===== Image Generation =====
       if (feature === "🎨 Image") {
         let prompt = cleanMsg.replace(/तस्वीर\s*(बनाओ|दो|दिखाओ)/gi, '').replace(/इमेज\s*(बनाओ|दो|दिखाओ)/gi, '').replace(/image|picture|draw/gi, '').trim();
         if (!prompt) prompt = cleanMsg;
@@ -472,7 +498,7 @@
         return;
       }
 
-      // ===== Check for Video Generation =====
+      // ===== Video Generation =====
       if (feature === "🎬 Video") {
         let prompt = cleanMsg.replace(/वीडियो\s*(बनाओ|दो|दिखाओ)/gi, '').replace(/video/gi, '').trim();
         if (!prompt) prompt = cleanMsg;
@@ -489,9 +515,10 @@
       .then(res => res.json())
       .then(data => {
         showTyping(false);
-        // API returns clean text, display as is (with emoji if any from API)
         const reply = data.reply || data.message || "क्षमा करें, उत्तर नहीं मिला। 🙏";
+        // Display original reply (may contain emoji from API)
         addMessage(reply, "bot", feature);
+        // Speak only clean text
         speakText(reply);
       })
       .catch(err => {
@@ -507,11 +534,9 @@
 
     function generateImage(prompt) {
       showTyping(true);
-      // Display original prompt with emoji
       addMessage("🎨 इमेज जनरेट हो रही है...", "bot", "🎨 Image");
 
-      // Clean prompt for API
-      const cleanPrompt = cleanText(prompt);
+      const cleanPrompt = cleanTextForAPI(prompt);
 
       fetch(`${API_URL}/generate`, {
         method: "POST",
@@ -524,7 +549,6 @@
       .then(res => res.json())
       .then(data => {
         showTyping(false);
-        // Remove loading message
         const msgs = messagesDiv.querySelectorAll('.sahcharMsg');
         if (msgs.length > 0 && msgs[msgs.length-1].innerText.includes('जनरेट हो रही है')) {
           msgs[msgs.length-1].remove();
@@ -557,7 +581,7 @@
       showTyping(true);
       addMessage("🎬 वीडियो जनरेट हो रहा है...", "bot", "🎬 Video");
 
-      const cleanPrompt = cleanText(prompt);
+      const cleanPrompt = cleanTextForAPI(prompt);
 
       fetch(`${API_URL}/generate`, {
         method: "POST",
@@ -600,22 +624,32 @@
     // ===== Voice Input =====
     function startVoiceInput() {
       if (!('webkitSpeechRecognition' in window)) { addMessage("⚠️ Chrome या Edge इस्तेमाल करें।", "bot"); return; }
+      
       const micBtn = document.getElementById("micBtn");
       micBtn.classList.add("listening");
+      
       const recognition = new webkitSpeechRecognition();
       recognition.lang = "hi-IN";
       recognition.interimResults = false;
       recognition.continuous = false;
-      recognition.onstart = () => addMessage("🎤 सुन रहा हूँ...", "bot");
+      
+      recognition.onstart = () => {
+        addMessage("🎤 सुन रहा हूँ...", "bot");
+      };
+      
       recognition.onresult = (e) => {
         const voiceText = e.results[0][0].transcript;
-        // Display as is with emoji
         inputField.value = voiceText;
         micBtn.classList.remove("listening");
         recognition.stop();
         sendMessage();
       };
-      recognition.onerror = () => micBtn.classList.remove("listening");
+      
+      recognition.onerror = () => {
+        micBtn.classList.remove("listening");
+        addMessage("⚠️ आवाज नहीं पहचानी गई। कृपया पुनः प्रयास करें।", "bot");
+      };
+      
       recognition.start();
     }
 
@@ -651,6 +685,7 @@
       const prompt = input.value.trim();
       if (!prompt || !selectedFeature) return;
       closeFeatureModal();
+      
       if (selectedFeature.label === "Image Gen") {
         inputField.value = `तस्वीर बनाओ ${prompt}`;
       } else if (selectedFeature.label === "Video Gen") {
