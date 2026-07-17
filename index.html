@@ -114,7 +114,6 @@
     .sahcharUserMsg { background: #d1d5db; color: #1e293b; align-self: flex-end; border-bottom-right-radius: 4px; }
     .sahcharBotMsg { background: #fde68a; color: #1e293b; align-self: flex-start; border-bottom-left-radius: 4px; }
 
-    /* Image in message */
     .sahcharMsg img { max-width: 100%; border-radius: 12px; margin-top: 6px; cursor: pointer; border: 2px solid #e2e8f0; }
     .sahcharMsg img:hover { border-color: #b45309; }
 
@@ -358,15 +357,27 @@
 
     function closeChat() { chatBox.style.display = "none"; }
 
-    // ===== Add Message =====
-    function addMessage(text, type, feature = null, imageUrl = null) {
+    // ===== Helper: Clean Text (Remove Emoji & Special Chars) =====
+    function cleanText(text) {
+      if (!text) return '';
+      // Remove emojis and special characters
+      return text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '')
+                 .replace(/[\u{2600}-\u{26FF}]/gu, '')
+                 .replace(/[\u{2700}-\u{27BF}]/gu, '')
+                 .replace(/[^\w\s.,!?;:'"()\-]/g, ' ')
+                 .replace(/\s+/g, ' ')
+                 .trim();
+    }
+
+    // ===== Add Message (Display = Original, API = Clean) =====
+    function addMessage(text, type, feature = null, imageUrl = null, videoUrl = null) {
       const msg = document.createElement("div");
       msg.className = "sahcharMsg " + (type === "user" ? "sahcharUserMsg" : "sahcharBotMsg");
       
       if (imageUrl) {
-        // Image message
+        // Display original text with emoji
         const textSpan = document.createElement("span");
-        textSpan.innerHTML = text;
+        textSpan.innerHTML = text; // Display original with emoji
         msg.appendChild(textSpan);
         const img = document.createElement("img");
         img.src = imageUrl;
@@ -374,42 +385,25 @@
         img.loading = "lazy";
         img.onclick = () => window.open(imageUrl, '_blank');
         msg.appendChild(img);
-      } else if (feature && type === "bot") {
-        const span = document.createElement("span");
-        span.innerHTML = text;
-        msg.appendChild(span);
-        const tag = document.createElement("span");
-        tag.className = "feature-tag";
-        tag.textContent = feature;
-        msg.appendChild(tag);
+      } else if (videoUrl) {
+        const textSpan = document.createElement("span");
+        textSpan.innerHTML = text; // Display original with emoji
+        msg.appendChild(textSpan);
+        const video = document.createElement("video");
+        video.src = videoUrl;
+        video.controls = true;
+        video.style.maxWidth = "100%";
+        video.style.borderRadius = "12px";
+        video.style.marginTop = "6px";
+        video.style.maxHeight = "200px";
+        video.preload = "metadata";
+        msg.appendChild(video);
       } else {
-        msg.innerText = text;
+        // Display original text with emoji
+        msg.innerHTML = text; // Keep original with emoji
       }
       
-      messagesDiv.appendChild(msg);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-
-    // ===== Add Video Message =====
-    function addVideoMessage(text, videoUrl, feature = null) {
-      const msg = document.createElement("div");
-      msg.className = "sahcharMsg sahcharBotMsg";
-      
-      const textSpan = document.createElement("span");
-      textSpan.innerHTML = text;
-      msg.appendChild(textSpan);
-      
-      const video = document.createElement("video");
-      video.src = videoUrl;
-      video.controls = true;
-      video.style.maxWidth = "100%";
-      video.style.borderRadius = "12px";
-      video.style.marginTop = "6px";
-      video.style.maxHeight = "200px";
-      video.preload = "metadata";
-      msg.appendChild(video);
-      
-      if (feature) {
+      if (feature && type === "bot") {
         const tag = document.createElement("span");
         tag.className = "feature-tag";
         tag.textContent = feature;
@@ -425,10 +419,11 @@
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    // ===== Speak =====
+    // ===== Speak (Clean Text Only) =====
     function speakText(text) {
       if (!text) return;
-      const clean = text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '').trim();
+      const clean = cleanText(text); // Remove emoji for TTS
+      if (!clean) return;
       const speech = new SpeechSynthesisUtterance(clean);
       speech.lang = "hi-IN";
       speech.rate = 1;
@@ -448,24 +443,29 @@
     }
 
     // ============================================================ //
-    // ===== SEND MESSAGE WITH FEATURE DETECTION ===== //
+    // ===== SEND MESSAGE ===== //
     // ============================================================ //
 
     function sendMessage() {
       const msg = inputField.value.trim();
       if (!msg) return;
 
+      // Display original message with emoji
       const feature = detectFeature(msg);
       addMessage(msg, "user");
       inputField.value = "";
       showTyping(true);
 
-      let cleanMsg = msg.replace(/[\u{1F600}-\u{1F6FF}]/gu, '').trim();
-      if (!cleanMsg) { showTyping(false); addMessage("⚠️ कृपया टेक्स्ट लिखें।", "bot"); return; }
+      // Clean text for API
+      const cleanMsg = cleanText(msg);
+      if (!cleanMsg) {
+        showTyping(false);
+        addMessage("⚠️ कृपया टेक्स्ट लिखें।", "bot");
+        return;
+      }
 
       // ===== Check for Image Generation =====
       if (feature === "🎨 Image") {
-        // Extract prompt - remove "तस्वीर बनाओ" etc.
         let prompt = cleanMsg.replace(/तस्वीर\s*(बनाओ|दो|दिखाओ)/gi, '').replace(/इमेज\s*(बनाओ|दो|दिखाओ)/gi, '').replace(/image|picture|draw/gi, '').trim();
         if (!prompt) prompt = cleanMsg;
         generateImage(prompt);
@@ -489,6 +489,7 @@
       .then(res => res.json())
       .then(data => {
         showTyping(false);
+        // API returns clean text, display as is (with emoji if any from API)
         const reply = data.reply || data.message || "क्षमा करें, उत्तर नहीं मिला। 🙏";
         addMessage(reply, "bot", feature);
         speakText(reply);
@@ -506,20 +507,24 @@
 
     function generateImage(prompt) {
       showTyping(true);
+      // Display original prompt with emoji
       addMessage("🎨 इमेज जनरेट हो रही है...", "bot", "🎨 Image");
+
+      // Clean prompt for API
+      const cleanPrompt = cleanText(prompt);
 
       fetch(`${API_URL}/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
-          prompt: prompt,
+          prompt: cleanPrompt,
           sessionId: "web_user_" + Date.now()
         })
       })
       .then(res => res.json())
       .then(data => {
         showTyping(false);
-        // Remove the loading message
+        // Remove loading message
         const msgs = messagesDiv.querySelectorAll('.sahcharMsg');
         if (msgs.length > 0 && msgs[msgs.length-1].innerText.includes('जनरेट हो रही है')) {
           msgs[msgs.length-1].remove();
@@ -552,11 +557,13 @@
       showTyping(true);
       addMessage("🎬 वीडियो जनरेट हो रहा है...", "bot", "🎬 Video");
 
+      const cleanPrompt = cleanText(prompt);
+
       fetch(`${API_URL}/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
-          prompt: prompt,
+          prompt: cleanPrompt,
           model: "video",
           sessionId: "web_user_" + Date.now()
         })
@@ -571,7 +578,7 @@
         
         const videoUrl = data.videoUrl;
         if (videoUrl) {
-          addVideoMessage("✅ ये रहा आपका वीडियो:", videoUrl, "🎬 Video");
+          addMessage("✅ ये रहा आपका वीडियो:", "bot", "🎬 Video", null, videoUrl);
           speakText("ये रहा आपका वीडियो");
         } else {
           addMessage("❌ वीडियो जनरेट नहीं हो पाया। कृपया पुनः प्रयास करें।", "bot", "🎬 Video");
@@ -602,6 +609,7 @@
       recognition.onstart = () => addMessage("🎤 सुन रहा हूँ...", "bot");
       recognition.onresult = (e) => {
         const voiceText = e.results[0][0].transcript;
+        // Display as is with emoji
         inputField.value = voiceText;
         micBtn.classList.remove("listening");
         recognition.stop();
@@ -643,7 +651,6 @@
       const prompt = input.value.trim();
       if (!prompt || !selectedFeature) return;
       closeFeatureModal();
-      // For Image and Video, use the label to trigger generation
       if (selectedFeature.label === "Image Gen") {
         inputField.value = `तस्वीर बनाओ ${prompt}`;
       } else if (selectedFeature.label === "Video Gen") {
