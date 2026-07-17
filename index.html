@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="cscalipur – CSC सेवा केंद्र, सरकारी योजनाएं, ऑनलाइन आवेदन">
   <title>cscalipur | CSC आधिकारिक पोर्टल</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -334,7 +335,7 @@
 
   <script>
     // ============================================================ //
-    // ===== CHATBOT SCRIPT ===== //
+    // ===== CHATBOT SCRIPT WITH FIXED TTS ===== //
     // ============================================================ //
 
     // ===== DOM Elements =====
@@ -346,9 +347,80 @@
     const API_URL = "https://api-5n6fh3d24a-uc.a.run.app";
     let selectedFeature = null;
     let isSpeaking = false;
-    let speechSynth = window.speechSynthesis;
 
-    // ===== Toggle Chat =====
+    // ============================================================ //
+    // ===== TEXT-TO-SPEECH FUNCTIONS (FIXED) ===== //
+    // ============================================================ //
+
+    // ===== Clean Text for TTS =====
+    function cleanTextForTTS(text) {
+        if (!text) return '';
+        // Remove emojis and special characters
+        return text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '')
+                   .replace(/[\u{2600}-\u{26FF}]/gu, '')
+                   .replace(/[\u{2700}-\u{27BF}]/gu, '')
+                   .replace(/[^\w\s.,!?;:'"()\-]/g, ' ')
+                   .replace(/\s+/g, ' ')
+                   .trim();
+    }
+
+    // ===== Speak Function (With Fallback) =====
+    function speakText(text) {
+        if (!text) return;
+        
+        // Clean text for TTS
+        const clean = cleanTextForTTS(text);
+        if (!clean) return;
+        
+        // Cancel any ongoing speech
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+        }
+        
+        const speech = new SpeechSynthesisUtterance(clean);
+        speech.lang = "hi-IN";
+        speech.rate = 0.9;
+        speech.pitch = 1.0;
+        speech.volume = 1.0;
+        
+        // Try Hindi voice
+        const voices = window.speechSynthesis.getVoices();
+        const hindiVoice = voices.find(v => v.lang === "hi-IN");
+        if (hindiVoice) {
+            speech.voice = hindiVoice;
+        }
+        
+        // Speak
+        window.speechSynthesis.speak(speech);
+        console.log("🗣️ Speaking:", clean.substring(0, 50) + "...");
+    }
+
+    // ===== Load Voices Early =====
+    if (window.speechSynthesis) {
+        window.speechSynthesis.getVoices();
+        window.speechSynthesis.onvoiceschanged = () => {
+            window.speechSynthesis.getVoices();
+        };
+    }
+
+    // ============================================================ //
+    // ===== CLEAN TEXT FOR API ===== //
+    // ============================================================ //
+
+    function cleanTextForAPI(text) {
+        if (!text) return '';
+        return text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '')
+                   .replace(/[\u{2600}-\u{26FF}]/gu, '')
+                   .replace(/[\u{2700}-\u{27BF}]/gu, '')
+                   .replace(/[^\w\s.,!?;:'"()\-]/g, ' ')
+                   .replace(/\s+/g, ' ')
+                   .trim();
+    }
+
+    // ============================================================ //
+    // ===== TOGGLE CHAT ===== //
+    // ============================================================ //
+
     chatBtn.onclick = () => {
       const isOpen = chatBox.style.display === "flex";
       chatBox.style.display = isOpen ? "none" : "flex";
@@ -360,37 +432,18 @@
 
     function closeChat() { chatBox.style.display = "none"; }
 
-    // ===== Helper: Clean Text (Remove Emoji & Special Chars for TTS) =====
-    function cleanTextForTTS(text) {
-      if (!text) return '';
-      // Remove emojis (Unicode range)
-      return text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '')
-                 .replace(/[\u{2600}-\u{26FF}]/gu, '')
-                 .replace(/[\u{2700}-\u{27BF}]/gu, '')
-                 .replace(/[^\w\s.,!?;:'"()\-]/g, ' ')
-                 .replace(/\s+/g, ' ')
-                 .trim();
-    }
+    // ============================================================ //
+    // ===== ADD MESSAGE (Display + Speak) ===== //
+    // ============================================================ //
 
-    // ===== Helper: Clean Text for API (Remove Emoji & Special Chars) =====
-    function cleanTextForAPI(text) {
-      if (!text) return '';
-      return text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '')
-                 .replace(/[\u{2600}-\u{26FF}]/gu, '')
-                 .replace(/[\u{2700}-\u{27BF}]/gu, '')
-                 .replace(/[^\w\s.,!?;:'"()\-]/g, ' ')
-                 .replace(/\s+/g, ' ')
-                 .trim();
-    }
-
-    // ===== Add Message (Display = Original, API = Clean) =====
     function addMessage(text, type, feature = null, imageUrl = null, videoUrl = null) {
       const msg = document.createElement("div");
       msg.className = "sahcharMsg " + (type === "user" ? "sahcharUserMsg" : "sahcharBotMsg");
       
+      // Display with emoji
       if (imageUrl) {
         const textSpan = document.createElement("span");
-        textSpan.innerHTML = text; // Display original with emoji
+        textSpan.innerHTML = text;
         msg.appendChild(textSpan);
         const img = document.createElement("img");
         img.src = imageUrl;
@@ -400,7 +453,7 @@
         msg.appendChild(img);
       } else if (videoUrl) {
         const textSpan = document.createElement("span");
-        textSpan.innerHTML = text; // Display original with emoji
+        textSpan.innerHTML = text;
         msg.appendChild(textSpan);
         const video = document.createElement("video");
         video.src = videoUrl;
@@ -412,7 +465,7 @@
         video.preload = "metadata";
         msg.appendChild(video);
       } else {
-        msg.innerHTML = text; // Display original with emoji
+        msg.innerHTML = text;
       }
       
       if (feature && type === "bot") {
@@ -424,39 +477,23 @@
       
       messagesDiv.appendChild(msg);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      
+      // ✅ Speak only bot messages (not image/video)
+      if (type === "bot" && !imageUrl && !videoUrl) {
+        const plainText = text.replace(/<[^>]*>/g, '');
+        speakText(plainText);
+      }
     }
 
-    // ===== Typing Animation =====
     function showTyping(show) {
       typingIndicator.style.display = show ? "flex" : "none";
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    // ===== Speak Text (Clean Only) =====
-    function speakText(text) {
-      if (!text || isSpeaking) return;
-      
-      // Cancel any ongoing speech
-      if (speechSynth.speaking) {
-        speechSynth.cancel();
-      }
-      
-      const clean = cleanTextForTTS(text);
-      if (!clean) return;
-      
-      isSpeaking = true;
-      const speech = new SpeechSynthesisUtterance(clean);
-      speech.lang = "hi-IN";
-      speech.rate = 0.9;
-      speech.pitch = 1;
-      
-      speech.onend = () => { isSpeaking = false; };
-      speech.onerror = () => { isSpeaking = false; };
-      
-      speechSynth.speak(speech);
-    }
+    // ============================================================ //
+    // ===== DETECT FEATURE ===== //
+    // ============================================================ //
 
-    // ===== Detect Feature =====
     function detectFeature(message) {
       const lower = message.toLowerCase();
       if (lower.includes("तस्वीर") || lower.includes("इमेज") || lower.includes("image") || lower.includes("picture")) return "🎨 Image";
@@ -477,12 +514,10 @@
       if (!msg) return;
 
       const feature = detectFeature(msg);
-      // Display original message with emoji
       addMessage(msg, "user");
       inputField.value = "";
       showTyping(true);
 
-      // Clean text for API
       const cleanMsg = cleanTextForAPI(msg);
       if (!cleanMsg) {
         showTyping(false);
@@ -516,10 +551,7 @@
       .then(data => {
         showTyping(false);
         const reply = data.reply || data.message || "क्षमा करें, उत्तर नहीं मिला। 🙏";
-        // Display original reply (may contain emoji from API)
         addMessage(reply, "bot", feature);
-        // Speak only clean text
-        speakText(reply);
       })
       .catch(err => {
         showTyping(false);
@@ -621,7 +653,10 @@
 
     inputField.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
 
-    // ===== Voice Input =====
+    // ============================================================ //
+    // ===== VOICE INPUT ===== //
+    // ============================================================ //
+
     function startVoiceInput() {
       if (!('webkitSpeechRecognition' in window)) { addMessage("⚠️ Chrome या Edge इस्तेमाल करें।", "bot"); return; }
       
